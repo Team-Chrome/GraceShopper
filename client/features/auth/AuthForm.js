@@ -25,7 +25,7 @@ const AuthForm = ({ name, displayName }) => {
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="username">
-            <small>Username</small>
+            <div className="text-lg">Username</div>
           </label>
           <input name="username" type="text" />
         </div>

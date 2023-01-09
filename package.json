@@ -1,5 +1,5 @@
 {
-  "name": "fs-app-template",
+  "name": "graceshopper",
   "version": "2.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
@@ -12,6 +12,7 @@
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT=shh nodemon server -e html,js,scss --ignore public --ignore client",
+    "start-server-windows": "set JWT=shh && nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "NODE_ENV=test JWT=a_secret mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" --require @babel/register --require esm ",
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
@@ -26,7 +27,8 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.8.0",
-    "sequelize": "^6.25.3"
+    "sequelize": "^6.25.3",
+    "tailwind": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
@@ -47,6 +49,7 @@
     "react-router-dom": "^6.4.2",
     "redux-logger": "^3.0.6",
     "supertest": "^6.3.0",
+    "tailwindcss": "^3.2.4",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   }
