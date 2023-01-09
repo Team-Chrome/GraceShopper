@@ -3,6 +3,8 @@ const PORT = process.env.PORT || 8080;
 const app = require("./app");
 const seed = require("../script/seed");
 
+
+// THIS IS A TEST COMMIT BY WINTER
 //test comment by phil 20230109
 //test comment by ivan 20230109
 //test comment by derek 20230109
@@ -20,4 +22,3 @@ const init = async () => {
 	} catch (ex) {
 		console.log(ex);
 	}
-
