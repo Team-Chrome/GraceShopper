@@ -4,7 +4,9 @@ const app = require("./app");
 const seed = require("../script/seed");
 
 //test comment by phil 20230109
+//test comment by ivan 20230109
 //test comment by derek 20230109
+
 
 const init = async () => {
 	try {
@@ -18,6 +20,4 @@ const init = async () => {
 	} catch (ex) {
 		console.log(ex);
 	}
-};
 
-init();
