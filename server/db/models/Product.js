@@ -6,6 +6,10 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     defaultValue: 'Coffee',
   },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: '../public/images/brad.webp',
+  },
   roaster: {
     type: Sequelize.STRING,
   },
@@ -16,7 +20,7 @@ const Product = db.define('product', {
     type: Sequelize.TEXT,
   },
   price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.DOUBLE,
   },
   quantity: {
     type: Sequelize.NUMBER,
