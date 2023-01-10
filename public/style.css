@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* { 
+* {
   box-sizing: border-box;
 }
 body {
@@ -27,7 +27,6 @@ form div {
   display: inline-block;
 }
 
-<<<<<<< HEAD
 /* Navbar settings */
 
 nav {
@@ -50,20 +49,34 @@ form {
 
 form {
   margin-top: 16px;
-=======
-img { width:10%; height:auto}
-img:hover { opacity: .8; }
+}
+
+img {
+  width: 10%;
+  height: auto;
+}
+img:hover {
+  opacity: 0.8;
+}
+
+img {
+  width: 10%;
+  height: auto;
+}
+img:hover {
+  opacity: 0.8;
+}
 
 #splash {
   border-style: solid;
   border-radius: 10px;
   border-width: 10px;
-  border-color: rgb(180,100,30);
-  display:flex; flex-wrap:wrap;
-  justify-content:space-evenly;
+  border-color: rgb(180, 100, 30);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .splash-item {
   flex: 0 1 200px;
->>>>>>> 5ae9caa9776f1149abb5e664400c9c2030871d16
 }
