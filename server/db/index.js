@@ -25,6 +25,9 @@ Product.belongsToMany(Cart, {
 Transaction.belongsTo(User);
 User.hasMany(Transaction);
 
+Transaction.belongsTo(Cart);
+Cart.hasOne(Transaction);
+
 module.exports = {
   db,
   models: {
