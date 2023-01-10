@@ -1,23 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-export const fetchCart = createAsyncThunk('fetchCart', async () => {
-  const { data } = await axios.get('http://localhost8080/api/cart/id');
+export const fetchCart = createAsyncThunk("fetchCart", async () => {
+  const { data } = await axios.get("/api/cart/id");
   return data;
 });
 
-export const addItem = createAsyncThunk('addItem', async () => {
-  const { data } = await axios.post('http://localhost8080/api/cartitem/id');
+export const addItem = createAsyncThunk("addItem", async () => {
+  const { data } = await axios.post("/api/cart/id/cartitem/id");
   return data;
 });
 
-export const removeItem = createAsyncThunk('removeItem', async () => {
-  const { data } = await axios.delete('http://localhost8080/api/cartitem/id');
+export const removeItem = createAsyncThunk("removeItem", async () => {
+  const { data } = await axios.delete("/api/cart/id/cartitem/id");
   return data;
 });
 
 export const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState: {
     id: null,
     items: [],
