@@ -21,22 +21,49 @@ const AuthForm = ({ name, displayName }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div className="w-full max-w-xs m-auto mt-12">
+      <form
+        className="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 border"
+        onSubmit={handleSubmit}
+        name={name}
+      >
         <div>
-          <label htmlFor="username">
-            <div className="text-lg">Username</div>
+          <label
+            className="block text-gray-700 text-lg font-bold mb-2"
+            htmlFor="username"
+          >
+            <p>Username</p>
           </label>
-          <input name="username" type="text" />
+          <input
+            name="username"
+            type="text"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="username"
+            placeholder="email"
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 text-lg font-bold mb-2"
+          >
+            Password
+          </label>
+          <input
+            name="password"
+            type="password"
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+            placeholder="*************"
+          />
         </div>
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
+          <button
+            type="submit"
+            className="mt-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          >
+            {displayName}
+          </button>
         </div>
         {error && <div> {error} </div>}
       </form>
