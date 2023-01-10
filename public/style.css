@@ -23,3 +23,27 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* Navbar settings */
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+.topnav a,
+form {
+  float: left;
+  display: block;
+  flex-grow: 1;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  justify-content: space-between;
+}
+
+form {
+  margin-top: 16px;
+}
