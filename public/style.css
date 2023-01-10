@@ -59,6 +59,14 @@ img:hover {
   opacity: 0.8;
 }
 
+img {
+  width: 10%;
+  height: auto;
+}
+img:hover {
+  opacity: 0.8;
+}
+
 #splash {
   border-style: solid;
   border-radius: 10px;
