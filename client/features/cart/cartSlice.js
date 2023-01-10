@@ -26,14 +26,14 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     //assumes db query is returning an array items in cart
-    builder.addCase(fetchCart, (state, action) => {
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
       state.items = action.payload;
     });
-    builder.addCase(addItem, (state, action) => {
+    builder.addCase(addItem.fulfilled, (state, action) => {
       state.items.push(action.payload);
     });
     //assumes each item in array is an object with properties
-    builder.addCase(removeItem, (state, action) => {
+    builder.addCase(removeItem.fulfilled, (state, action) => {
       state.items.filter((item) => {
         return item.id !== action.payload.id;
       });
