@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* { 
+  box-sizing: border-box;
+}
 body {
   font-family: sans-serif;
 }
@@ -22,4 +25,20 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+img { width:10%; height:auto}
+img:hover { opacity: .8; }
+
+#splash {
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 10px;
+  border-color: rgb(180,100,30);
+  display:flex; flex-wrap:wrap;
+  justify-content:space-evenly;
+}
+
+.splash-item {
+  flex: 0 1 200px;
 }
