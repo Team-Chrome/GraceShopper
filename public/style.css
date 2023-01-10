@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* { 
+* {
   box-sizing: border-box;
 }
 body {
@@ -27,16 +27,46 @@ form div {
   display: inline-block;
 }
 
-img { width:10%; height:auto}
-img:hover { opacity: .8; }
+/* Navbar settings */
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+.topnav a,
+form {
+  float: left;
+  display: block;
+  flex-grow: 1;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  justify-content: space-between;
+}
+
+form {
+  margin-top: 16px;
+}
+
+img {
+  width: 10%;
+  height: auto;
+}
+img:hover {
+  opacity: 0.8;
+}
 
 #splash {
   border-style: solid;
   border-radius: 10px;
   border-width: 10px;
-  border-color: rgb(180,100,30);
-  display:flex; flex-wrap:wrap;
-  justify-content:space-evenly;
+  border-color: rgb(180, 100, 30);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .splash-item {
