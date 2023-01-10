@@ -22,12 +22,51 @@ async function seed() {
 
     const products = await Promise.all([
       Product.create({
-        name: "",
-        imageUrl: "",
-        roaster: "",
-        origin: "",
-        description: "",
-        price: 1.0,
+        name: "Pike Place Roast",
+        imageUrl: "./splashPagePictures/1.jpg",
+        roaster: "Starbucks",
+        origin: "Blend",
+        description: " A medium roast with notes of cacao and rich praline.",
+        price: 11.99,
+        quantity: 2,
+      }),
+      Product.create({
+        name: "Homestead",
+        imageUrl: "./splashPagePictures/2.jpg",
+        roaster: "Stumptown Coffee Roasters",
+        origin: "Blend",
+        description:
+          " A direct trade medium roast with notes of candied and milk chocolate.",
+        price: 12.99,
+        quantity: 4,
+      }),
+      Product.create({
+        name: "Chocolate Cherry Cordial",
+        imageUrl: "./splashPagePictures/3.jpg",
+        roaster: "Christopher Bean Coffee",
+        origin: "Blend",
+        description:
+          " A flavored light medium roast with notes of cacao and rich praline",
+        price: 9.99,
+        quantity: 1,
+      }),
+      Product.create({
+        name: "French Roast",
+        imageUrl: "./splashPagePictures/4.jpg",
+        roaster: "Peet's Coffee",
+        origin: "Blend",
+        description:
+          "A rich, full bodied, dark roast with notes of Dark Chocolate, Smoke, Burnt Sugar.",
+        price: 11.99,
+        quantity: 2,
+      }),
+      Product.create({
+        name: "House Blend",
+        imageUrl: "./splashPagePictures/2.jpg",
+        roaster: "Starbucks",
+        origin: "Blend",
+        description: "A medium roast with notes of toffee and dusted cacao.",
+        price: 11.99,
         quantity: 2,
       }),
     ]);
