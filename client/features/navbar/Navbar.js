@@ -1,21 +1,28 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../../app/store';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../app/store";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const [search, setSearch] = useState("");
+  const [itemCount, setItemCount] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSearch("");
   };
 
   return (
     <div>
-      <h1>FS-App-Template</h1>
-      <nav>
+      <h1>GraceShopper</h1>
+      <nav className="topnav">
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
@@ -25,8 +32,23 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <div>
+          <div className="topnav">
             {/* The navbar will show these links before you log in */}
+            <Link to="/home">Home</Link>
+            <Link to="/products">Products</Link>
+            <form>
+              <input
+                type="text"
+                name="searchbar"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+              />
+              <button type="submit">Search</button>
+            </form>
+            <Link>
+              <img src="/icons8-shopping-cart-48.png"></img>
+              <h2>{itemCount}</h2>
+            </Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
