@@ -6,7 +6,7 @@ const dummyData = {
   name: "Medium Roast Coffee",
   imageUrl: "/splashPagePictures/1.jpg",
   roaster: "Blend",
-  description: "Starbucks Coffee",
+  description: "Starbucks Whole Coffee Bean",
   price: "$10.99",
   quantity: 100,
 };
