@@ -51,21 +51,6 @@ form {
   margin-top: 16px;
 }
 
-img {
-  width: 10%;
-  height: auto;
-}
-img:hover {
-  opacity: 0.8;
-}
-
-img {
-  width: 10%;
-  height: auto;
-}
-img:hover {
-  opacity: 0.8;
-}
 
 #splash {
   border-style: solid;
@@ -76,7 +61,34 @@ img:hover {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-
+.flexBox01 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; 
+}
 .splash-item {
   flex: 0 1 200px;
+  position: relative;
+  margin-bottom: 10px;
 }
+#splash img {
+  width: 10%;
+  height: auto;
+}
+#splash img:hover {
+  opacity: 0.8;
+}
+#allProducts img {
+  width: 100%;
+  height: auto;
+}
+#allProducts > div {
+  border-style: solid;
+  border-width: 13px;
+  text-align:center;
+}
+#allProducts > div:hover {
+  border-width: 7px;
+}
+
+
