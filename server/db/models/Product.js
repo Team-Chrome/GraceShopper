@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const CartItem = require("./CartItem");
 
 const Product = db.define("product", {
   name: {
@@ -29,8 +28,5 @@ const Product = db.define("product", {
     defaultValue: 1,
   },
 });
-
-Product.hasOne(CartItem, { as: "product" });
-CartItem.belongsTo(Product);
 
 module.exports = Product;
