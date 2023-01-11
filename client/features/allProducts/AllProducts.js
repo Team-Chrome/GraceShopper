@@ -34,8 +34,9 @@ const AllProducts = props => {
                     <div key={item.name} className="splash-item"
                         onClick={(event)=>{changeRoute(event,item) } }
                     >
-                        <img src={item.imageUrl}></img>
-                        <h3 style={{backgroundColor:'rgb(150,120,80)',fontSize:'1.2em',fontWeight:'bold'}}>{item.name}</h3>
+                        <img src={item.imageUrl} alt={item.roaster+','+item.name}></img>
+                        <h3 className="outlined">{item.roaster}</h3>
+                        <h4 style={{backgroundColor:'rgb(150,120,80)',fontSize:'1.2em',fontWeight:'bold'}}>{item.name}</h4>
                         <p style={{color:"white",backgroundColor:'rgb(50,30,10)'}}>{item.description}</p>
                     </div>
                 )
