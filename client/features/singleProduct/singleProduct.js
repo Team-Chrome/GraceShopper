@@ -1,30 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectSingleProduct } from "./singleProductSlice";
-
-// const dummyData = {
-//   name: "Medium Roast Coffee",
-//   imageUrl: "/splashPagePictures/1.jpg",
-//   roaster: "Blend",
-//   description: "Starbucks Whole Coffee Beans",
-//   price: "$10.99",
-//   quantity: 100,
-// };
+import {
+  fetchSingleProductAsync,
+  selectSingleProduct,
+} from "./singleProductSlice";
+import { addItem } from "../cart/cartSlice";
 
 const SingleProduct = () => {
-  // const [product, setProduct] = useState({ ...dummyData });
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector(selectSingleProduct);
+  let product = useSelector(selectSingleProduct);
 
-  // useEffect(() => {
-  //   dispatch(fetchSingleStudentAsync(id));
-  // }, [dispatch, id]);
+  console.log("product in component...............", product);
+
+  useEffect(() => {
+    dispatch(fetchSingleProductAsync(id));
+  }, []);
+
+  const handleAddItem = (item) => {
+    const cartItem = {};
+    cartItem.cartId = item.cartId;
+    cartItem.productId = item.productId;
+    cartItem.quantity = item.quantity;
+    dispatch(addItem(cartItem));
+  };
+
+  if (product[0]) {
+    product = product[0];
+    console.log("image URL...........", product.imageUrl);
+  }
 
   return (
     <div className="product">
       <img src={product.imageUrl} className="productImg" />
+      <img src="/" className="productImg" />
       <ul className="productDetails">
         <li className="product-span">{product.name}</li>
         <li>
@@ -43,11 +53,14 @@ const SingleProduct = () => {
           <span className="product-span">Price: </span>
           {product.price}
         </li>
-        <li>
-          <span className="product-span">Quantity: </span>
-          {product.quantity}
-        </li>
       </ul>
+      <button
+        onClick={() => {
+          handleAddItem(product);
+        }}
+      >
+        Add Item Cart
+      </button>
     </div>
   );
 };
