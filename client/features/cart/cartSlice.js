@@ -6,10 +6,18 @@ export const fetchCart = createAsyncThunk("fetchCart", async () => {
   return data;
 });
 
-export const addItem = createAsyncThunk("addItem", async () => {
-  const { data } = await axios.post("/api/cart/id/productId");
-  return data;
-});
+export const addItem = createAsyncThunk(
+  "addItem",
+  async ({ cartId, productId, quantity }) => {
+    console.log("thunk", cartId, productId, quantity);
+    const { data } = await axios.post("/api/cart", {
+      cartId,
+      productId,
+      quantity,
+    });
+    return data;
+  }
+);
 
 export const removeItem = createAsyncThunk("removeItem", async () => {
   const { data } = await axios.delete("/api/cart/id/productId");
