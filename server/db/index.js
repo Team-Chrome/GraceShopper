@@ -12,6 +12,12 @@ const CartItem = require("./models/CartItem");
 Cart.belongsTo(User);
 User.hasOne(Cart);
 
+Cart.hasMany(CartItem);
+CartItem.belongsTo(Cart);
+
+Product.hasOne(CartItem, { as: "product" });
+CartItem.belongsTo(Product);
+
 Transaction.belongsTo(User);
 User.hasMany(Transaction);
 
