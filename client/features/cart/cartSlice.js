@@ -19,6 +19,18 @@ export const addItem = createAsyncThunk(
   }
 );
 
+export const updateItem = createAsyncThunk(
+  "updateItem",
+  async ({ cartId, productId, quantity }) => {
+    const { data } = await axios.put("/api/cart", {
+      cartId,
+      productId,
+      quantity,
+    });
+    return data;
+  }
+);
+
 export const removeItem = createAsyncThunk("removeItem", async () => {
   const { data } = await axios.delete("/api/cart/id/productId");
   return data;
@@ -43,10 +55,16 @@ export const cartSlice = createSlice({
     builder.addCase(addItem.fulfilled, (state, action) => {
       state.items.push(action.payload);
     });
-    //assumes each item in array is an object with properties
     builder.addCase(removeItem.fulfilled, (state, action) => {
-      state.items.filter((item) => {
+      return state.items.filter((item) => {
         return item.id !== action.payload.id;
+      });
+    });
+    builder.addCase(updateItem.fulfilled, (state, action) => {
+      state.items.forEach((item) => {
+        if (item.productId === action.payload.productId) {
+          item.quantity = action.payload.quantity;
+        }
       });
     });
   },

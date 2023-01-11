@@ -42,6 +42,7 @@ const Navbar = () => {
                 name="searchbar"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
+                id="navbar-input"
               />
               <button type="submit">Search</button>
             </form>

@@ -23,8 +23,21 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log(req.body);
     res.status(201).send(await CartItem.create(req.body));
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/", async (req, res, next) => {
+  try {
+    await CartItem.update(
+      { quantity: req.body.quantity },
+      {
+        where: { cartId: req.body.cartId, productId: req.body.productId },
+      }
+    );
+    res.send(req.body);
   } catch (error) {
     next(error);
   }
