@@ -20,3 +20,12 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+router.post("/", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    res.status(201).send(await CartItem.create(req.body));
+  } catch (error) {
+    next(error);
+  }
+});

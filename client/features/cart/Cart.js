@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
-import { fetchCart, selectCart } from "./cartSlice";
+import { fetchCart, selectCart, addItem } from "./cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,26 @@ const Cart = () => {
     });
 
     return cartTotal;
+  };
+
+  //   const handleAddItem = (item) => {
+  //     console.log(item);
+  //     const cartItem = {};
+  //     cartItem.cartId = item.cartId;
+  //     cartItem.productId = item.productId;
+  //     cartItem.quantity = item.quantity + 1;
+  //     console.log("handleitem", cartItem);
+  //     dispatch(addItem(cartItem));
+  //   };
+
+  const handleAddItem = (item) => {
+    console.log(item);
+    const cartItem = {};
+    cartItem.cartId = item.cartId;
+    cartItem.productId = 4;
+    cartItem.quantity = 1;
+    console.log("handleitem", cartItem);
+    dispatch(addItem(cartItem));
   };
 
   return (
@@ -70,6 +90,7 @@ const Cart = () => {
                     {item.quantity}
                     <button
                       data-action="increment"
+                      onClick={() => handleAddItem(item)}
                       className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
                     >
                       <span className="m-auto font-thin">+</span>
