@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const CartItem = require("./CartItem");
 
 const Cart = db.define("cart", {
   status: {
@@ -20,8 +19,5 @@ const Cart = db.define("cart", {
   //   },
   // },
 });
-
-Cart.hasMany(CartItem);
-CartItem.belongsTo(Cart);
 
 module.exports = Cart;
