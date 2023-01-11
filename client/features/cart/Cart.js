@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
-import { fetchCart, selectCart, addItem } from "./cartSlice";
+import { fetchCart, selectCart, updateItem } from "./cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
+
   const cart = useSelector(selectCart);
 
   const [cartTotal, setCartTotal] = useState(0);
@@ -28,24 +29,13 @@ const Cart = () => {
     return cartTotal;
   };
 
-  //   const handleAddItem = (item) => {
-  //     console.log(item);
-  //     const cartItem = {};
-  //     cartItem.cartId = item.cartId;
-  //     cartItem.productId = item.productId;
-  //     cartItem.quantity = item.quantity + 1;
-  //     console.log("handleitem", cartItem);
-  //     dispatch(addItem(cartItem));
-  //   };
-
-  const handleAddItem = (item) => {
-    console.log(item);
+  const handleUpdateItem = (item) => {
     const cartItem = {};
     cartItem.cartId = item.cartId;
-    cartItem.productId = 4;
-    cartItem.quantity = 1;
+    cartItem.productId = item.productId;
+    cartItem.quantity = item.quantity + 1;
     console.log("handleitem", cartItem);
-    dispatch(addItem(cartItem));
+    dispatch(updateItem(cartItem));
   };
 
   return (
@@ -90,7 +80,7 @@ const Cart = () => {
                     {item.quantity}
                     <button
                       data-action="increment"
-                      onClick={() => handleAddItem(item)}
+                      onClick={() => handleUpdateItem(item)}
                       className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
                     >
                       <span className="m-auto font-thin">+</span>
@@ -98,7 +88,9 @@ const Cart = () => {
                   </td>
                   <td className="w-1/6">{`$${item.product.price}`}</td>
                   <td className="w-1/6">
-                    {`$${item.product.price * item.quantity}`}
+                    {`$${
+                      Math.round(item.product.price * item.quantity * 100) / 100
+                    }`}
                   </td>
                 </tr>
               );
@@ -110,7 +102,7 @@ const Cart = () => {
           <div className="mb-8 text-lg font-semibold">Order Summary</div>
           <div className="flex justify-between">
             <div className="font-medium">Subtotal</div>
-            <div>{`$${cartTotal}`}</div>
+            <div>{`$${Math.round(cartTotal * 100) / 100}`}</div>
           </div>
           <div className="flex justify-between">
             <div className="font-medium">Shipping</div>
@@ -118,7 +110,9 @@ const Cart = () => {
           </div>
           <div className="flex justify-between mt-2">
             <div className="font-bold text-lg">TOTAL</div>
-            <div className="font-bold text-lg">{`$${cartTotal}`}</div>
+            <div className="font-bold text-lg">{`$${
+              Math.round(cartTotal * 100) / 100
+            }`}</div>
           </div>
           <button className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
             CHECKOUT
