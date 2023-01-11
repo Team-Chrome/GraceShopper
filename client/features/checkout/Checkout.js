@@ -32,7 +32,6 @@ const Checkout = () => {
       <div className="p-12 font-sans">
         <div className="text-2xl mb-12">Checkout</div>
         <div className="flex gap-12">
-          <div className=" "></div>
           <div className="w-3/4"></div>
           <div className="flex-col items-center text-center border w-1/4 h-auto p-4">
             <div className="mb-8 text-lg font-semibold">Order Summary</div>
