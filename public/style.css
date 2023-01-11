@@ -94,6 +94,10 @@ img:hover {
 
 .productDetails {
   flex-grow: 1;
-  font-size: x-large;
   margin-top: 5em;
+  font-size: x-large;
+}
+
+.product-span {
+  font-weight: bold;
 }
