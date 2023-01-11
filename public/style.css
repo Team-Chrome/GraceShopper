@@ -88,6 +88,7 @@ form {
 }
 #allProducts > div:hover {
   border-width: 7px;
+  border-color:rgb(150,120,80)
 }
 .outlined {
 	color: white;
@@ -99,13 +100,14 @@ form {
   border-radius:50%;
   left: 0; top: 0;
   padding:10px;
-  background-color:rgba(250,150,50,.7);
+  background-color:rgba(250,150,50,.65);
   box-shadow: 2px 2px;
   color: rgb(0,50,10);
 }
 .price:hover {
   padding:20px;
-  background-color: green;
-  color: yellow
+  background-color: rgb(100,150,50,.9);
+  color: rgb(250,250,200)
 }
+
 

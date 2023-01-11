@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { USD } from "/client/utils"
 
 console.log(USD(82.234234234234))
+console.log(USD(82.1))
+console.log(USD(82.0))
 
 const AllProducts = props => {
 
