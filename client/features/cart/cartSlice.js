@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchCart = createAsyncThunk("fetchCart", async () => {
-  const { data } = await axios.get("/api/cart/id");
+  const { data } = await axios.get("/api/cart/1");
   return data;
 });
 
@@ -21,13 +21,16 @@ export const cartSlice = createSlice({
   initialState: {
     id: null,
     items: [],
+    status: "",
     total: null,
   },
   reducers: {},
   extraReducers: (builder) => {
-    //assumes db query is returning an array items in cart
     builder.addCase(fetchCart.fulfilled, (state, action) => {
-      state.items = action.payload;
+      const cart = action.payload;
+      state.items = cart.cartItems;
+      state.id = cart.id;
+      state.status = cart.status;
     });
     builder.addCase(addItem.fulfilled, (state, action) => {
       state.items.push(action.payload);
@@ -40,5 +43,5 @@ export const cartSlice = createSlice({
     });
   },
 });
-
+export const selectCart = (state) => state.cart;
 export default cartSlice.reducer;

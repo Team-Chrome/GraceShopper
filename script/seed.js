@@ -1,28 +1,94 @@
-'use strict'
+"use strict";
 
-const {db, models: {User} } = require('../server/db')
+const {
+  db,
+  models: { User, Cart, Product, CartItem, Transaction },
+} = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
+  try {
+    await db.sync({ force: true }); // clears db and matches models to tables
+    console.log("db synced!");
 
-  // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+    // Creating Users
+    const users = await Promise.all([
+      User.create({ email: "cody@gmail.com", password: "123" }),
+      User.create({ email: "murphy@gmail.com", password: "123" }),
+    ]);
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
+    const products = await Promise.all([
+      Product.create({
+        name: "Pike Place Roast",
+        imageUrl: "./splashPagePictures/1.jpg",
+        roaster: "Starbucks",
+        origin: "Blend",
+        description: " A medium roast with notes of cacao and rich praline.",
+        price: 11.99,
+        quantity: 2,
+      }),
+      Product.create({
+        name: "Homestead",
+        imageUrl: "./splashPagePictures/2.jpg",
+        roaster: "Stumptown Coffee Roasters",
+        origin: "Blend",
+        description:
+          " A direct trade medium roast with notes of candied and milk chocolate.",
+        price: 12.99,
+        quantity: 4,
+      }),
+      Product.create({
+        name: "Chocolate Cherry Cordial",
+        imageUrl: "./splashPagePictures/3.jpg",
+        roaster: "Christopher Bean Coffee",
+        origin: "Blend",
+        description:
+          " A flavored light medium roast with notes of cacao and rich praline",
+        price: 9.99,
+        quantity: 1,
+      }),
+      Product.create({
+        name: "French Roast",
+        imageUrl: "./splashPagePictures/4.jpg",
+        roaster: "Peet's Coffee",
+        origin: "Blend",
+        description:
+          "A rich, full bodied, dark roast with notes of Dark Chocolate, Smoke, Burnt Sugar.",
+        price: 11.99,
+        quantity: 2,
+      }),
+      Product.create({
+        name: "House Blend",
+        imageUrl: "./splashPagePictures/2.jpg",
+        roaster: "Starbucks",
+        origin: "Blend",
+        description: "A medium roast with notes of toffee and dusted cacao.",
+        price: 11.99,
+        quantity: 2,
+      }),
+    ]);
+
+    const carts = await Promise.all([Cart.create({ userId: "1" })]);
+
+    const cartItems = await Promise.all([
+      CartItem.create({ cartId: "1", quantity: "1", productId: "1" }),
+      CartItem.create({ cartId: "1", quantity: "3", productId: "2" }),
+      CartItem.create({ cartId: "1", quantity: "2", productId: "3" }),
+    ]);
+
+    console.log(`seeded ${users.length} users`);
+    console.log(`seeded successfully`);
+    return {
+      users: {
+        cody: users[0],
+        murphy: users[1],
+      },
+    };
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -32,16 +98,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...')
+  console.log("seeding...");
   try {
-    await seed()
+    await seed();
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
+    console.error(err);
+    process.exitCode = 1;
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log("closing db connection");
+    await db.close();
+    console.log("db connection closed");
   }
 }
 
@@ -51,8 +117,8 @@ async function runSeed() {
   any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
-  runSeed()
+  runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = seed;
