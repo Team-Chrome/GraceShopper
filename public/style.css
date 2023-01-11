@@ -80,3 +80,20 @@ img:hover {
 .splash-item {
   flex: 0 1 200px;
 }
+
+/* Single Product */
+
+.product {
+  display: flex;
+  justify-content: space-between;
+}
+
+.productImg {
+  flex-grow: 2;
+}
+
+.productDetails {
+  flex-grow: 1;
+  font-size: x-large;
+  margin-top: 5em;
+}
