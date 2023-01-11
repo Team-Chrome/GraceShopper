@@ -12,29 +12,27 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   let product = useSelector(selectSingleProduct);
 
-  console.log("product in component...............", product);
-
   useEffect(() => {
     dispatch(fetchSingleProductAsync(id));
   }, []);
 
   const handleAddItem = (item) => {
+    console.log("button handler fired!");
     const cartItem = {};
-    cartItem.cartId = item.cartId;
-    cartItem.productId = item.productId;
+    cartItem.cartId = 1;
+    cartItem.productId = item.id;
     cartItem.quantity = item.quantity;
+    console.log("cartItem...........", cartItem);
     dispatch(addItem(cartItem));
   };
 
-  if (product[0]) {
-    product = product[0];
-    console.log("image URL...........", product.imageUrl);
-  }
-
   return (
     <div className="product">
-      <img src={product.imageUrl} className="productImg" />
-      <img src="/" className="productImg" />
+      {product.imageUrl ? (
+        <img src={product.imageUrl.slice(1)} className="productImg" />
+      ) : (
+        <h1>Where is the image?</h1>
+      )}
       <ul className="productDetails">
         <li className="product-span">{product.name}</li>
         <li>
@@ -51,16 +49,35 @@ const SingleProduct = () => {
         </li>
         <li>
           <span className="product-span">Price: </span>
-          {product.price}
+          {`$${product.price}`}
         </li>
+        <td className="w-1/6">
+          <button
+            data-action="decrement"
+            className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
+          >
+            <span className="m-auto font-thin">-</span>
+          </button>
+          {product.quantity}
+          <button
+            data-action="increment"
+            onClick={() => handleAddItem(product)}
+            className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
+          >
+            <span className="m-auto font-thin">+</span>
+          </button>
+        </td>
+
+        <button
+          type="submit"
+          className="add-item"
+          onClick={() => {
+            handleAddItem(product);
+          }}
+        >
+          Add to Cart
+        </button>
       </ul>
-      <button
-        onClick={() => {
-          handleAddItem(product);
-        }}
-      >
-        Add Item Cart
-      </button>
     </div>
   );
 };
