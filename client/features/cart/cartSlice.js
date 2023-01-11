@@ -61,10 +61,11 @@ export const cartSlice = createSlice({
       });
     });
     builder.addCase(updateItem.fulfilled, (state, action) => {
-      const cart = action.payload;
-      state.items = cart.cartItems;
-      state.id = cart.id;
-      state.status = cart.status;
+      state.items.forEach((item) => {
+        if (item.productId === action.payload.productId) {
+          item.quantity = action.payload.quantity;
+        }
+      });
     });
   },
 });

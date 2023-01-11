@@ -29,12 +29,16 @@ const Cart = () => {
     return cartTotal;
   };
 
-  const handleUpdateItem = (item) => {
+  const handleUpdateItem = (item, operator) => {
+    //add case for if qty === 0, run delete query instead of update.
     const cartItem = {};
     cartItem.cartId = item.cartId;
     cartItem.productId = item.productId;
-    cartItem.quantity = item.quantity + 1;
-    console.log("handleitem", cartItem);
+
+    if (operator === "increment") {
+      cartItem.quantity = item.quantity + 1;
+    } else cartItem.quantity = item.quantity - 1;
+
     dispatch(updateItem(cartItem));
   };
 
@@ -55,6 +59,9 @@ const Cart = () => {
           </thead>
           <tbody>
             {cart.items.map((item) => {
+              {
+                if (item.quantity === 0) return null;
+              }
               return (
                 <tr className="flex items-center text-center w-full border-b-2 pb-4 pt-4">
                   <td className="w-1/4">
@@ -72,15 +79,14 @@ const Cart = () => {
                   </td>
                   <td className="w-1/6">
                     <button
-                      data-action="decrement"
+                      onClick={() => handleUpdateItem(item, "decrement")}
                       className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
                     >
                       <span className="m-auto font-thin">-</span>
                     </button>
                     {item.quantity}
                     <button
-                      data-action="increment"
-                      onClick={() => handleUpdateItem(item)}
+                      onClick={() => handleUpdateItem(item, "increment")}
                       className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
                     >
                       <span className="m-auto font-thin">+</span>
