@@ -71,6 +71,14 @@ async function seed() {
       }),
     ]);
 
+    const carts = await Promise.all([Cart.create({ userId: "1" })]);
+
+    const cartItems = await Promise.all([
+      CartItem.create({ cartId: "1", quantity: "1", productId: "1" }),
+      CartItem.create({ cartId: "1", quantity: "3", productId: "2" }),
+      CartItem.create({ cartId: "1", quantity: "2", productId: "3" }),
+    ]);
+
     console.log(`seeded ${users.length} users`);
     console.log(`seeded successfully`);
     return {
