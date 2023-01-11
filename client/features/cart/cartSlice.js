@@ -7,12 +7,12 @@ export const fetchCart = createAsyncThunk("fetchCart", async () => {
 });
 
 export const addItem = createAsyncThunk("addItem", async () => {
-  const { data } = await axios.post("/api/cart/id/cartitem/id");
+  const { data } = await axios.post("/api/cart/id/productId");
   return data;
 });
 
 export const removeItem = createAsyncThunk("removeItem", async () => {
-  const { data } = await axios.delete("/api/cart/id/cartitem/id");
+  const { data } = await axios.delete("/api/cart/id/productId");
   return data;
 });
 
