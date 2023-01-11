@@ -11,7 +11,8 @@ console.log(USD(82.0))
 const AllProducts = props => {
 
     const dispatch = useDispatch()
-
+    const Navigate = useNavigate()
+    
     useEffect(()=>{
         dispatch(fetchAllProducts())
     },[])
@@ -23,6 +24,7 @@ const AllProducts = props => {
     const  changeRoute = (event, item) => {
 
         console.log('should be changing route to',item)
+        Navigate('/products/'+item.id)
         //navigate('/products/'+item.id)   
         //this is equivalent to static <Link and more
         //straightforward programatically, plus it lets us 
