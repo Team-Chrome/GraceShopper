@@ -2,6 +2,9 @@ import React, {useEffect,useState} from "react"
 import { fetchAllProducts } from "./allProductsSlice"
 import { useSelector,useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom";
+import { USD } from "/client/utils"
+
+console.log(USD(82.234234234234))
 
 const AllProducts = props => {
 
@@ -38,6 +41,7 @@ const AllProducts = props => {
                         <h3 className="outlined">{item.roaster}</h3>
                         <h4 style={{backgroundColor:'rgb(150,120,80)',fontSize:'1.2em',fontWeight:'bold'}}>{item.name}</h4>
                         <p style={{color:"white",backgroundColor:'rgb(50,30,10)'}}>{item.description}</p>
+                        <div className="price">${USD(item.price)}</div>
                     </div>
                 )
             }
