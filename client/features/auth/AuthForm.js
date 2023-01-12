@@ -1,6 +1,7 @@
-import React from "react";
+import React , {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
+import { Link, useNavigate } from "react-router-dom";
 
 /**
   The AuthForm component can be used for Login or Sign Up.
@@ -11,6 +12,15 @@ import { authenticate } from "../../app/store";
 const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+
+  useEffect(()=>{
+    if (isLoggedIn) {
+      navigate('/products')
+    }
+  },[isLoggedIn])
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
