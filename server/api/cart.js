@@ -64,3 +64,17 @@ router.put("/", async (req, res, next) => {
     next(error);
   }
 });
+
+router.put("/:cartId/status", async (req, res, next) => {
+  try {
+    await Cart.update(
+      { status: req.body.status },
+      {
+        where: { id: req.params.cartId },
+      }
+    );
+    res.send(req.body);
+  } catch (error) {
+    next(error);
+  }
+});
