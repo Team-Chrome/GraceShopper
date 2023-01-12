@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "../../../public/style.css";
 import { fetchCart, selectCart } from "../cart/cartSlice";
-import { useNavigate } from "react-router-dom";
+import checkoutStageReducers, {
+  selectCheckoutStage,
+} from "./checkoutStageSlice";
 import CreditForm from "./CreditForm";
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
@@ -11,6 +14,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
   const navigate = useNavigate();
+  const checkoutStage = useSelector(selectCheckoutStage);
 
   const [cartTotal, setCartTotal] = useState(0);
 
@@ -40,8 +44,16 @@ const Checkout = () => {
         </div>
         <div className="text-2xl mb-12">Checkout</div>
         <div className="flex gap-24">
-          <BillingForm />
-          <CreditForm />
+          <div>
+            {checkoutStage === 1 ? (
+              <ShippingForm />
+            ) : (
+              <div>
+                <BillingForm />
+                <CreditForm />
+              </div>
+            )}
+          </div>
           <div className="flex-col items-center text-center border w-1/4 h-auto p-4">
             <div className="mb-8 text-lg font-semibold">Order Summary</div>
             <div className="flex justify-between">

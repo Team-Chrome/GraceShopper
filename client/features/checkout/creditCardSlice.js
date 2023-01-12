@@ -26,10 +26,10 @@ export const creditSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCreditCard.fulfilled, (state, action) => {
       return action.payload;
-    }),
-      builder.addCase(createCreditCard.fulfilled, (state, action) => {
-        state.push(action.payload);
-      });
+    });
+    builder.addCase(createCreditCard.fulfilled, (state, action) => {
+      state.push(action.payload);
+    });
   },
 });
 

@@ -27,15 +27,15 @@ export const createShippingAddress = createAsyncThunk(
 
 export const shippingSlice = createSlice({
   name: "shipping",
-  intitalState: [],
+  initialState: [],
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchShippingAddress.fulfilled, (state, action) => {
       return action.payload;
-    }),
-      builder.addCase(createShippingAddress.fulfilled, (state, action) => {
-        state.push(action.payload);
-      });
+    });
+    builder.addCase(createShippingAddress.fulfilled, (state, action) => {
+      state.push(action.payload);
+    });
   },
 });
 

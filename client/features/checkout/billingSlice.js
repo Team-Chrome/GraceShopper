@@ -27,18 +27,20 @@ export const createBillingAddress = createAsyncThunk(
 
 export const billingSlice = createSlice({
   name: "billing",
-  intitalState: [],
+  initialState: [],
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchBillingAddress.fulfilled, (state, action) => {
       return action.payload;
-    }),
-      builder.addCase(createBillingAddress.fulfilled, (state, action) => {
-        state.push(action.payload);
-      });
+    });
+    builder.addCase(createBillingAddress.fulfilled, (state, action) => {
+      state.push(action.payload);
+    });
   },
 });
 
-export const selectBillingAddress = (state) => state.billing;
+export const selectBillingAddress = (state) => {
+  return state.billing;
+};
 
 export default billingSlice.reducer;
