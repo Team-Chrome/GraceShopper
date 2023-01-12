@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../app/store";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const loggedInUserName = useSelector(state=>state.auth.me.email)
+
   const [search, setSearch] = useState("");
   const [itemCount, setItemCount] = useState(0);
   const dispatch = useDispatch();
@@ -13,6 +15,12 @@ const Navbar = () => {
     dispatch(logout());
     navigate("/login");
   };
+
+  useEffect(()=>{
+    if (isLoggedIn) {
+      navigate('/products')
+    }
+  },[isLoggedIn])
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,15 +31,6 @@ const Navbar = () => {
     <div>
       <h1>GraceShopper</h1>
       <nav className="topnav">
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <button type="button" onClick={logoutAndRedirectHome}>
-              Logout
-            </button>
-          </div>
-        ) : (
           <div className="topnav">
             {/* The navbar will show these links before you log in */}
             <Link to="/home">Home</Link>
@@ -42,6 +41,7 @@ const Navbar = () => {
                 name="searchbar"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
+                id="navbar-input"
               />
               <button type="submit">Search</button>
             </form>
@@ -49,10 +49,18 @@ const Navbar = () => {
               <img src="/icons8-shopping-cart-48.png"></img>
               <h2>{itemCount}</h2>
             </Link>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+
+            {isLoggedIn ? ( 
+              
+                <button style={{float:'right'}} type="button" onClick={logoutAndRedirectHome}>
+                  Logout {loggedInUserName}
+                </button>
+              
+            ) : ( [
+            <Link to="/login">Login</Link>,
+            <Link to="/signup">Sign Up</Link> ])}
           </div>
-        )}
+        
       </nav>
       <hr />
     </div>

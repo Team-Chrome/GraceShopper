@@ -62,7 +62,7 @@ async function seed() {
       }),
       Product.create({
         name: "House Blend",
-        imageUrl: "./splashPagePictures/2.jpg",
+        imageUrl: "./splashPagePictures/5.jpg",
         roaster: "Starbucks",
         origin: "Blend",
         description: "A medium roast with notes of toffee and dusted cacao.",

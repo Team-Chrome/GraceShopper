@@ -14,9 +14,11 @@ const AuthForm = ({ name, displayName }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    
     const formName = evt.target.name;
     const email = evt.target.email.value;
     const password = evt.target.password.value;
+
     dispatch(authenticate({ email, password, method: formName }));
   };
 
@@ -38,7 +40,7 @@ const AuthForm = ({ name, displayName }) => {
             name="username"
             type="text"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
+            id="email"
             placeholder="email"
           />
         </div>
