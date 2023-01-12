@@ -36,9 +36,10 @@ router.post("/:id", async (req, res, next) => {
 
     const productId = req.body.productId;
     const quantity = req.body.quantity;
+    const price = req.body.price;
     let cartId = cart[0].id;
 
-    let newCartItem = { cartId, productId, quantity };
+    let newCartItem = { cartId, productId, quantity, price };
 
     if (cart.length > 0) {
       res.status(201).send(await CartItem.create(newCartItem));
@@ -59,7 +60,12 @@ router.put("/", async (req, res, next) => {
         where: { cartId: req.body.cartId, productId: req.body.productId },
       }
     );
-    res.send(req.body);
+
+    const updatedItem = await CartItem.findAll({
+      where: { cartId: req.body.cartId, productId: req.body.productId },
+    });
+
+    res.send(updatedItem);
   } catch (error) {
     next(error);
   }

@@ -1,6 +1,11 @@
 import React,{useEffect,useState,useRef} from 'react';
+import {createGuestAccount, authenticate} from '../features/auth/authSlice'
+import { useDispatch, useSelector} from 'react-redux';
+import { v4 } from 'uuid'
 
 const Splash = (props) => {
+
+  const dispatch = useDispatch()
 
   const [counter,setCounter] = useState(0)
 
