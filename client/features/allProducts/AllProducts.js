@@ -12,7 +12,7 @@ const AllProducts = props => {
 
     const dispatch = useDispatch()
     const Navigate = useNavigate()
-    
+
     useEffect(()=>{
         dispatch(fetchAllProducts())
     },[])
@@ -43,8 +43,8 @@ const AllProducts = props => {
                     >
                         <img src={item.imageUrl} alt={item.roaster+','+item.name}></img>
                         <h3 className="outlined">{item.roaster}</h3>
-                        <h4 style={{backgroundColor:'rgb(150,120,80)',fontSize:'1.2em',fontWeight:'bold'}}>{item.name}</h4>
-                        <p style={{color:"white",backgroundColor:'rgb(50,30,10)'}}>{item.description}</p>
+                        <h4 style={{background:'linear-gradient(rgb(150,120,80),rgb(200,200,100)',fontSize:'1.2em',fontWeight:'bold'}}>{item.name}</h4>
+                        <p style={{color:"white",background:'linear-gradient(rgb(50,30,10),rgb(200,200,100)'}}>{item.description}</p>
                         <div className="price">${USD(item.price)}</div>
                     </div>
                 )

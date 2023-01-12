@@ -13,7 +13,7 @@ const Splash = (props) => {
     );
   }
   return (
-    <div key="splash" id="splash">
+    <div key="splash" className="flexBox01" id="splash">
       {splashOut}
     </div>
   );
