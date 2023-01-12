@@ -20,9 +20,8 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <h1>GraceShopper</h1>
-      <nav className="topnav">
+    <div id="backdrop">
+      <nav>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
@@ -32,23 +31,24 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <div className="topnav">
+          <div className="nav" id="backdrop">
             {/* The navbar will show these links before you log in */}
+            <h1>GraceShopper</h1>
             <Link to="/home">Home</Link>
             <Link to="/products">Products</Link>
-            <form>
+            <form nav-form>
               <input
+                className="nav-input"
                 type="text"
                 name="searchbar"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                id="navbar-input"
               />
               <button type="submit">Search</button>
             </form>
-            <Link>
-              <img src="/icons8-shopping-cart-48.png"></img>
-              <h2>{itemCount}</h2>
+            <Link id="link-img">
+              <img src="/shoppingcartcopy.png" />
+              {itemCount} Cart Items!
             </Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
