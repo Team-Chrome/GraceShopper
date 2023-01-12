@@ -36,11 +36,11 @@ router.post("/:id", async (req, res, next) => {
 
     const productId = req.body.productId;
     const quantity = req.body.quantity;
-    let cartId = cart.id;
+    let cartId = cart[0].id;
 
     let newCartItem = { cartId, productId, quantity };
 
-    if (cart) {
+    if (cart.length > 0) {
       res.status(201).send(await CartItem.create(newCartItem));
     } else {
       cartId = await Cart.create({ userId: req.params.id });
