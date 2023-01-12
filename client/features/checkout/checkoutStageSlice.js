@@ -8,3 +8,6 @@ export const checkoutStageSlice = createSlice({
     decrement: (state) => state - 1,
   },
 });
+
+export const selectCheckoutStage = (state) => state.checkoutStage;
+export default checkoutStageSlice.reducer;
