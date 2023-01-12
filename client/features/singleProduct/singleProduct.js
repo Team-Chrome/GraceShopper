@@ -19,13 +19,13 @@ const SingleProduct = () => {
 
   const handleAddItem = (item) => {
     // Change the code below when the functionality of adding an item to a userid's cart is implemented by Derek
-    // console.log("button handler fired!");
-    // const cartItem = {};
-    // cartItem.cartId = 1;
-    // cartItem.productId = item.id;
-    // cartItem.quantity = item.quantity;
-    // console.log("cartItem...........", cartItem);
-    // dispatch(addItem(cartItem));
+    console.log("button handler fired!");
+    const cartItem = {};
+    cartItem.cartId = 1;
+    cartItem.productId = item.id;
+    cartItem.quantity = quantity;
+    console.log("cartItem...........", cartItem);
+    dispatch(addItem(cartItem));
   };
 
   return (
@@ -53,25 +53,32 @@ const SingleProduct = () => {
           <span className="product-span">Price: </span>
           {`$${product.price}`}
         </li>
-        <td className="w-1/6">
+        {/* <td className="w-1/6">
           <button
-            data-action="decrement"
-            onClick={() => {
-              setQuantity(quantity - 1);
-            }}
+            onClick={() => handleQuantity("decrement")}
             className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
           >
             <span className="m-auto font-thin">-</span>
           </button>
-          {quantity}
+          <input min={1} max={10} value={quantity} />
+
           <button
-            data-action="increment"
-            onClick={() => setQuantity(quantity + 1)}
+            onClick={() => handleQuantity("increment")}
             className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
           >
             <span className="m-auto font-thin">+</span>
           </button>
-        </td>
+        </td> */}
+
+        <label for="quantity">Add Amount:</label>
+
+        <input
+          type="number"
+          name="qautitiy"
+          min="1"
+          max="10"
+          className="block border-black border-2"
+        />
 
         <button
           type="submit"
