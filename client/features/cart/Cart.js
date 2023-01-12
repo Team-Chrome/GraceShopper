@@ -4,6 +4,7 @@ import "../../../public/style.css";
 import { fetchCart, selectCart, updateItem } from "./cartSlice";
 import { selectUser } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { USD } from "../../utils";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -12,26 +13,9 @@ const Cart = () => {
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser);
 
-  const [cartTotal, setCartTotal] = useState(0);
-
   useEffect(() => {
     dispatch(fetchCart(user.id));
   }, [user]);
-
-  useEffect(() => {
-    setCartTotal(calcCartTotal());
-  }, [cart]);
-
-  const calcCartTotal = () => {
-    console.log("calc cart", cart);
-    let cartTotal = 0;
-
-    cart.items.map((item) => {
-      cartTotal += item.product.price * item.quantity;
-    });
-
-    return cartTotal;
-  };
 
   const handleUpdateItem = (item, operator) => {
     //add case for if qty === 0, run delete query instead of update.
@@ -71,7 +55,10 @@ const Cart = () => {
                 if (item.quantity === 0) return null;
               }
               return (
-                <tr className="flex items-center text-center w-full border-b-2 pb-4 pt-4">
+                <tr
+                  key={item.product.id}
+                  className="flex items-center text-center w-full border-b-2 pb-4 pt-4"
+                >
                   <td className="w-1/4">
                     <img
                       className="w-32 h-32 m-auto"
@@ -100,11 +87,9 @@ const Cart = () => {
                       <span className="m-auto font-thin">+</span>
                     </button>
                   </td>
-                  <td className="w-1/6">{`$${item.product.price}`}</td>
+                  <td className="w-1/6">{`$${USD(item.product.price)}`}</td>
                   <td className="w-1/6">
-                    {`$${
-                      Math.round(item.product.price * item.quantity * 100) / 100
-                    }`}
+                    {`$${USD(item.product.price * item.quantity)}`}
                   </td>
                 </tr>
               );
@@ -116,7 +101,7 @@ const Cart = () => {
           <div className="mb-8 text-lg font-semibold">Order Summary</div>
           <div className="flex justify-between">
             <div className="font-medium">Subtotal</div>
-            <div>{`$${Math.round(cartTotal * 100) / 100}`}</div>
+            <div>{`$${USD(cart.total)}`}</div>
           </div>
           <div className="flex justify-between">
             <div className="font-medium">Shipping</div>
@@ -124,9 +109,7 @@ const Cart = () => {
           </div>
           <div className="flex justify-between mt-2">
             <div className="font-bold text-lg">TOTAL</div>
-            <div className="font-bold text-lg">{`$${
-              Math.round(cartTotal * 100) / 100
-            }`}</div>
+            <div className="font-bold text-lg">{`$${USD(cart.total)}`}</div>
           </div>
           <button
             onClick={() => {
