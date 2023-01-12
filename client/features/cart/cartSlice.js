@@ -9,11 +9,11 @@ export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
 
 export const addItem = createAsyncThunk(
   "addItem",
-  async ({ productId, quantity, userId }) => {
-    console.log("thunk", cartId, productId, quantity);
+  async ({ productId, quantity, price, userId }) => {
     const { data } = await axios.post(`/api/cart/${userId}`, {
       productId,
       quantity,
+      price,
     });
     return data;
   }
@@ -57,14 +57,19 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
-      console.log(action.payload);
       const cart = action.payload[0];
       state.items = cart.cartItems;
       state.id = cart.id;
       state.status = cart.status;
+      state.total = 0;
+      console.log("cartitems", cart.cartItems);
+      cart.cartItems.forEach((item) => {
+        state.total += item.price * item.quantity;
+      });
     });
     builder.addCase(addItem.fulfilled, (state, action) => {
       state.items.push(action.payload);
+      state.total += action.payload.price * action.payload.quantity;
     });
     builder.addCase(removeItem.fulfilled, (state, action) => {
       return state.items.filter((item) => {
@@ -72,11 +77,17 @@ export const cartSlice = createSlice({
       });
     });
     builder.addCase(updateItem.fulfilled, (state, action) => {
+      const updatedItem = action.payload[0];
       state.items.forEach((item) => {
-        if (item.productId === action.payload.productId) {
-          item.quantity = action.payload.quantity;
+        if (item.productId === updatedItem.productId) {
+          state.total -= item.price * item.quantity;
+          item.quantity = updatedItem.quantity;
+          state.total += item.price * item.quantity;
         }
       });
+    });
+    builder.addCase(updateCartStatus.fulfilled, (state, action) => {
+      state.status = action.payload;
     });
   },
 });
