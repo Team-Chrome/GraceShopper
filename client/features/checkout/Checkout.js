@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
 import { fetchCart, selectCart } from "../cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
+  const navigate = useNavigate();
 
   const [cartTotal, setCartTotal] = useState(0);
 
@@ -34,6 +36,9 @@ const Checkout = () => {
   return (
     <>
       <div className="p-12 font-sans">
+        <div onClick={() => navigate("/cart")} className="">
+          ---Return to cart
+        </div>
         <div className="text-2xl mb-12">Checkout</div>
         <div className="flex gap-24">
           <div className="w-1/2 ">
