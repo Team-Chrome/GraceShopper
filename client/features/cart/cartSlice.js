@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchCart = createAsyncThunk("fetchCart", async () => {
-  const { data } = await axios.get("/api/cart/1");
+export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
+  const { data } = await axios.get(`/api/cart/${id}`);
+  console.log(data);
   return data;
 });
 
 export const addItem = createAsyncThunk(
   "addItem",
-  async ({ cartId, productId, quantity }) => {
+  async ({ productId, quantity, userId }) => {
     console.log("thunk", cartId, productId, quantity);
-    const { data } = await axios.post("/api/cart", {
-      cartId,
+    const { data } = await axios.post(`/api/cart/${userId}`, {
       productId,
       quantity,
     });
@@ -26,6 +26,16 @@ export const updateItem = createAsyncThunk(
       cartId,
       productId,
       quantity,
+    });
+    return data;
+  }
+);
+
+export const updateCartStatus = createAsyncThunk(
+  "updateCartStatus",
+  async (cartId, status) => {
+    const { data } = await axios.put(`/api/cart/${cartId}/status`, {
+      status,
     });
     return data;
   }
@@ -47,7 +57,8 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
-      const cart = action.payload;
+      console.log(action.payload);
+      const cart = action.payload[0];
       state.items = cart.cartItems;
       state.id = cart.id;
       state.status = cart.status;

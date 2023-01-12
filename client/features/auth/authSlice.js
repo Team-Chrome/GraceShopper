@@ -94,6 +94,7 @@ export const authSlice = createSlice({
   ACTIONS
 */
 export const { logout } = authSlice.actions;
+export const selectUser = (state) => state.auth.me;
 
 /*
   REDUCER
