@@ -31,6 +31,16 @@ export const updateItem = createAsyncThunk(
   }
 );
 
+export const updateCartStatus = createAsyncThunk(
+  "updateCartStatus",
+  async (cartId, status) => {
+    const { data } = await axios.put(`/api/cart/${cartId}/status`, {
+      status,
+    });
+    return data;
+  }
+);
+
 export const removeItem = createAsyncThunk("removeItem", async () => {
   const { data } = await axios.delete("/api/cart/id/productId");
   return data;
