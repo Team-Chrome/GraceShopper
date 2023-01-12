@@ -16,12 +16,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/products");
-    }
-  }, [isLoggedIn]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setSearch("");
