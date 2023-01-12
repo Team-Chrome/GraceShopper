@@ -17,13 +17,14 @@ const SingleProduct = () => {
   }, []);
 
   const handleAddItem = (item) => {
-    console.log("button handler fired!");
-    const cartItem = {};
-    cartItem.cartId = 1;
-    cartItem.productId = item.id;
-    cartItem.quantity = item.quantity;
-    console.log("cartItem...........", cartItem);
-    dispatch(addItem(cartItem));
+    // Change the code below when the functionality of adding an item to a userid's cart is implemented by Derek
+    // console.log("button handler fired!");
+    // const cartItem = {};
+    // cartItem.cartId = 1;
+    // cartItem.productId = item.id;
+    // cartItem.quantity = item.quantity;
+    // console.log("cartItem...........", cartItem);
+    // dispatch(addItem(cartItem));
   };
 
   return (
