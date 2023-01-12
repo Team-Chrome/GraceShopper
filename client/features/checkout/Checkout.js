@@ -5,6 +5,7 @@ import { fetchCart, selectCart } from "../cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import CreditForm from "./CreditForm";
 import ShippingForm from "./ShippingForm";
+import BillingForm from "./BillingForm";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,6 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const [cartTotal, setCartTotal] = useState(0);
-  const [checkoutStage, setCheckoutStage] = useState(1);
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -40,7 +40,8 @@ const Checkout = () => {
         </div>
         <div className="text-2xl mb-12">Checkout</div>
         <div className="flex gap-24">
-          <ShippingForm />
+          <BillingForm />
+          <CreditForm />
           <div className="flex-col items-center text-center border w-1/4 h-auto p-4">
             <div className="mb-8 text-lg font-semibold">Order Summary</div>
             <div className="flex justify-between">
