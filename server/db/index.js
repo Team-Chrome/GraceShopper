@@ -43,6 +43,9 @@ Card.hasOne(BillingAddress);
 ShippingAddress.belongsTo(User);
 User.hasMany(ShippingAddress);
 
+Card.belongsTo(User);
+User.hasMany(Card);
+
 module.exports = {
   db,
   models: {
