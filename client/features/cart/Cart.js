@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
-import { fetchCart, selectCart, updateItem } from "./cartSlice";
+import { fetchCart, selectCart, updateItem, removeItem } from "./cartSlice";
 import { selectUser } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { USD } from "../../utils";
@@ -25,9 +25,13 @@ const Cart = () => {
 
     if (operator === "increment") {
       cartItem.quantity = item.quantity + 1;
-    } else cartItem.quantity = item.quantity - 1;
-
-    dispatch(updateItem(cartItem));
+      dispatch(updateItem(cartItem));
+    } else if (item.quantity - 1 === 0) {
+      dispatch(removeItem(item.cartId, item.productId));
+    } else {
+      cartItem.quantity = item.quantity - 1;
+      dispatch(updateItem(cartItem));
+    }
   };
 
   const handleCheckoutClick = () => {

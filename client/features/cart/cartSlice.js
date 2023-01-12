@@ -41,10 +41,13 @@ export const updateCartStatus = createAsyncThunk(
   }
 );
 
-export const removeItem = createAsyncThunk("removeItem", async () => {
-  const { data } = await axios.delete("/api/cart/id/productId");
-  return data;
-});
+export const removeItem = createAsyncThunk(
+  "removeItem",
+  async (cartId, productId) => {
+    const { data } = await axios.delete(`/api/cart/${cartId}/${productId}`);
+    return data;
+  }
+);
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -72,9 +75,10 @@ export const cartSlice = createSlice({
       state.total += action.payload.price * action.payload.quantity;
     });
     builder.addCase(removeItem.fulfilled, (state, action) => {
-      return state.items.filter((item) => {
-        return item.id !== action.payload.id;
-      });
+      console.log(action.payload);
+      //   return state.items.filter((item) => {
+      //     return item.id !== action.payload.id;
+      //   });
     });
     builder.addCase(updateItem.fulfilled, (state, action) => {
       const updatedItem = action.payload[0];
