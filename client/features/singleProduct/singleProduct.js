@@ -53,22 +53,6 @@ const SingleProduct = () => {
           <span className="product-span">Price: </span>
           {`$${product.price}`}
         </li>
-        {/* <td className="w-1/6">
-          <button
-            onClick={() => handleQuantity("decrement")}
-            className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
-          >
-            <span className="m-auto font-thin">-</span>
-          </button>
-          <input min={1} max={10} value={quantity} />
-
-          <button
-            onClick={() => handleQuantity("increment")}
-            className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
-          >
-            <span className="m-auto font-thin">+</span>
-          </button>
-        </td> */}
 
         <label for="quantity">Add Amount:</label>
 
