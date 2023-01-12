@@ -1,6 +1,21 @@
 import React,{useEffect,useState,useRef} from 'react';
+import {createGuestAccount, authenticate} from '../features/auth/authSlice'
+import { useDispatch } from 'react-redux';
+import { v4 } from 'uuid'
 
 const Splash = (props) => {
+
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    console.log('testing guest account creation')
+    //dispatch(createGuestAccount())
+
+    const guestUser = v4() + "@guest.com"
+    const method = 'signup'
+
+    dispatch(authenticate({email:guestUser,password:'junk',method}))
+
+  },[])
 
   const [counter,setCounter] = useState(0)
 

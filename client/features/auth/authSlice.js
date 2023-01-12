@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {v4} from "uuid"
 
 /*
   CONSTANT VARIABLES
@@ -48,6 +49,18 @@ export const authenticate = createAsyncThunk(
   }
 );
 
+export const createGuestAccount = createAsyncThunk(
+  "auth/guest",
+  async()=>{
+    try {
+      const guestUser = 'guest' + v4() + "@guest.com"
+      const res = await axios.post('/auth/guest', { email:guestUser} )
+      window.localStorage.setItem(TOKEN, res.data.token)
+    } catch (err) {
+
+    }
+  }
+)
 /*
   SLICE
 */
