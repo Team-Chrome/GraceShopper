@@ -20,8 +20,10 @@ const SingleProduct = () => {
   const handleAddItem = (item) => {
     // Change the code below when the functionality of adding an item to a userid's cart is implemented by Derek
     console.log("button handler fired!");
+    console.log("quantity..............", quantity);
+    // productId, quantity, userId
     const cartItem = {};
-    cartItem.cartId = 1;
+
     cartItem.productId = item.id;
     cartItem.quantity = quantity;
     console.log("cartItem...........", cartItem);
@@ -54,13 +56,15 @@ const SingleProduct = () => {
           {`$${product.price}`}
         </li>
 
-        <label for="quantity">Add Amount:</label>
+        <label htmlFor="quantity">Add Amount:</label>
 
         <input
           type="number"
           name="qautitiy"
           min="1"
           max="10"
+          value={quantity}
+          onChange={(event) => setQuantity(event.target.value)}
           className="block border-black border-2"
         />
 
