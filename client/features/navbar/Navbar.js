@@ -39,7 +39,7 @@ const Navbar = () => {
             />
             <button type="submit">Search</button>
           </form>
-          <Link id="link-img">
+          <Link id="link-img" to="/cart">
             <img src="/shoppingcartcopy.png" />
             {itemCount} Cart Items!
           </Link>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -11,6 +11,7 @@ const SingleProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   let product = useSelector(selectSingleProduct);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     dispatch(fetchSingleProductAsync(id));
@@ -55,14 +56,17 @@ const SingleProduct = () => {
         <td className="w-1/6">
           <button
             data-action="decrement"
+            onClick={() => {
+              setQuantity(quantity - 1);
+            }}
             className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
           >
             <span className="m-auto font-thin">-</span>
           </button>
-          {product.quantity}
+          {quantity}
           <button
             data-action="increment"
-            onClick={() => handleAddItem(product)}
+            onClick={() => setQuantity(quantity + 1)}
             className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
           >
             <span className="m-auto font-thin">+</span>
