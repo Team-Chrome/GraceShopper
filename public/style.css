@@ -61,7 +61,7 @@ form div {
 }
 
 #backdrop {
-  background-image: url("Cropped-pexels-photo-2956954.jpeg");
+  /* background-image: url("Cropped-pexels-photo-2956954.jpeg"); */
   background-size: 100vw;
   background-repeat: no-repeat;
 }
