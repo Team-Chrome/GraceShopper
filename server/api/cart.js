@@ -6,7 +6,8 @@ module.exports = router;
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const cart = await Cart.findByPk(req.params.id, {
+    const cart = await Cart.findAll({
+      where: { userId: req.params.id, status: "OPEN" },
       include: [
         {
           model: CartItem,
@@ -21,9 +22,30 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/:id", async (req, res, next) => {
   try {
-    res.status(201).send(await CartItem.create(req.body));
+    const cart = await Cart.findAll({
+      where: { userId: req.params.id, status: "OPEN" },
+      include: [
+        {
+          model: CartItem,
+          include: [{ model: Product }],
+        },
+      ],
+    });
+
+    const productId = req.body.productId;
+    const quantity = req.body.quantity;
+    let cartId = cart[0].id;
+
+    let newCartItem = { cartId, productId, quantity };
+
+    if (cart.length > 0) {
+      res.status(201).send(await CartItem.create(newCartItem));
+    } else {
+      cartId = await Cart.create({ userId: req.params.id });
+      res.status(201).send(await CartItem.create(newCartItem));
+    }
   } catch (error) {
     next(error);
   }

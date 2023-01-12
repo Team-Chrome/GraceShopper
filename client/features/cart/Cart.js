@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
 import { fetchCart, selectCart, updateItem } from "./cartSlice";
+import { selectUser } from "../auth/authSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
 
   const cart = useSelector(selectCart);
+  const user = useSelector(selectUser);
 
   const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchCart());
-  }, []);
+    dispatch(fetchCart(user.id));
+  }, [user]);
 
   useEffect(() => {
     setCartTotal(calcCartTotal());
