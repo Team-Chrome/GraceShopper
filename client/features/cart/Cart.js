@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
 import { fetchCart, selectCart, updateItem } from "./cartSlice";
 import { selectUser } from "../auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser);
@@ -42,6 +44,10 @@ const Cart = () => {
     } else cartItem.quantity = item.quantity - 1;
 
     dispatch(updateItem(cartItem));
+  };
+
+  const handleCheckoutClick = () => {
+    navigate("/checkout");
   };
 
   return (
@@ -122,7 +128,12 @@ const Cart = () => {
               Math.round(cartTotal * 100) / 100
             }`}</div>
           </div>
-          <button className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+          <button
+            onClick={() => {
+              handleCheckoutClick();
+            }}
+            className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          >
             CHECKOUT
           </button>
         </div>
