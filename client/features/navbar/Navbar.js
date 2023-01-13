@@ -22,7 +22,9 @@ const Navbar = () => {
   const { items } = useSelector((state) => state.allProducts);
 
   useEffect(() => {
-    dispatch(fetchCart(user.id));
+    if (user.id) {
+      dispatch(fetchCart(user.id));
+    }
   }, [user]);
 
   useEffect(() => {
@@ -30,7 +32,12 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    setItemCount(cart.items.length);
+    let totalItems = 0;
+
+    cart.items.map((item) => {
+      totalItems += item.quantity;
+    });
+    setItemCount(totalItems);
   }, [cart]);
 
   const logoutAndRedirectHome = () => {
@@ -68,6 +75,7 @@ const Navbar = () => {
             />
             <button type="submit">Search</button>
           </form>
+
           <Link id="link-img" to="/cart">
             <img src="/shoppingcartcopy.png" />
             {itemCount} Cart Items!

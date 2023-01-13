@@ -14,7 +14,10 @@ const Cart = () => {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    dispatch(fetchCart(user.id));
+    console.log("TRYING FETCH WITH USER", user.id);
+    if (user.id) {
+      dispatch(fetchCart(user.id));
+    } else console.log("DO NOT FETCH");
   }, [user]);
 
   const handleUpdateItem = (item, operator) => {

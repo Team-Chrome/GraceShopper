@@ -79,15 +79,25 @@ export const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
       const cart = action.payload[0];
-      state.items = cart.cartItems;
-      state.id = cart.id;
-      state.status = cart.status;
-      state.total = 0;
-      cart.cartItems.forEach((item) => {
-        state.total += item.price * item.quantity;
-      });
+      if (!cart) {
+        state.items = [];
+        state.id = null;
+        state.status = "";
+        state.total = null;
+      } else {
+        state.items = cart.cartItems;
+        state.id = cart.id;
+        state.status = cart.status;
+        state.total = 0;
+        cart.cartItems.forEach((item) => {
+          state.total += item.price * item.quantity;
+        });
+      }
     });
     builder.addCase(addItem.fulfilled, (state, action) => {
+      if (!state.id) {
+        state.id = action.payload.cartId;
+      }
       state.items.push(action.payload);
       state.total += action.payload.price * action.payload.quantity;
     });

@@ -37,15 +37,42 @@ router.post("/:id", async (req, res, next) => {
     const productId = req.body.productId;
     const quantity = req.body.quantity;
     const price = req.body.price;
-    let cartId = cart[0].id;
+    let cartId = null;
+
+    if (cart.length > 0) {
+      cartId = cart[0].id;
+    }
 
     let newCartItem = { cartId, productId, quantity, price };
 
-    if (cart.length > 0) {
+    if (cartId) {
+      const createdItem = await CartItem.create(newCartItem);
+
+      res.status(201).send(
+        await CartItem.findOne({
+          where: {
+            cartId: createdItem.cartId,
+            productId: createdItem.productId,
+          },
+          include: [{ model: Product }],
+        })
+      );
+
       res.status(201).send(await CartItem.create(newCartItem));
     } else {
-      cartId = await Cart.create({ userId: req.params.id });
-      res.status(201).send(await CartItem.create(newCartItem));
+      const newCart = await Cart.create({ userId: req.params.id });
+      newCartItem.cartId = newCart.id;
+      const createdItem = await CartItem.create(newCartItem);
+
+      res.status(201).send(
+        await CartItem.findOne({
+          where: {
+            cartId: createdItem.cartId,
+            productId: createdItem.productId,
+          },
+          include: [{ model: Product }],
+        })
+      );
     }
   } catch (error) {
     next(error);
