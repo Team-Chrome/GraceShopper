@@ -28,7 +28,7 @@ if (process.env.DATABASE_URL) {
 // );
 
 // *** this is the deployed db connection string .... comment out if running locally
-const db = newSequelize(
+const db = new Sequelize(
   "postgres://graceshopper_osu0_user:VAZzHbMStDNNjaGcn6DRthIBjLISu52r@dpg-cf0oalh4reb56qkpv6u0-a/graceshopper_osu0"
 );
 module.exports = db;
