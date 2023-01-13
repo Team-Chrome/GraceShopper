@@ -17,8 +17,9 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { userId, firstName, lastName, address, city, state, zip } = req.body;
-    res.status(201).send(
+    const { userId, firstName, lastName, address, city, state, zip, phone } =
+      req.body;
+    res.send(
       await ShippingAddress.create({
         firstName,
         lastName,
@@ -26,6 +27,7 @@ router.post("/", async (req, res, next) => {
         city,
         state,
         zip,
+        phone,
         userId,
       })
     );

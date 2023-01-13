@@ -3,9 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../../public/style.css";
 import { fetchCart, selectCart } from "../cart/cartSlice";
-import checkoutStageReducers, {
-  selectCheckoutStage,
-} from "./checkoutStageSlice";
+import { selectCheckoutStage, setStage } from "./checkoutStageSlice";
 import CreditForm from "./CreditForm";
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
@@ -45,7 +43,7 @@ const Checkout = () => {
         <div className="text-2xl mb-12">Checkout</div>
         <div className="flex gap-24">
           <div>
-            {checkoutStage === 1 ? (
+            {checkoutStage === "1" ? (
               <ShippingForm />
             ) : (
               <div>

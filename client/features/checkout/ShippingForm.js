@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createShippingAddress, fetchShippingAddress } from "./shippingSlice";
-import checkoutStageReducer, { checkoutStageSlice } from "./checkoutStageSlice";
+import { selectUser } from "../auth/authSlice";
+import { setStage } from "./checkoutStageSlice";
 import { useParams } from "react-router-dom";
 import "../../../public/style.css";
 
 const ShippingForm = () => {
   const dispatch = useDispatch();
+  const { id } = useSelector(selectUser);
+
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [zip, setZip] = useState();
-  const { id } = useParams();
+  const [phone, setPhone] = useState();
+
+  console.log("ID", id);
 
   useEffect(() => {
     dispatch(fetchShippingAddress(id));
@@ -21,14 +26,23 @@ const ShippingForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    checkoutStageReducer.increment();
+    dispatch(setStage("2"));
     dispatch(
-      createShippingAddress({ id, firstName, lastName, address, city, state })
+      createShippingAddress({
+        id,
+        firstName,
+        lastName,
+        address,
+        city,
+        state,
+        zip,
+        phone,
+      })
     );
   };
 
   return (
-    <div className="w-1/2">
+    <div className="w-full">
       <form
         className="w-full bg-white shadow-lg rounded px-8 mt-0 pb-8 mb-4 border"
         onSubmit={handleSubmit}
@@ -139,6 +153,23 @@ const ShippingForm = () => {
               placeholder="01230"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
+            />
+          </div>
+          <div className="w-4/9">
+            <label
+              className="block text-gray-700 text-lg font-bold mb-2"
+              htmlFor="phone"
+            >
+              <p>Phone Number</p>
+            </label>
+            <input
+              name="phone"
+              type="text"
+              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="phone"
+              placeholder="413-413-1938"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
         </div>

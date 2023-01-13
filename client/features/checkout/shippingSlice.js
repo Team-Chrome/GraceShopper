@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchShippingAddress = createAsyncThunk(
   "fetchShipping",
   async (userId) => {
-    const { data } = await axios.get(`/api/shippingaddress/${userId}`);
+    const { data } = await axios.get(`/api/shippingaddress`, { userId });
     return data;
   }
 );
@@ -12,7 +12,8 @@ export const fetchShippingAddress = createAsyncThunk(
 export const createShippingAddress = createAsyncThunk(
   "createShippingAddress",
   async ({ userId, firstName, lastName, address, city, state, zip, phone }) => {
-    const { data } = await axios.post(`/api/shippingaddress/${userId}`, {
+    const { data } = await axios.post(`/api/shippingaddress`, {
+      userId,
       firstName,
       lastName,
       address,
