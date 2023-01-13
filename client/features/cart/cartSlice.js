@@ -10,6 +10,13 @@ export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
 export const addItem = createAsyncThunk(
   "addItem",
   async ({ productId, quantity, price, userId }) => {
+    console.log(
+      "addItem ::::: productId, quantity, price, userId >>>>>",
+      productId,
+      quantity,
+      price,
+      userId
+    );
     const { data } = await axios.post(`/api/cart/${userId}`, {
       productId,
       quantity,
@@ -22,6 +29,12 @@ export const addItem = createAsyncThunk(
 export const updateItem = createAsyncThunk(
   "updateItem",
   async ({ cartId, productId, quantity }) => {
+    console.log(
+      "updateItem ::::: productId, quantity, cartId >>>>>",
+      productId,
+      quantity,
+      cartId
+    );
     const { data } = await axios.put("/api/cart", {
       cartId,
       productId,
