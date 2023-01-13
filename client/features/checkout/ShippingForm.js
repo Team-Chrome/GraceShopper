@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { createShippingAddress, fetchShippingAddress } from "./shippingSlice";
 import "../../../public/style.css";
 
 const ShippingForm = () => {
   const dispatch = useDispatch();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [address, setAddress] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
+  const [zip, setZip] = useState();
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchShippingAddress(id));
+  }, []);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(
+      createShippingAddress({ id, firstName, lastName, address, city, state })
+    );
   };
 
   return (
@@ -32,6 +47,8 @@ const ShippingForm = () => {
               className="w-fullshadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="firstname"
               placeholder="John"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div>
@@ -47,6 +64,8 @@ const ShippingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="lastname"
               placeholder="Doe"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
         </div>
@@ -63,6 +82,8 @@ const ShippingForm = () => {
             className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="address"
             placeholder="123 Monument Valley Road"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div>
@@ -79,6 +100,8 @@ const ShippingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="city"
               placeholder="Great Barrington"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
           </div>
           <div className="w-1/9">
@@ -94,6 +117,8 @@ const ShippingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="state"
               placeholder="MA"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
             />
           </div>
           <div className="w-4/9">
@@ -109,6 +134,8 @@ const ShippingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="zip"
               placeholder="01230"
+              value={zip}
+              onChange={(e) => setZip(e.target.value)}
             />
           </div>
         </div>
