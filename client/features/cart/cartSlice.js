@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
   const { data } = await axios.get(`/api/cart/${id}`);
-  console.log(data);
   return data;
 });
 
@@ -41,8 +40,10 @@ export const updateCartStatus = createAsyncThunk(
   }
 );
 
-export const removeItem = createAsyncThunk("removeItem", async () => {
-  const { data } = await axios.delete("/api/cart/id/productId");
+export const removeItem = createAsyncThunk("removeItem", async (cartItem) => {
+  const { data } = await axios.delete(
+    `/api/cart/${cartItem.cartId}/${cartItem.productId}`
+  );
   return data;
 });
 
@@ -54,7 +55,14 @@ export const cartSlice = createSlice({
     status: "",
     total: null,
   },
-  reducers: {},
+  reducers: {
+    clearCart: (state, action) => {
+      state.id = null;
+      state.items = [];
+      state.status = "";
+      state.total = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
       const cart = action.payload[0];
@@ -62,7 +70,6 @@ export const cartSlice = createSlice({
       state.id = cart.id;
       state.status = cart.status;
       state.total = 0;
-      console.log("cartitems", cart.cartItems);
       cart.cartItems.forEach((item) => {
         state.total += item.price * item.quantity;
       });
@@ -72,8 +79,8 @@ export const cartSlice = createSlice({
       state.total += action.payload.price * action.payload.quantity;
     });
     builder.addCase(removeItem.fulfilled, (state, action) => {
-      return state.items.filter((item) => {
-        return item.id !== action.payload.id;
+      state.items = state.items.filter((item) => {
+        return item.productId !== action.payload[0].productId;
       });
     });
     builder.addCase(updateItem.fulfilled, (state, action) => {
@@ -93,3 +100,4 @@ export const cartSlice = createSlice({
 });
 export const selectCart = (state) => state.cart;
 export default cartSlice.reducer;
+export const { clearCart } = cartSlice.actions;

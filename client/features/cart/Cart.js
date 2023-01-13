@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
-import { fetchCart, selectCart, updateItem } from "./cartSlice";
+import { fetchCart, selectCart, updateItem, removeItem } from "./cartSlice";
 import { selectUser } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { USD } from "../../utils";
@@ -18,16 +18,23 @@ const Cart = () => {
   }, [user]);
 
   const handleUpdateItem = (item, operator) => {
-    //add case for if qty === 0, run delete query instead of update.
-    const cartItem = {};
-    cartItem.cartId = item.cartId;
-    cartItem.productId = item.productId;
+    const cartItem = { cartId: item.cartId, productId: item.productId };
+
+    if (operator === "decrement" && item.quantity - 1 === 0) {
+      dispatch(removeItem(cartItem));
+      return;
+    }
 
     if (operator === "increment") {
       cartItem.quantity = item.quantity + 1;
     } else cartItem.quantity = item.quantity - 1;
 
     dispatch(updateItem(cartItem));
+  };
+
+  const handleDeleteItem = (item) => {
+    const cartItem = { cartId: item.cartId, productId: item.productId };
+    dispatch(removeItem(cartItem));
   };
 
   const handleCheckoutClick = () => {
@@ -50,9 +57,6 @@ const Cart = () => {
           </thead>
           <tbody>
             {cart.items.map((item) => {
-              {
-                if (item.quantity === 0) return null;
-              }
               return (
                 <tr
                   key={item.product.id}
@@ -60,18 +64,28 @@ const Cart = () => {
                 >
                   <td className="w-1/4">
                     <img
-                      className="w-32 h-32 m-auto"
+                      onClick={() => {
+                        navigate(`/products/${item.product.id}`);
+                      }}
+                      className="w-32 h-32 m-auto hover:cursor-pointer"
                       src={item.product.imageUrl}
                     ></img>
                   </td>
-                  <td className="flex-col w-1/3">
-                    <div className="font-extrabold">{item.product.name}</div>
+                  <td className="flex-col w-1/3 ">
+                    <div
+                      onClick={() => {
+                        navigate(`/products/${item.product.id}`);
+                      }}
+                      className="font-extrabold hover:cursor-pointer hover:text-slate-700"
+                    >
+                      {item.product.name}
+                    </div>
                     <div className="text-sm mb-3">{item.product.roaster}</div>
                     <div className="font-light text-sm italic">
                       {item.product.description}
                     </div>
                   </td>
-                  <td className="w-1/6">
+                  <td className="w-1/6 relative">
                     <button
                       onClick={() => handleUpdateItem(item, "decrement")}
                       className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
@@ -85,10 +99,18 @@ const Cart = () => {
                     >
                       <span className="m-auto font-thin">+</span>
                     </button>
+                    <div
+                      onClick={() => {
+                        handleDeleteItem(item);
+                      }}
+                      className="text-xs text-blue-800 absolute left-1/2 -translate-x-1/2 mt-3 hover:text-blue-500 hover:cursor-pointer"
+                    >
+                      Delete
+                    </div>
                   </td>
-                  <td className="w-1/6">{`$${USD(item.product.price)}`}</td>
+                  <td className="w-1/6">{`$${USD(item.price)}`}</td>
                   <td className="w-1/6">
-                    {`$${USD(item.product.price * item.quantity)}`}
+                    {`$${USD(item.price * item.quantity)}`}
                   </td>
                 </tr>
               );
