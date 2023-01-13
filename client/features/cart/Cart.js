@@ -34,6 +34,13 @@ const Cart = () => {
     dispatch(updateItem(cartItem));
   };
 
+  const handleDeleteItem = (item) => {
+    const cartItem = {};
+    cartItem.cartId = item.cartId;
+    cartItem.productId = item.productId;
+    dispatch(removeItem(cartItem));
+  };
+
   const handleCheckoutClick = () => {
     navigate("/checkout");
   };
@@ -72,7 +79,7 @@ const Cart = () => {
                       {item.product.description}
                     </div>
                   </td>
-                  <td className="w-1/6">
+                  <td className="w-1/6 relative">
                     <button
                       onClick={() => handleUpdateItem(item, "decrement")}
                       className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
@@ -86,6 +93,14 @@ const Cart = () => {
                     >
                       <span className="m-auto font-thin">+</span>
                     </button>
+                    <div
+                      onClick={() => {
+                        handleDeleteItem(item);
+                      }}
+                      className="text-xs text-blue-800 absolute left-1/2 -translate-x-1/2 mt-3 hover:text-blue-500 hover:cursor-pointer"
+                    >
+                      Delete
+                    </div>
                   </td>
                   <td className="w-1/6">{`$${USD(item.product.price)}`}</td>
                   <td className="w-1/6">
