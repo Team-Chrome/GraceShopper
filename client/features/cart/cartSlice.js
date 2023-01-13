@@ -105,6 +105,7 @@ export const cartSlice = createSlice({
       state.items = state.items.filter((item) => {
         return item.productId !== action.payload[0].productId;
       });
+      state.total -= action.payload[0].price * action.payload[0].quantity;
     });
     builder.addCase(updateItem.fulfilled, (state, action) => {
       const updatedItem = action.payload[0];
