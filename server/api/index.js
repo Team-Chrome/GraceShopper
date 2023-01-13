@@ -1,6 +1,24 @@
 const router = require("express").Router();
 module.exports = router;
 
+const apiProtection = function(req,res,next) {
+  console.log('api protection here')
+  //console.log(req.protocol,req.url,req.body,req.headers)
+
+  console.log(req.originalUrl, req.method)
+
+  if (req.originalUrl.includes('/api/cart')) {
+    const urlUserId = req.url.replace('/api/cart/','')
+    if ( !req.headers.hasOwnProperty('userid') && req.method == "GET") {
+      console.log('zzzzzzzzzzzz can not access cart info that way')
+      next ( new Error('no api access to carts from browser, sorry'))
+    }
+  }
+  next()
+}
+
+router.use(apiProtection)
+
 router.use("/users", require("./users"));
 router.use("/cart", require("./cart"));
 router.use("/products", require("./singleProduct"));
