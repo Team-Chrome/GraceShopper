@@ -5,7 +5,7 @@ import { logout, selectUser } from "../../app/store";
 import allProductsSlice, {
   fetchAllProducts,
 } from "../allProducts/allProductsSlice";
-import { fetchCart, selectCart } from "../cart/cartSlice";
+import { fetchCart, selectCart, clearCart } from "../cart/cartSlice";
 
 // additional feature: a drop down from search bar to filter through search results
 
@@ -35,6 +35,7 @@ const Navbar = () => {
 
   const logoutAndRedirectHome = () => {
     dispatch(logout());
+    dispatch(clearCart());
     navigate("/login");
   };
 

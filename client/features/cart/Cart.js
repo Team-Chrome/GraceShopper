@@ -64,12 +64,22 @@ const Cart = () => {
                 >
                   <td className="w-1/4">
                     <img
-                      className="w-32 h-32 m-auto"
+                      onClick={() => {
+                        navigate(`/products/${item.product.id}`);
+                      }}
+                      className="w-32 h-32 m-auto hover:cursor-pointer"
                       src={item.product.imageUrl}
                     ></img>
                   </td>
-                  <td className="flex-col w-1/3">
-                    <div className="font-extrabold">{item.product.name}</div>
+                  <td className="flex-col w-1/3 ">
+                    <div
+                      onClick={() => {
+                        navigate(`/products/${item.product.id}`);
+                      }}
+                      className="font-extrabold hover:cursor-pointer hover:text-slate-700"
+                    >
+                      {item.product.name}
+                    </div>
                     <div className="text-sm mb-3">{item.product.roaster}</div>
                     <div className="font-light text-sm italic">
                       {item.product.description}

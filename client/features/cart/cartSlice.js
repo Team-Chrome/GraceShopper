@@ -55,7 +55,14 @@ export const cartSlice = createSlice({
     status: "",
     total: null,
   },
-  reducers: {},
+  reducers: {
+    clearCart: (state, action) => {
+      state.id = null;
+      state.items = [];
+      state.status = "";
+      state.total = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
       const cart = action.payload[0];
@@ -93,3 +100,4 @@ export const cartSlice = createSlice({
 });
 export const selectCart = (state) => state.cart;
 export default cartSlice.reducer;
+export const { clearCart } = cartSlice.actions;
