@@ -18,20 +18,20 @@ const Cart = () => {
   }, [user]);
 
   const handleUpdateItem = (item, operator) => {
-    //add case for if qty === 0, run delete query instead of update.
     const cartItem = {};
     cartItem.cartId = item.cartId;
     cartItem.productId = item.productId;
 
+    if (operator === "decrement" && item.quantity - 1 === 0) {
+      dispatch(removeItem(cartItem));
+      return;
+    }
+
     if (operator === "increment") {
       cartItem.quantity = item.quantity + 1;
-      dispatch(updateItem(cartItem));
-    } else if (item.quantity - 1 === 0) {
-      dispatch(removeItem(item.cartId, item.productId));
-    } else {
-      cartItem.quantity = item.quantity - 1;
-      dispatch(updateItem(cartItem));
-    }
+    } else cartItem.quantity = item.quantity - 1;
+
+    dispatch(updateItem(cartItem));
   };
 
   const handleCheckoutClick = () => {
@@ -40,7 +40,6 @@ const Cart = () => {
 
   return (
     <div className="p-12 font-sans">
-      {console.log(cart)}
       <div className="text-2xl mb-12">Shopping Cart</div>
       <div className="flex gap-12">
         <table className="w-2/3">
@@ -55,9 +54,6 @@ const Cart = () => {
           </thead>
           <tbody>
             {cart.items.map((item) => {
-              {
-                if (item.quantity === 0) return null;
-              }
               return (
                 <tr
                   key={item.product.id}

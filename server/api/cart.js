@@ -87,11 +87,10 @@ router.put("/:cartId/status", async (req, res, next) => {
 
 router.delete("/:cartId/:productId", async (req, res, next) => {
   try {
-    console.log(req.params);
     const item = await CartItem.findAll({
       where: { cartId: req.params.cartId, productId: req.params.productId },
     });
-    await item.destroy();
+    await item[0].destroy();
     res.send(item);
   } catch (error) {
     next(error);
