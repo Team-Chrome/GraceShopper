@@ -17,13 +17,13 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { name, cardNumber, expiration, cvv, userId } = req.body;
+    const { name, cardNumber, expiration, csv, userId } = req.body;
     res.status(201).send(
       await Card.create({
         name,
         cardNumber,
         expiration,
-        cvv,
+        csv,
         userId,
       })
     );

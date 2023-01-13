@@ -67,15 +67,15 @@ const CreditForm = () => {
           <div>
             <label
               className="block text-gray-700 text-lg font-bold mb-2"
-              htmlFor="cvv"
+              htmlFor="csv"
             >
-              <p>Security Code(CVV)</p>
+              <p>Security Code(CSV)</p>
             </label>
             <input
-              name="cvv"
+              name="csv"
               type="text"
               className=" shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="cvv"
+              id="csv"
               placeholder="123"
             />
           </div>
