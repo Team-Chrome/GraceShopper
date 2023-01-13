@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
   const { data } = await axios.get(`/api/cart/${id}`);
-  console.log(data);
   return data;
 });
 
@@ -64,7 +63,6 @@ export const cartSlice = createSlice({
       state.id = cart.id;
       state.status = cart.status;
       state.total = 0;
-      console.log("cartitems", cart.cartItems);
       cart.cartItems.forEach((item) => {
         state.total += item.price * item.quantity;
       });

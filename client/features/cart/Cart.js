@@ -18,9 +18,7 @@ const Cart = () => {
   }, [user]);
 
   const handleUpdateItem = (item, operator) => {
-    const cartItem = {};
-    cartItem.cartId = item.cartId;
-    cartItem.productId = item.productId;
+    const cartItem = { cartId: item.cartId, productId: item.productId };
 
     if (operator === "decrement" && item.quantity - 1 === 0) {
       dispatch(removeItem(cartItem));
@@ -35,9 +33,7 @@ const Cart = () => {
   };
 
   const handleDeleteItem = (item) => {
-    const cartItem = {};
-    cartItem.cartId = item.cartId;
-    cartItem.productId = item.productId;
+    const cartItem = { cartId: item.cartId, productId: item.productId };
     dispatch(removeItem(cartItem));
   };
 
@@ -102,9 +98,9 @@ const Cart = () => {
                       Delete
                     </div>
                   </td>
-                  <td className="w-1/6">{`$${USD(item.product.price)}`}</td>
+                  <td className="w-1/6">{`$${USD(item.price)}`}</td>
                   <td className="w-1/6">
-                    {`$${USD(item.product.price * item.quantity)}`}
+                    {`$${USD(item.price * item.quantity)}`}
                   </td>
                 </tr>
               );
