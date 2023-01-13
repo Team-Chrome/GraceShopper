@@ -25,6 +25,21 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
+router.post("/guest", async (req, res, next) => {
+
+  try {
+    console.log('zzzzzzzzz',req.body)
+    const user = await User.create(req.body)
+
+    console.log('zzzzzzzzz',user)
+    res.json('nice')
+
+  } catch (err) {
+
+  }
+
+})
+
 router.get("/me", async (req, res, next) => {
   try {
     res.send(await User.findByToken(req.headers.authorization));

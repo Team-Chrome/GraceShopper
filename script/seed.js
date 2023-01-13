@@ -18,6 +18,7 @@ async function seed() {
     const users = await Promise.all([
       User.create({ email: "cody@gmail.com", password: "123" }),
       User.create({ email: "murphy@gmail.com", password: "123" }),
+      User.create({ email: "phil@admin.com", password: "1234", isAdmin: true }),
     ]);
 
     const products = await Promise.all([
@@ -74,9 +75,24 @@ async function seed() {
     const carts = await Promise.all([Cart.create({ userId: "1" })]);
 
     const cartItems = await Promise.all([
-      CartItem.create({ cartId: "1", quantity: "1", productId: "1" }),
-      CartItem.create({ cartId: "1", quantity: "3", productId: "2" }),
-      CartItem.create({ cartId: "1", quantity: "2", productId: "3" }),
+      CartItem.create({
+        cartId: "1",
+        quantity: "1",
+        productId: "1",
+        price: "11.99",
+      }),
+      CartItem.create({
+        cartId: "1",
+        quantity: "3",
+        productId: "2",
+        price: "12.99",
+      }),
+      CartItem.create({
+        cartId: "1",
+        quantity: "2",
+        productId: "3",
+        price: "9.99",
+      }),
     ]);
 
     console.log(`seeded ${users.length} users`);

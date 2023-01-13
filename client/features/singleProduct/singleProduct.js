@@ -1,32 +1,82 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   fetchSingleProductAsync,
   selectSingleProduct,
 } from "./singleProductSlice";
-import { addItem } from "../cart/cartSlice";
+import { addItem, fetchCart, selectCart, updateItem } from "../cart/cartSlice";
+import { v4 } from "uuid";
+import { authenticate } from "../auth/authSlice";
 
 const SingleProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   let product = useSelector(selectSingleProduct);
   const [quantity, setQuantity] = useState(1);
+  const [doesItemExist, setDoesItemExist] = useState(false);
+  const cart = useSelector(selectCart);
 
   useEffect(() => {
     dispatch(fetchSingleProductAsync(id));
+    dispatch(fetchCart(user.id));
   }, []);
 
+  /* start of changes for dealing with guest */
+  const itemRef = useRef();
+  const [guestDispatch, setGuestDispatch] = useState(false);
+  const user = useSelector((state) => state.auth.me);
+  const userId = useSelector((state) => state.auth.me.id);
+  const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+
+  useEffect(() => {
+    console.log("running guest check");
+    if (guestDispatch && isLoggedIn) {
+      console.log("zzzzzzzzzz we will need to add", itemRef.current);
+      //need to recall handleItem now
+      handleAddItem(itemRef.current);
+    }
+  }, [isLoggedIn, guestDispatch]);
+
   const handleAddItem = (item) => {
-    // Change the code below when the functionality of adding an item to a userid's cart is implemented by Derek
-    // console.log("button handler fired!");
-    // const cartItem = {};
-    // cartItem.cartId = 1;
-    // cartItem.productId = item.id;
-    // cartItem.quantity = item.quantity;
-    // console.log("cartItem...........", cartItem);
-    // dispatch(addItem(cartItem));
+    console.log("zzzzzzzzz", isLoggedIn);
+    if (!isLoggedIn) {
+      console.log("need to create guest user");
+      const guestUser = v4() + "@guest.com";
+      const method = "signup";
+      console.log("zzzzzzzzz", guestUser);
+      dispatch(authenticate({ email: guestUser, password: "junk", method }));
+      setGuestDispatch(true);
+      itemRef.current = item;
+      //we need to recall handleAddItem once we know the account is created
+    } else {
+      //finally we can do addItem here knowing we have a userId
+
+      // see if the items exist in state before you make calls to the backend
+
+      const addOrUpdateItemObj = {
+        productId: product.id,
+        quantity,
+        price: product.price,
+        userId: user.id,
+        cartId: cart.id,
+      };
+
+      if (cart.items) {
+        let shouldAddItem = true;
+        for (let i = 0; cart.items.length > i; i++) {
+          if (cart.items[i].productId == Number(id)) {
+            dispatch(updateItem(addOrUpdateItemObj));
+            shouldAddItem = false;
+          }
+        }
+      }
+      if (shouldAddItem) {
+        dispatch(addItem(addOrUpdateItemObj));
+      }
+    }
   };
+  /* end of changes for dealing with guest */
 
   return (
     <div className="product">
@@ -53,25 +103,18 @@ const SingleProduct = () => {
           <span className="product-span">Price: </span>
           {`$${product.price}`}
         </li>
-        <td className="w-1/6">
-          <button
-            data-action="decrement"
-            onClick={() => {
-              setQuantity(quantity - 1);
-            }}
-            className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 mr-2 rounded-md cursor-pointer"
-          >
-            <span className="m-auto font-thin">-</span>
-          </button>
-          {quantity}
-          <button
-            data-action="increment"
-            onClick={() => setQuantity(quantity + 1)}
-            className="text-gray-600 hover:text-white hover:bg-blue-500 border h-full w-7 ml-2 rounded-md cursor-pointer"
-          >
-            <span className="m-auto font-thin">+</span>
-          </button>
-        </td>
+
+        <label htmlFor="quantity">Add Amount:</label>
+
+        <input
+          type="number"
+          name="qautitiy"
+          min="1"
+          max="10"
+          value={quantity}
+          onChange={(event) => setQuantity(event.target.value)}
+          className="block border-black border-2"
+        />
 
         <button
           type="submit"
