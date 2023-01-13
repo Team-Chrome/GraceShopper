@@ -59,25 +59,29 @@ const SingleProduct = () => {
         quantity,
         price: product.price,
         userId: user.id,
-        cartId: cart.id,
+        // cartId: cart.id,
       };
+
       console.log("addOrUpdateItemObj...........", addOrUpdateItemObj);
       console.log("user.id..............", user.id);
-
-      if (cart.items) {
-        let shouldAddItem = true;
-        for (let i = 0; cart.items.length > i; i++) {
-          if (cart.items[i].productId == Number(id)) {
-            dispatch(updateItem(addOrUpdateItemObj));
-            shouldAddItem = false;
-          }
-        }
-        if (shouldAddItem) {
-          dispatch(addItem(addOrUpdateItemObj));
-        }
-      }
+      dispatch(addItem(addOrUpdateItemObj));
     }
   };
+
+  //     if (cart.items) {
+  //       let shouldAddItem = true;
+  //       for (let i = 0; cart.items.length > i; i++) {
+  //         if (cart.items[i].productId == Number(id)) {
+  //           dispatch(updateItem(addOrUpdateItemObj));
+  //           shouldAddItem = false;
+  //         }
+  //       }
+  //       if (shouldAddItem) {
+  //         dispatch(addItem(addOrUpdateItemObj));
+  //       }
+  //     }
+  //   }
+  // };
   /* end of changes for dealing with guest */
 
   return (

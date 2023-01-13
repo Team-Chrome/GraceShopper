@@ -22,11 +22,13 @@ if (process.env.DATABASE_URL) {
 }
 
 // *** this is the localhost connection string .... uncomment if you want to run locally
-// const db = new Sequelize(
-//   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`, config)
+const db = new Sequelize(
+  process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
+  config
+);
 
 // *** this is the deployed db connection string .... comment out if running locally
-const db = newSequelize(
-  "postgres://graceshopper_osu0_user:VAZzHbMStDNNjaGcn6DRthIBjLISu52r@dpg-cf0oalh4reb56qkpv6u0-a/graceshopper_osu0"
-);
+// const db = newSequelize(
+//   "postgres://graceshopper_osu0_user:VAZzHbMStDNNjaGcn6DRthIBjLISu52r@dpg-cf0oalh4reb56qkpv6u0-a/graceshopper_osu0"
+// );
 module.exports = db;

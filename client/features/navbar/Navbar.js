@@ -22,7 +22,9 @@ const Navbar = () => {
   const { items } = useSelector((state) => state.allProducts);
 
   useEffect(() => {
-    dispatch(fetchCart(user.id));
+    if (user.id) {
+      dispatch(fetchCart(user.id));
+    }
   }, [user]);
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const Navbar = () => {
             />
             <button type="submit">Search</button>
           </form>
+
           <Link id="link-img" to="/cart">
             <img src="/shoppingcartcopy.png" />
             {itemCount} Cart Items!
