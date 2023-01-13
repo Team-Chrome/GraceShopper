@@ -5,7 +5,7 @@ import {
   fetchSingleProductAsync,
   selectSingleProduct,
 } from "./singleProductSlice";
-import { addItem } from "../cart/cartSlice";
+import { addItem, fetchCart, selectCart, updateItem } from "../cart/cartSlice";
 import { v4 } from "uuid";
 import { authenticate } from "../auth/authSlice";
 
@@ -14,9 +14,12 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   let product = useSelector(selectSingleProduct);
   const [quantity, setQuantity] = useState(1);
+  const [doesItemExist, setDoesItemExist] = useState(false);
+  const cart = useSelector(selectCart);
 
   useEffect(() => {
     dispatch(fetchSingleProductAsync(id));
+    dispatch(fetchCart(user.id));
   }, []);
 
   /* start of changes for dealing with guest */
@@ -48,7 +51,29 @@ const SingleProduct = () => {
       //we need to recall handleAddItem once we know the account is created
     } else {
       //finally we can do addItem here knowing we have a userId
-      console.log("yeahhh the user is", user);
+
+      // see if the items exist in state before you make calls to the backend
+
+      const addOrUpdateItemObj = {
+        productId: product.id,
+        quantity,
+        price: product.price,
+        userId: user.id,
+        cartId: cart.id,
+      };
+
+      if (cart.items) {
+        let shouldAddItem = true;
+        for (let i = 0; cart.items.length > i; i++) {
+          if (cart.items[i].productId == Number(id)) {
+            dispatch(updateItem(addOrUpdateItemObj));
+            shouldAddItem = false;
+          }
+        }
+      }
+      if (shouldAddItem) {
+        dispatch(addItem(addOrUpdateItemObj));
+      }
     }
   };
   /* end of changes for dealing with guest */
