@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../app/store";
-// import { selectCart } from "../cart/cartSlice";
+import { logout, selectUser } from "../../app/store";
+import { fetchCart, selectCart } from "../cart/cartSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const loggedInUserName = useSelector((state) => state.auth.me.email);
-  const cartItems = useSelector((state) => state.cart.items);
-  console.log("CART ITEM LEGNTH BEFORE", cartItems);
-  console.log("CART ITEM LEGNTH BEFORE", cartItems.length);
-
-  useEffect(() => {
-    console.log("AFTER CART LENGTH", cartItems.length);
-  }, []);
-
+  const cart = useSelector(selectCart);
+  const user = useSelector(selectUser);
   const [search, setSearch] = useState("");
   const [itemCount, setItemCount] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchCart(user.id));
+  }, [user]);
+
+  console.log("testing solution....itemCount.....", itemCount);
+  console.log("cart Items.........", cart.items);
+  useEffect(() => {
+    setItemCount(cart.items.length);
+  }, [cart]);
+
   const logoutAndRedirectHome = () => {
     dispatch(logout());
     navigate("/login");
