@@ -61,6 +61,8 @@ const SingleProduct = () => {
         userId: user.id,
         cartId: cart.id,
       };
+      console.log("addOrUpdateItemObj...........", addOrUpdateItemObj);
+      console.log("user.id..............", user.id);
 
       if (cart.items) {
         let shouldAddItem = true;
@@ -70,9 +72,9 @@ const SingleProduct = () => {
             shouldAddItem = false;
           }
         }
-      }
-      if (shouldAddItem) {
-        dispatch(addItem(addOrUpdateItemObj));
+        if (shouldAddItem) {
+          dispatch(addItem(addOrUpdateItemObj));
+        }
       }
     }
   };

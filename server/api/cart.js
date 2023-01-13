@@ -84,3 +84,15 @@ router.put("/:cartId/status", async (req, res, next) => {
     next(error);
   }
 });
+
+router.delete("/:cartId/:productId", async (req, res, next) => {
+  try {
+    const item = await CartItem.findAll({
+      where: { cartId: req.params.cartId, productId: req.params.productId },
+    });
+    await item[0].destroy();
+    res.send(item);
+  } catch (error) {
+    next(error);
+  }
+});
