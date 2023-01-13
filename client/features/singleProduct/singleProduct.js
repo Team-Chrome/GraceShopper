@@ -78,6 +78,7 @@ const SingleProduct = () => {
           }
         }
       }
+      dispatch(addItem(itemToAdd));
     }
   };
 
