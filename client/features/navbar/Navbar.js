@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../app/store";
+import allProductsSlice, {
+  fetchAllProducts,
+} from "../allProducts/allProductsSlice";
 import { fetchCart, selectCart } from "../cart/cartSlice";
+
+// additional feature: a drop down from search bar to filter through search results
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -14,12 +19,16 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { items } = useSelector((state) => state.allProducts);
+
   useEffect(() => {
     dispatch(fetchCart(user.id));
   }, [user]);
 
-  console.log("testing solution....itemCount.....", itemCount);
-  console.log("cart Items.........", cart.items);
+  useEffect(() => {
+    dispatch(fetchAllProducts());
+  }, []);
+
   useEffect(() => {
     setItemCount(cart.items.length);
   }, [cart]);
@@ -30,6 +39,12 @@ const Navbar = () => {
   };
 
   const handleSubmit = (event) => {
+    let obj = {};
+    for (let i = 0; items.length > i; i++) {
+      if (items[i].name.includes(search)) {
+        obj = { ...items[i] };
+      }
+    }
     event.preventDefault();
     setSearch("");
   };
@@ -42,7 +57,7 @@ const Navbar = () => {
           <h1>GraceShopper</h1>
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
-          <form>
+          <form onSubmit={handleSubmit}>
             <input
               className="nav-input"
               type="text"

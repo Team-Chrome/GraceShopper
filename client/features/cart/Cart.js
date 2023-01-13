@@ -36,7 +36,6 @@ const Cart = () => {
 
   return (
     <div className="p-12 font-sans">
-      {console.log(cart)}
       <div className="text-2xl mb-12">Shopping Cart</div>
       <div className="flex gap-12">
         <table className="w-2/3">

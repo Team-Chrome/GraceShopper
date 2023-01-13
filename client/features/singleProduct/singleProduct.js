@@ -17,9 +17,6 @@ const SingleProduct = () => {
   const [doesItemExist, setDoesItemExist] = useState(false);
   const cart = useSelector(selectCart);
 
-  console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", cart);
-  console.log("id", id);
-
   useEffect(() => {
     dispatch(fetchSingleProductAsync(id));
     dispatch(fetchCart(user.id));
@@ -68,17 +65,9 @@ const SingleProduct = () => {
       if (cart.items) {
         let shouldAddItem = true;
         for (let i = 0; cart.items.length > i; i++) {
-          console.log(
-            "looping over the cartItems array...",
-            typeof cart.items[i].productId,
-            typeof id,
-            typeof cart.items[i].productId == id
-          );
           if (cart.items[i].productId == Number(id)) {
-            console.log("hoooooorrraaayyyyy!!!!!!!!!!!!!!!");
             dispatch(updateItem(addOrUpdateItemObj));
             shouldAddItem = false;
-            console.log("the boooooooooooooooooooooooooooo", shouldAddItem);
           }
         }
       }
