@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createShippingAddress, fetchShippingAddress } from "./shippingSlice";
+import checkoutStageReducer, { checkoutStageSlice } from "./checkoutStageSlice";
+import { useParams } from "react-router-dom";
 import "../../../public/style.css";
 
 const ShippingForm = () => {
@@ -19,6 +21,7 @@ const ShippingForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    checkoutStageReducer.increment();
     dispatch(
       createShippingAddress({ id, firstName, lastName, address, city, state })
     );
