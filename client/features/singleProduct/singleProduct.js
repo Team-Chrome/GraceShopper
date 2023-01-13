@@ -61,24 +61,30 @@ const SingleProduct = () => {
         userId: user.id,
       };
 
+      if (!cart.items) {
+        dispatch(addItem(itemToAdd));
+      }
+
       if (cart.items) {
-        for (let i = 0; i < cart.items.length; i++) {
-          if (cart.items[i].productId === product.id) {
-            const newQty = Number(cart.items[i].quantity) + Number(quantity);
-            dispatch(
-              updateItem({
-                cartId: cart.id,
-                productId: product.id,
-                quantity: newQty,
-              })
-            );
-            break;
-          } else {
-            dispatch(addItem(itemToAdd));
+        const itemToUpdate = cart.items.filter((item) => {
+          if (item.productId === product.id) {
+            return item;
           }
+        });
+
+        if (itemToUpdate[0]) {
+          const newQty = Number(itemToUpdate[0].quantity) + Number(quantity);
+          dispatch(
+            updateItem({
+              cartId: cart.id,
+              productId: product.id,
+              quantity: newQty,
+            })
+          );
+        } else {
+          dispatch(addItem(itemToAdd));
         }
       }
-      dispatch(addItem(itemToAdd));
     }
   };
 
