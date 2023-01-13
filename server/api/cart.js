@@ -38,17 +38,14 @@ router.post("/:id", async (req, res, next) => {
     const quantity = req.body.quantity;
     const price = req.body.price;
     let cartId = null;
-    console.log("CART!!!!", cart);
+
     if (cart.length > 0) {
       cartId = cart[0].id;
     }
 
-    console.log("ID!!!!", cartId);
-
     let newCartItem = { cartId, productId, quantity, price };
 
     if (cartId) {
-      console.log("CART EXISTS");
       const createdItem = await CartItem.create(newCartItem);
 
       res.status(201).send(
@@ -64,7 +61,6 @@ router.post("/:id", async (req, res, next) => {
       res.status(201).send(await CartItem.create(newCartItem));
     } else {
       const newCart = await Cart.create({ userId: req.params.id });
-      console.log("CART ID:", newCart.id);
       newCartItem.cartId = newCart.id;
       const createdItem = await CartItem.create(newCartItem);
 

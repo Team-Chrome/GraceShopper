@@ -32,7 +32,12 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    setItemCount(cart.items.length);
+    let totalItems = 0;
+
+    cart.items.map((item) => {
+      totalItems += item.quantity;
+    });
+    setItemCount(totalItems);
   }, [cart]);
 
   const logoutAndRedirectHome = () => {

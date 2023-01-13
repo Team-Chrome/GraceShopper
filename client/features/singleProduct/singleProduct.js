@@ -54,35 +54,32 @@ const SingleProduct = () => {
 
       // see if the items exist in state before you make calls to the backend
 
-      const addOrUpdateItemObj = {
+      const itemToAdd = {
         productId: product.id,
         quantity,
         price: product.price,
         userId: user.id,
-        // cartId: cart.id,
       };
 
-      console.log("addOrUpdateItemObj...........", addOrUpdateItemObj);
-      console.log("user.id..............", user.id);
-      dispatch(addItem(addOrUpdateItemObj));
+      if (cart.items) {
+        for (let i = 0; i < cart.items.length; i++) {
+          if (cart.items[i].productId === product.id) {
+            const newQty = Number(cart.items[i].quantity) + Number(quantity);
+            dispatch(
+              updateItem({
+                cartId: cart.id,
+                productId: product.id,
+                quantity: newQty,
+              })
+            );
+            break;
+          } else {
+            dispatch(addItem(itemToAdd));
+          }
+        }
+      }
     }
   };
-
-  //     if (cart.items) {
-  //       let shouldAddItem = true;
-  //       for (let i = 0; cart.items.length > i; i++) {
-  //         if (cart.items[i].productId == Number(id)) {
-  //           dispatch(updateItem(addOrUpdateItemObj));
-  //           shouldAddItem = false;
-  //         }
-  //       }
-  //       if (shouldAddItem) {
-  //         dispatch(addItem(addOrUpdateItemObj));
-  //       }
-  //     }
-  //   }
-  // };
-  /* end of changes for dealing with guest */
 
   return (
     <div className="product">
