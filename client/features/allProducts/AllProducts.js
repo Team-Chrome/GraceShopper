@@ -16,7 +16,7 @@ const AllProducts = (props) => {
     dispatch(fetchAllProducts());
   }, []);
 
-  const { items } = useSelector((state) => state.allProducts);
+  const { items, searchKey } = useSelector((state) => state.allProducts);
   const [jsxOutput, setJsxOutput] = useState([]);
 
   const changeRoute = (event, item) => {
@@ -33,7 +33,11 @@ const AllProducts = (props) => {
   useEffect(() => {
     let newJsxOutput = [];
     if (items.length > 0) {
-      for (const item of items) {
+
+      let filteredItems = items.filter( item=>item.roaster.toLowerCase().includes(searchKey.toLowerCase()))
+      console.log('zzzzzzzzzzzzzzz',filteredItems)
+
+      for (const item of filteredItems) {
         newJsxOutput.push(
           <div
             key={item.name}
@@ -68,7 +72,7 @@ const AllProducts = (props) => {
     }
     console.log("newJsxOutput...........", newJsxOutput);
     setJsxOutput(newJsxOutput);
-  }, [items]);
+  }, [items,searchKey]);
 
   return [
     <div id="allProducts" key="allProducts" className="flexBox01">
