@@ -6,7 +6,7 @@ function apiHeader() {
   const {auth} = store.getState()
   const config = {
     headers: {
-      "userid": auth.me.id 
+      "userid": auth.me.id ?? "-1"
     }
   }
   return config
@@ -31,7 +31,7 @@ export const addItem = createAsyncThunk(
       productId,
       quantity,
       price,
-    });
+    }, apiHeader() );
     return data;
   }
 );
@@ -49,7 +49,7 @@ export const updateItem = createAsyncThunk(
       cartId,
       productId,
       quantity,
-    });
+    }, apiHeader());
     return data;
   }
 );
@@ -59,14 +59,14 @@ export const updateCartStatus = createAsyncThunk(
   async (cartId, status) => {
     const { data } = await axios.put(`/api/cart/${cartId}/status`, {
       status,
-    });
+    }, apiHeader());
     return data;
   }
 );
 
 export const removeItem = createAsyncThunk("removeItem", async (cartItem) => {
   const { data } = await axios.delete(
-    `/api/cart/${cartItem.cartId}/${cartItem.productId}`
+    `/api/cart/${cartItem.cartId}/${cartItem.productId}`, apiHeader()
   );
   return data;
 });

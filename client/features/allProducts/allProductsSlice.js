@@ -18,13 +18,20 @@ export const allProductsSlice = createSlice({
   name: "allProducts",
   initialState: {
     items: [],
+    searchKey: ""
   },
-  reducers: {},
+  reducers: {
+    setSearchKey(state, action) {
+      state.searchKey = action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
       state.items = action.payload;
     });
   },
 });
+
+export const { setSearchKey } = allProductsSlice.actions
 
 export default allProductsSlice.reducer;
