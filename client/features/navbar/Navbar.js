@@ -6,7 +6,7 @@ import allProductsSlice, {
   fetchAllProducts,
 } from "../allProducts/allProductsSlice";
 import { fetchCart, selectCart, clearCart } from "../cart/cartSlice";
-import { setSearchKey } from "../allProducts/allProductsSlice"
+import { setSearchKey } from "../allProducts/allProductsSlice";
 
 // additional feature: a drop down from search bar to filter through search results
 
@@ -47,22 +47,21 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  const handleSubmitx = (event) => {
-    let obj = {};
-    for (let i = 0; items.length > i; i++) {
-      if (items[i].name.includes(search)) {
-        obj = { ...items[i] };
-      }
-    }
-    event.preventDefault();
-    setSearch("");
-  };
+  // const handleSubmitx = (event) => {
+  //   let filteredItems = items.filter((element) =>
+  //     element.name.toLowerCase().includes(search.toLowerCase())
+  //   );
 
-  const handleSubmit = event => {
-    console.log('aaaaaaaaaaaaaa submitting', search)
+  //   console.log("filteredItems", filteredItems);
+  //   event.preventDefault();
+  //   setSearch("");
+  // };
+
+  const handleSubmit = (event) => {
+    console.log("aaaaaaaaaaaaaa submitting", search);
     event.preventDefault();
-    dispatch(setSearchKey(search))
-  }
+    dispatch(setSearchKey(search));
+  };
 
   return (
     <div id="backdrop">
@@ -72,7 +71,11 @@ const Navbar = () => {
           <h1>GraceShopper</h1>
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
-          <form onChange={(ev)=>{handleSubmit(ev)}}>
+          <form
+            onSubmit={(ev) => {
+              handleSubmit(ev);
+            }}
+          >
             <input
               className="nav-input"
               type="text"
