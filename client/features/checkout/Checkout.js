@@ -17,6 +17,10 @@ const Checkout = () => {
   const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
+    dispatch(setStage("1"));
+  }, []);
+
+  useEffect(() => {
     dispatch(fetchCart());
   }, []);
 
