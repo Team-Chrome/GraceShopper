@@ -17,8 +17,9 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { userId, firstName, lastName, address, city, state, zip, phone } =
+    const { firstName, lastName, address, city, state, zip, phone, userId } =
       req.body;
+    console.log(firstName);
     res.send(
       await ShippingAddress.create({
         firstName,
@@ -28,7 +29,7 @@ router.post("/", async (req, res, next) => {
         state,
         zip,
         phone,
-        userId,
+        userId: userId,
       })
     );
   } catch (err) {

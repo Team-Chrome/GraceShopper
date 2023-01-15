@@ -18,8 +18,6 @@ const ShippingForm = () => {
   const [zip, setZip] = useState();
   const [phone, setPhone] = useState();
 
-  console.log("ID", id);
-
   useEffect(() => {
     dispatch(fetchShippingAddress(id));
   }, []);
@@ -27,9 +25,9 @@ const ShippingForm = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(setStage("2"));
+    console.log(id);
     dispatch(
       createShippingAddress({
-        id,
         firstName,
         lastName,
         address,
@@ -37,6 +35,7 @@ const ShippingForm = () => {
         state,
         zip,
         phone,
+        userId: id,
       })
     );
   };

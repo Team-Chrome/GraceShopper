@@ -11,9 +11,8 @@ export const fetchShippingAddress = createAsyncThunk(
 
 export const createShippingAddress = createAsyncThunk(
   "createShippingAddress",
-  async ({ userId, firstName, lastName, address, city, state, zip, phone }) => {
+  async ({ firstName, lastName, address, city, state, zip, phone, userId }) => {
     const { data } = await axios.post(`/api/shippingaddress`, {
-      userId,
       firstName,
       lastName,
       address,
@@ -21,6 +20,7 @@ export const createShippingAddress = createAsyncThunk(
       state,
       zip,
       phone,
+      userId,
     });
     return data;
   }
