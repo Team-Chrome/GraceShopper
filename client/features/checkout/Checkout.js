@@ -18,14 +18,17 @@ const Checkout = () => {
   const user = useSelector(selectUser);
   console.log(cart);
 
+  const userId = user.id;
+  const cartId = cart.id;
+
   useEffect(() => {
-    dispatch(fetchCart(user.id));
+    dispatch(fetchCart(userId));
     dispatch(setStage("1"));
   }, []);
 
   const submitForms = (evt) => {
     evt.preventDefault();
-    dispatch(updateCartStatus(cart.id, "CLOSED"));
+    dispatch(updateCartStatus(cartId, "CLOSED"));
     navigate("/ordercomplete");
   };
 
