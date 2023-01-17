@@ -28,6 +28,10 @@ const Checkout = () => {
     setCartTotal(calcCartTotal());
   }, [cart]);
 
+  const handleSubmit = () => {
+    return 1;
+  };
+
   const calcCartTotal = () => {
     let cartTotal = 0;
 
@@ -50,9 +54,9 @@ const Checkout = () => {
             {checkoutStage === "1" ? (
               <ShippingForm />
             ) : (
-              <div>
-                <BillingForm />
-                <CreditForm />
+              <div className="flex gap-24">
+                <BillingForm className="w-1/2" />
+                <CreditForm className="w-1/2" />
               </div>
             )}
           </div>
@@ -69,6 +73,17 @@ const Checkout = () => {
             <div className="flex justify-between mt-2">
               <div className="font-bold text-lg">TOTAL</div>
               <div className="font-bold text-lg">{`$${cartTotal}`}</div>
+            </div>
+            <div>
+              {checkoutStage === "2" ? (
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                >
+                  COMPLETE ORDER
+                </button>
+              ) : null}
             </div>
           </div>
         </div>

@@ -4,12 +4,22 @@ import "../../../public/style.css";
 import { useNavigate } from "react-router-dom";
 
 const BillingForm = () => {
+  const dispatch = useDispatch();
+
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [address, setAddress] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
+  const [zip, setZip] = useState();
+  const [phone, setPhone] = useState();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
   };
 
   return (
-    <div className="items-center text-center">
+    <div className="w-1/2 items-center text-center">
       <form
         className="w-full bg-white shadow-lg rounded px-8 mt-0 pb-8 mb-4 border"
         onSubmit={handleSubmit}

@@ -9,6 +9,7 @@ const CreditForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch();
   };
 
   return (
