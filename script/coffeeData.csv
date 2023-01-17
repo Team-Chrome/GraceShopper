@@ -1,0 +1,48 @@
+id,name,imageUrl,roaster,origin,description,price,quantity,createdAt,updatedAt
+6,Colombia,./splashPagePictures/6.jpg,Berry Beans,Colombia,Brown Sugar & Sweet Orange,12.99,105,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+7,Jamaican Blue Mountain,./splashPagePictures/7.jpg,Christopher Bean,Jamaica,Toasted Malt & Milk Chocolate,19.65,132,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+8,Just Black,./splashPagePictures/8.jpg,Black Rifle Coffee Co,Blend,Just dark,13.98,54,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+9,French Roast,./splashPagePictures/9.jpg,Christopher Bean,Blend,Dark Caramel & Sweet Smoke,15.80,99,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+10,Big Bang,./splashPagePictures/10.jpg,Peet's Coffee,Blend,Dark Cocoa & Caramelized Sugar,24.89,90,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+11,Veranda Blend,./splashPagePictures/11.jpg,Starbucks,Blend,Toasted Malt & Milk Chocolate,12.16,67,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+12,Dark Roast,./splashPagePictures/12.jpg,Death Wish Coffee Co,Blend,Chocolate & Cherry,16.11,137,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+13,Breakfast Blend,./splashPagePictures/13.jpg,Starbucks,Blend,Brown Sugar & Sweet Orange,15.19,137,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+14,Dark Roast,./splashPagePictures/14.jpg,Tim Hortons,Arabica,"Fruity, Well Balanced",23.48,130,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+15,French Roast,./splashPagePictures/15.jpg,Landmark,Blend,Toasted Malt & Milk Chocolate,21.62,68,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+16,The Original,./splashPagePictures/16.jpg,Eight O'Clock,Blend,"Fruity, Well Balanced",7.06,56,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+17,Major Dickason's Blend,./splashPagePictures/17.jpg,Peet's Coffee,Blend,Brown Sugar & Sweet Orange,23.87,61,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+18,Smart Ass,./splashPagePictures/18.jpg,Kicking Horse Coffee,Organic,Bright,10.58,92,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+19,Holiday Cheer,./splashPagePictures/19.jpg,Christopher Bean,Decaf,Flavored,9.38,72,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+20,Dark Roast,./splashPagePictures/20.jpg,Bag of Coffee Co,Arabica,Toasted Malt & Milk Chocolate,22.90,99,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+21,French Roast,./splashPagePictures/21.jpg,Starbucks,Blend,Dark Caramel & Sweet Smoke,17.88,63,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+22,Caffe Verona,./splashPagePictures/22.jpg,Starbucks,Blend,Dark Cocoa & Caramelized Sugar,7.92,123,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+23,French Roast,./splashPagePictures/23.jpg,Real Good Coffee Co,Arabica,Dark Caramel & Sweet Smoke,6.62,130,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+24,Jamaica Me Crazy,./splashPagePictures/24.jpg,Christopher Bean,Blend,Dark Cocoa & Caramelized Sugar,19.44,64,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+25,Blueberry Crumble,./splashPagePictures/25.jpg,Christopher Bean,Blend,Blueberry,17.34,95,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+26,Pumpkin Spice,./splashPagePictures/26.jpg,Christopher Bean,Blend,Pumpkin,14.16,105,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+27,Dark Italian Espresso,./splashPagePictures/27.jpg,Eight O'Clock,Arabica,Espresso,16.40,52,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+28,Maple Bacon Morning,./splashPagePictures/28.jpg,Boca Java,Blend,Maple Bacon,24.11,117,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+29,Costa Rica,./splashPagePictures/29.jpg,Berry Beans,Costa Rica,"Fruity, Well Balanced",8.92,116,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+30,Original Blend,./splashPagePictures/30.jpg,Dunkin',Blend,Original,6.55,147,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+31,Costa Rica,./splashPagePictures/31.jpg,The Coffee Bean & Tea Leaf Co,Costa Rica,"Fragrant, Bright, Crisp",24.51,50,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+32,Holiday Blend,./splashPagePictures/32.jpg,Starbucks,Blend,Holiday,25.70,129,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+33,Dark Roast,./splashPagePictures/33.jpg,Kauai Coffee,Hawaii,Toasted Malt & Milk Chocolate,24.49,145,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+34,Single Origin Sumatra,./splashPagePictures/34.jpg,Starbucks,Sumatra,Rich Herbs & Rustic Spice,8.90,121,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+35,Hazelnut Creme,./splashPagePictures/35.jpg,Landmark,Blend,Hazelnut,6.63,103,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+36,Hawaiian Kona,./splashPagePictures/36.jpg,Christopher Bean,Hawaii,Brown Sugar & Sweet Orange,16.71,83,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+37,Pure Peruvian,./splashPagePictures/37.jpg,Boca Java,Peru,Toasted Malt & Milk Chocolate,19.29,105,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+38,Brazil,./splashPagePictures/38.jpg,Berry Beans,Brazil,Dark Caramel & Sweet Smoke,20.18,138,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+39,Pike Place,./splashPagePictures/39.jpg,Starbucks,Blend,Dark Cocoa & Caramelized Sugar,23.56,126,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+40,Hawaiian Islands,./splashPagePictures/40.jpg,Papa Nicholas,Hawaii,"Fruity, Well Balanced",11.12,106,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+41,Espresso Roast,./splashPagePictures/41.jpg,Starbucks,Blend,Espresso,25.50,125,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+42,Major Dickason's Blend,./splashPagePictures/42.jpg,Peet's Coffee,Blend,Major Dickason's Blend,6.43,141,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+43,Creme Brulee Truflle,./splashPagePictures/43.jpg,Christopher Bean,Blend,Creme Brulee Truffle,21.88,80,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+44,Three Sisters,./splashPagePictures/44.jpg,Kicking Horse Coffee,Blend,Toasted Malt & Milk Chocolate,13.88,59,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+45,Caramel Kiss Island,./splashPagePictures/45.jpg,Boca Java,Blend,Caramel Kiss,19.70,78,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+46,BOJ,./splashPagePictures/46.jpg,Burst of Java,Arabica,Organic,22.07,89,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+47,French Roast,./splashPagePictures/47.jpg,Starbucks,Blend,French Roast,22.76,116,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+48,Original Blend,./splashPagePictures/48.jpg,Dunkin',Blend,Brown Sugar & Sweet Orange,17.18,110,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+49,October Fest,./splashPagePictures/49.jpg,Christopher Bean,Blend,Toasted Malt & Milk Chocolate,16.72,61,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+50,Espresso Roast,./splashPagePictures/50.jpg,Boca Java,Blend,Espresso,6.40,99,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+51,Santa Barabara Estate,./splashPagePictures/51.jpg,Christopher Bean,Colombia,Dark Caramel & Sweet Smoke,8.54,108,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05
+52,Super Crema,./splashPagePictures/52.jpg,Lavazza,Blend,Dark Cocoa & Caramelized Sugar,23.62,149,2023-01-16 15:00:00.000-05,2023-01-16 15:00:00.000-05

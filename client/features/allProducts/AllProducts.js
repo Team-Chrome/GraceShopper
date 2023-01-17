@@ -34,22 +34,27 @@ const AllProducts = (props) => {
     let newJsxOutput = [];
     if (items.length > 0) {
 
-      let filteredItems = items.filter( item=>item.roaster.toLowerCase().includes(searchKey.toLowerCase()))
+      let filteredItems = items.filter( 
+        item=>item.roaster.toLowerCase().includes(searchKey.toLowerCase())
+        || item.name.toLowerCase().includes(searchKey.toLowerCase())
+        || item.description.toLowerCase().includes(searchKey.toLowerCase())
+      )
       console.log('zzzzzzzzzzzzzzz',filteredItems)
 
       for (const item of filteredItems) {
         newJsxOutput.push(
           <div
-            key={item.name}
-            className="splash-item"
+            key={item.name+item.id}
+            className="allProducts-item"
             onClick={(event) => {
               changeRoute(event, item);
             }}
           >
             <img src={item.imageUrl} alt={item.roaster + "," + item.name}></img>
-            <h3 className="outlined">{item.roaster}</h3>
+            <h3 style={{width:"100%",lineHeight:'30px'}} className="outlined">{item.roaster}</h3>
             <h4
               style={{
+                lineHeight: "22px",
                 background: "linear-gradient(rgb(150,120,80),rgb(200,200,100)",
                 fontSize: "1.2em",
                 fontWeight: "bold",
@@ -59,8 +64,9 @@ const AllProducts = (props) => {
             </h4>
             <p
               style={{
-                color: "white",
-                background: "linear-gradient(rgb(50,30,10),rgb(200,200,100)",
+                color: "black",
+                lineHeight: "18px"
+                
               }}
             >
               {item.description}

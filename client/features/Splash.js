@@ -37,7 +37,7 @@ const Splash = (props) => {
     );
   }
   return ([
-    <div id="annoyingMessage">{messageRef.current[counter]}</div>,
+    <div key="annoying" id="annoyingMessage">{messageRef.current[counter]}</div>,
     <div onClick={(evt)=>{changeRoute(evt)}} key="splash" className="flexBox01" id="splash">
       {splashOut}
     </div>
