@@ -45,8 +45,11 @@ const Checkout = () => {
   return (
     <div>
       <div className="p-12 font-sans">
-        <div onClick={() => navigate("/cart")} className="">
-          ---Return to cart
+        <div
+          onClick={() => navigate("/cart")}
+          className="text-lg pb-8 underline underline-offset-8 hover:font-bold hover:cursor-pointer hover:text-slate-700"
+        >
+          Return to cart
         </div>
         <div className="text-2xl mb-12">Checkout</div>
         <div className="flex gap-24">
