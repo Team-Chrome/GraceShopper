@@ -2,44 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../../public/style.css";
-import { fetchCart, selectCart } from "../cart/cartSlice";
+import { fetchCart, selectCart, updateCartStatus } from "../cart/cartSlice";
 import { selectCheckoutStage, setStage } from "./checkoutStageSlice";
 import CreditForm from "./CreditForm";
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
+import { USD } from "../../utils";
+import { selectUser } from "../auth/authSlice";
 
 const Checkout = () => {
   const dispatch = useDispatch();
-  const cart = useSelector(selectCart);
   const navigate = useNavigate();
   const checkoutStage = useSelector(selectCheckoutStage);
-
-  const [cartTotal, setCartTotal] = useState(0);
+  const cart = useSelector(selectCart);
+  const user = useSelector(selectUser);
+  console.log(cart);
 
   useEffect(() => {
-    dispatch(fetchCart());
+    dispatch(fetchCart(user.id));
     dispatch(setStage("1"));
   }, []);
 
-  useEffect(() => {
-    setCartTotal(calcCartTotal());
-  }, [cart]);
-
   const submitForms = (evt) => {
     evt.preventDefault();
+    dispatch(updateCartStatus(cart.id, "CLOSED"));
     navigate("/ordercomplete");
-    document.getElementById("billingForm").submit();
-    document.getElementById("creditForm").submit();
-  };
-
-  const calcCartTotal = () => {
-    let cartTotal = 0;
-
-    cart.items.map((item) => {
-      cartTotal += item.product.price * item.quantity;
-    });
-
-    return cartTotal;
   };
 
   return (
@@ -67,7 +54,7 @@ const Checkout = () => {
             <div className="mb-8 text-lg font-semibold">Order Summary</div>
             <div className="flex justify-between">
               <div className="font-medium">Subtotal</div>
-              <div>{`$${cartTotal}`}</div>
+              <div>{`$${USD(cart.total)}`}</div>
             </div>
             <div className="flex justify-between">
               <div className="font-medium">Shipping</div>
@@ -75,7 +62,7 @@ const Checkout = () => {
             </div>
             <div className="flex justify-between mt-2">
               <div className="font-bold text-lg">TOTAL</div>
-              <div className="font-bold text-lg">{`$${cartTotal}`}</div>
+              <div className="font-bold text-lg">{`$${USD(cart.total)}`}</div>
             </div>
             <div>
               {checkoutStage === "2" ? (

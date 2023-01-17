@@ -64,6 +64,7 @@ const ShippingForm = () => {
               placeholder="John"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              required
             />
           </div>
           <div>
@@ -81,6 +82,7 @@ const ShippingForm = () => {
               placeholder="Doe"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -99,6 +101,7 @@ const ShippingForm = () => {
             placeholder="123 Monument Valley Road"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           />
         </div>
         <div>
@@ -117,6 +120,7 @@ const ShippingForm = () => {
               placeholder="Great Barrington"
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              required
             />
           </div>
           <div className="w-1/9">
@@ -134,6 +138,7 @@ const ShippingForm = () => {
               placeholder="MA"
               value={state}
               onChange={(e) => setState(e.target.value)}
+              required
             />
           </div>
           <div className="w-4/9">
@@ -151,6 +156,7 @@ const ShippingForm = () => {
               placeholder="01230"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
+              required
             />
           </div>
           <div className="w-4/9">
@@ -168,6 +174,7 @@ const ShippingForm = () => {
               placeholder="413-413-1938"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              required
             />
           </div>
         </div>
