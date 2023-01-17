@@ -73,7 +73,7 @@ const EditSingleProduct = ({ product }) => {
         <label htmlFor="imageUrl" className="product-span">
           imageUrl
         </label>
-        <input type="file" name="imageUrl" />
+        <input type="text" name="imageUrl" />
 
         <input type="submit" value="Submit" />
       </form>

@@ -26,9 +26,7 @@ router.get("/:email", async (req, res, next) => {
         email: email,
       },
       attributes: ["id", "email"],
-      include: [
-        { include: { all: true }, model: Cart, include: { model: Product } },
-      ],
+      include: [{ model: Cart, include: { model: Product } }],
     });
     res.send(user);
   } catch (error) {

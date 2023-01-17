@@ -15,9 +15,10 @@ const SingleUser = () => {
     console.log("does this work?", user.cart[key]);
   }
 
+  console.log("user >>>>>>>>>>>>>>>>>>>", user);
   useEffect(() => {
     dispatch(fetchSingleUserAync(email));
-  }, [dispatch]);
+  }, [dispatch, user.id]);
 
   return (
     <div>
@@ -27,14 +28,14 @@ const SingleUser = () => {
 
         <h1>
           Cart Status:
-          {user.cart ? user.cart.status : " User does not have an open cart"}
+          {user.cart ? user.cart.status : " None"}
         </h1>
 
-        {/* <h1>
-          {user.cart.products
+        <h1>
+          {user.cart && user.cart.products
             ? user.cart.products[0].name
             : "There was a problem accessing products"}
-        </h1> */}
+        </h1>
       </div>
     </div>
   );

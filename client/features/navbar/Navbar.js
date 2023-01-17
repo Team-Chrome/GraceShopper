@@ -61,6 +61,8 @@ const Navbar = () => {
   }
   const handleUserSearch = (event) => {
     event.preventDefault();
+    if (!isUserSelected) return "";
+    event.preventDefault();
     console.log("onSubmit in the form works!!");
     console.log(
       "event.target.value, this function should not submit if",
@@ -103,7 +105,6 @@ const Navbar = () => {
                 placeholder="Search..."
                 onChange={(event) => setSearch(event.target.value)}
               />
-              <button type="submit">Search</button>
             </form>
           ) : (
             <input
