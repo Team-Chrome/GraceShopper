@@ -51,7 +51,7 @@ const AllProducts = (props) => {
             }}
           >
             <img src={item.imageUrl} alt={item.roaster + "," + item.name}></img>
-            <h3 style={{width:"100%",lineHeight:'25px'}} className="outlined">{item.roaster}</h3>
+            <h3 style={{width:"100%",lineHeight:'30px'}} className="outlined">{item.roaster}</h3>
             <h4
               style={{
                 lineHeight: "22px",
@@ -64,7 +64,8 @@ const AllProducts = (props) => {
             </h4>
             <p
               style={{
-                color: "black"
+                color: "black",
+                lineHeight: "18px"
                 
               }}
             >
