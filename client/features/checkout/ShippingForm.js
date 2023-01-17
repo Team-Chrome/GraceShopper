@@ -59,7 +59,7 @@ const ShippingForm = () => {
             <input
               name="firstname"
               type="text"
-              className="w-fullshadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="firstname"
               placeholder="John"
               value={firstName}
@@ -84,7 +84,7 @@ const ShippingForm = () => {
             />
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-2/3">
           <label
             className="block text-gray-700 text-lg font-bold mb-2"
             htmlFor="address"

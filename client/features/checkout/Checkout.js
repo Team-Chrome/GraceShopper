@@ -17,11 +17,8 @@ const Checkout = () => {
   const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
-    dispatch(setStage("1"));
-  }, []);
-
-  useEffect(() => {
     dispatch(fetchCart());
+    dispatch(setStage("1"));
   }, []);
 
   useEffect(() => {
@@ -30,9 +27,9 @@ const Checkout = () => {
 
   const submitForms = (evt) => {
     evt.preventDefault();
+    navigate("/ordercomplete");
     document.getElementById("billingForm").submit();
     document.getElementById("creditForm").submit();
-    useNavigate("/ordercomplete");
   };
 
   const calcCartTotal = () => {

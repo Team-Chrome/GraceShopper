@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
 import { useNavigate } from "react-router-dom";
+import { createCreditCard } from "./creditCardSlice";
 
 const CreditForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch();
+    dispatch(createCreditCard({}));
   };
 
   return (
