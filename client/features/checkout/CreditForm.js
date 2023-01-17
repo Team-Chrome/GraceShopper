@@ -15,6 +15,7 @@ const CreditForm = () => {
   return (
     <div className="w-1/2 items-center text-center">
       <form
+        id="creditform"
         className="w-full bg-white shadow-lg rounded px-8 pb-8 mb-4 mt-0 border"
         onSubmit={handleSubmit}
       >

@@ -37,8 +37,8 @@ User.hasMany(Transaction);
 Transaction.belongsTo(Cart);
 Cart.hasOne(Transaction);
 
-BillingAddress.belongsTo(Card);
-Card.hasOne(BillingAddress);
+BillingAddress.belongsTo(User);
+User.hasOne(BillingAddress);
 
 ShippingAddress.belongsTo(User);
 User.hasMany(ShippingAddress);

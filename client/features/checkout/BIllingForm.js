@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../public/style.css";
 import { useNavigate } from "react-router-dom";
+import { createBillingAddress } from "./billingSlice";
 
 const BillingForm = () => {
   const dispatch = useDispatch();
@@ -16,11 +17,23 @@ const BillingForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(
+      createBillingAddress({
+        firstName,
+        lastName,
+        address,
+        city,
+        state,
+        zip,
+        phone,
+      })
+    );
   };
 
   return (
     <div className="w-1/2 items-center text-center">
       <form
+        id="billingForm"
         className="w-full bg-white shadow-lg rounded px-8 mt-0 pb-8 mb-4 border"
         onSubmit={handleSubmit}
       >
@@ -41,6 +54,8 @@ const BillingForm = () => {
               className="w-fullshadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="firstname"
               placeholder="John"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div>
@@ -56,6 +71,8 @@ const BillingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="lastname"
               placeholder="Doe"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
         </div>
@@ -72,6 +89,8 @@ const BillingForm = () => {
             className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="address"
             placeholder="123 Monument Valley Road"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div>
@@ -88,6 +107,8 @@ const BillingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="city"
               placeholder="Great Barrington"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
           </div>
           <div className="w-1/9">
@@ -103,9 +124,11 @@ const BillingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="state"
               placeholder="MA"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
             />
           </div>
-          <div className="w-4/9">
+          <div>
             <label
               className="block text-gray-700 text-lg font-bold mb-2"
               htmlFor="zip"
@@ -118,6 +141,25 @@ const BillingForm = () => {
               className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="zip"
               placeholder="01230"
+              value={zip}
+              onChange={(e) => setZip(e.target.value)}
+            />
+          </div>
+          <div>
+            <label
+              className="block text-gray-700 text-lg font-bold mb-2"
+              htmlFor="phone"
+            >
+              <p>Phone Number</p>
+            </label>
+            <input
+              name="phone"
+              type="text"
+              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="phone"
+              placeholder="4134131938"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
         </div>
