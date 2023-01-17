@@ -23,6 +23,7 @@ const SingleProduct = () => {
   const cart = useSelector(selectCart);
 
   useEffect(() => {
+    window.scrollTo(0,0)
     dispatch(fetchSingleProductAsync(id));
     dispatch(fetchCart(user.id));
   }, []);
