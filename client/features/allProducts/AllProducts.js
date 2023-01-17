@@ -4,10 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { USD } from "/client/utils";
 
-console.log(USD(82.234234234234));
-console.log(USD(82.1));
-console.log(USD(82.0));
-
 const AllProducts = (props) => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
@@ -20,7 +16,6 @@ const AllProducts = (props) => {
   const [jsxOutput, setJsxOutput] = useState([]);
 
   const changeRoute = (event, item) => {
-    console.log("should be changing route to", item);
     Navigate("/products/" + item.id);
     //navigate('/products/'+item.id)
     //this is equivalent to static <Link and more
@@ -39,7 +34,6 @@ const AllProducts = (props) => {
         || item.name.toLowerCase().includes(searchKey.toLowerCase())
         || item.description.toLowerCase().includes(searchKey.toLowerCase())
       )
-      console.log('zzzzzzzzzzzzzzz',filteredItems)
 
       for (const item of filteredItems) {
         newJsxOutput.push(
@@ -75,7 +69,6 @@ const AllProducts = (props) => {
         );
       }
     }
-    console.log("newJsxOutput...........", newJsxOutput);
     setJsxOutput(newJsxOutput);
   }, [items,searchKey]);
 
