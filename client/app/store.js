@@ -4,6 +4,7 @@ import authReducer from "../features/auth/authSlice";
 import cartReducer from "../features/cart/cartSlice";
 import singleProductReducer from "../features/singleProduct/singleProductSlice";
 import allProductsReducer from "../features/allProducts/allProductsSlice";
+import singleUserReducer from "../features/user/singleUserSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,8 @@ const store = configureStore({
     product: singleProductReducer,
 
     allProducts: allProductsReducer,
+
+    singleUser: singleUserReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

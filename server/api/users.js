@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { User },
+  models: { User, Cart, CartItem, Product },
 } = require("../db");
 module.exports = router;
 
@@ -15,5 +15,23 @@ router.get("/", async (req, res, next) => {
     res.json(users);
   } catch (err) {
     next(err);
+  }
+});
+
+router.get("/:email", async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({
+      where: {
+        email: email,
+      },
+      attributes: ["id", "email"],
+      include: [
+        { include: { all: true }, model: Cart, include: { model: Product } },
+      ],
+    });
+    res.send(user);
+  } catch (error) {
+    next(error);
   }
 });

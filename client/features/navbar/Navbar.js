@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../app/store";
 import allProductsSlice, {
   fetchAllProducts,
@@ -18,11 +18,12 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const [itemCount, setItemCount] = useState(0);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
 
   const { items } = useSelector((state) => state.allProducts);
 
   useEffect(() => {
+    console.log("upon logging in", user);
     if (user.id) {
       dispatch(fetchCart(user.id));
     }
@@ -44,7 +45,7 @@ const Navbar = () => {
   const logoutAndRedirectHome = () => {
     dispatch(logout());
     dispatch(clearCart());
-    navigate("/login");
+    Navigate("/login");
   };
 
   // const handleSubmitx = (event) => {
@@ -59,6 +60,13 @@ const Navbar = () => {
 
   const handleSubmit = (event) => {
     console.log("aaaaaaaaaaaaaa submitting", search);
+    const selectedCategory = event.target[0].value;
+    if (selectedCategory == "USER") {
+      console.log('if statement sees "User"', selectedCategory);
+      Navigate(`/users/${search}`);
+    }
+    console.log("searchCategory should be accurate", selectedCategory);
+
     event.preventDefault();
     dispatch(setSearchKey(search));
   };
@@ -76,6 +84,10 @@ const Navbar = () => {
               handleSubmit(ev);
             }}
           >
+            <select name="catergory" className="text-black">
+              <option value="USER">USER EMAIL</option>
+              <option value="PRODUCT">PRODUCT</option>
+            </select>
             <input
               className="nav-input"
               type="text"

@@ -31,7 +31,6 @@ const SingleProduct = () => {
   const itemRef = useRef();
   const [guestDispatch, setGuestDispatch] = useState(false);
   const user = useSelector((state) => state.auth.me);
-  const userId = useSelector((state) => state.auth.me.id);
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
 
   console.log(user);
@@ -106,7 +105,7 @@ const SingleProduct = () => {
   return (
     <div>
       {editMode.status === true ? (
-        <EditSingleProduct />
+        <EditSingleProduct product={product} />
       ) : (
         <div className="product">
           {product.imageUrl ? (
