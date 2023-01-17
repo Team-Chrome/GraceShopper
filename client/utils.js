@@ -1,3 +1,19 @@
+import  store  from "/client/app/store"
+
+//common function to add to redux slices to add
+//another header to axios calls so axios api calls
+//can be differentiated from typing a  /api url
+//in the browser
+export function apiHeader() {
+  const {auth} = store.getState()
+  const config = {
+    headers: {
+      "userid": auth.me.id ?? "-1"
+    }
+  }
+  return config
+}
+
 export function USD(price) {
     const intPrice = price/100
     const decPrice = price/10

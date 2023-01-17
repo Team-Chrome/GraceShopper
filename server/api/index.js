@@ -7,11 +7,12 @@ const apiProtection = function(req,res,next) {
 
   console.log('zzzzzzzzzzzzzz', req.originalUrl, req.method)
 
-  if (req.originalUrl.includes('/api/cart')) {
+  if (req.originalUrl.includes('/api/cart')
+      ||req.originalUrl.includes('/api/products')) {
     const urlUserId = req.url.replace('/api/cart/','')
     if ( !req.headers.hasOwnProperty('userid') ) { // && req.method == "GET") {
       console.log('zzzzzzzzzzzz can not access cart info that way')
-      next ( new Error('no api access to carts from browser, sorry'))
+      next ( new Error('no api access from browser, sorry'))
     }
   }
   next()

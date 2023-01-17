@@ -65,8 +65,7 @@ const AllProducts = (props) => {
             <p
               style={{
                 color: "black",
-                lineHeight: "18px"
-                
+                lineHeight: "18px"    
               }}
             >
               {item.description}

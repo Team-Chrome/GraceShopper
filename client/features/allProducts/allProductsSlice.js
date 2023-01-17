@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { apiHeader } from "/client/utils"
 
 export const updateProductsView = (state, { payload }) => {
   return payload;
@@ -7,7 +8,7 @@ export const updateProductsView = (state, { payload }) => {
 
 export const fetchAllProducts = createAsyncThunk("/api/products", async () => {
   try {
-    const response = await axios.get("/api/products");
+    const response = await axios.get("/api/products",apiHeader());
     return response.data;
   } catch (err) {
     console.log("fetchAllProducts Axios Error:err.message");

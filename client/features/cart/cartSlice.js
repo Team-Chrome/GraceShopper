@@ -1,16 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-import  store  from "../../app/store"
-function apiHeader() {
-  const {auth} = store.getState()
-  const config = {
-    headers: {
-      "userid": auth.me.id ?? "-1"
-    }
-  }
-  return config
-}
+import { apiHeader } from "/client/utils"
 
 export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
   const { data } = await axios.get(`/api/cart/${id}`,apiHeader());
