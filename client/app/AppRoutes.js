@@ -6,10 +6,11 @@ import Home from "../features/home/Home";
 import Splash from "../features/Splash";
 import { me } from "./store";
 import Cart from "../features/cart/Cart";
+import Checkout from "../features/checkout/Checkout";
 import SingleProduct from "../features/singleProduct/singleProduct";
 import AllProducts from "../features/allProducts/AllProducts";
 import SingleUser from "../features/user/SingleUser";
-
+import OrderComplete from "../features/checkout/OrderComplete";
 /**
  * COMPONENT
  */
@@ -39,6 +40,8 @@ const AppRoutes = () => {
         <Route path="/splash" element={<Splash />} />
         <Route path="/products/:id" element={<SingleProduct />} />
         <Route path="/users/:email" element={<SingleUser />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/ordercomplete" element={<OrderComplete />} />
       </Routes>
     </div>
   );
