@@ -25,7 +25,6 @@ const ShippingForm = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(setStage("2"));
-    console.log(id);
     dispatch(
       createShippingAddress({
         firstName,

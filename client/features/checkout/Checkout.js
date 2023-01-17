@@ -28,9 +28,11 @@ const Checkout = () => {
     setCartTotal(calcCartTotal());
   }, [cart]);
 
-  const submitForms = () => {
+  const submitForms = (evt) => {
+    evt.preventDefault();
     document.getElementById("billingForm").submit();
     document.getElementById("creditForm").submit();
+    useNavigate("/ordercomplete");
   };
 
   const calcCartTotal = () => {
@@ -78,7 +80,7 @@ const Checkout = () => {
             <div>
               {checkoutStage === "2" ? (
                 <button
-                  type="submit"
+                  type="button"
                   onClick={submitForms}
                   className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                 >

@@ -6,6 +6,7 @@ import { createBillingAddress } from "./billingSlice";
 
 const BillingForm = () => {
   const dispatch = useDispatch();
+  const { id } = useSelector(selectUser);
 
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -26,6 +27,7 @@ const BillingForm = () => {
         state,
         zip,
         phone,
+        userId: id,
       })
     );
   };
