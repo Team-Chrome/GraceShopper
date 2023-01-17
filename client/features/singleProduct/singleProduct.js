@@ -8,16 +8,22 @@ import {
 import { addItem, fetchCart, selectCart, updateItem } from "../cart/cartSlice";
 import { v4 } from "uuid";
 import { authenticate } from "../auth/authSlice";
+import { trimEnd } from "lodash";
+import EditSingleProduct from "./editSingleProduct";
 
 const SingleProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   let product = useSelector(selectSingleProduct);
   const [quantity, setQuantity] = useState(1);
-  const [doesItemExist, setDoesItemExist] = useState(false);
+  const [editMode, setEditMode] = useState({
+    status: false,
+    buttonText: "Edit",
+  });
   const cart = useSelector(selectCart);
 
   useEffect(() => {
+    window.scrollTo(0,0)
     dispatch(fetchSingleProductAsync(id));
     dispatch(fetchCart(user.id));
   }, []);
@@ -28,6 +34,8 @@ const SingleProduct = () => {
   const user = useSelector((state) => state.auth.me);
   const userId = useSelector((state) => state.auth.me.id);
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+
+  console.log(user);
 
   useEffect(() => {
     console.log("running guest check");
@@ -54,80 +62,113 @@ const SingleProduct = () => {
 
       // see if the items exist in state before you make calls to the backend
 
-      const addOrUpdateItemObj = {
+      const itemToAdd = {
         productId: product.id,
         quantity,
         price: product.price,
         userId: user.id,
-        cartId: cart.id,
       };
-      console.log("addOrUpdateItemObj...........", addOrUpdateItemObj);
-      console.log("user.id..............", user.id);
+
+      if (!cart.items) {
+        dispatch(addItem(itemToAdd));
+      }
 
       if (cart.items) {
-        let shouldAddItem = true;
-        for (let i = 0; cart.items.length > i; i++) {
-          if (cart.items[i].productId == Number(id)) {
-            dispatch(updateItem(addOrUpdateItemObj));
-            shouldAddItem = false;
+        const itemToUpdate = cart.items.filter((item) => {
+          if (item.productId === product.id) {
+            return item;
           }
-        }
-        if (shouldAddItem) {
-          dispatch(addItem(addOrUpdateItemObj));
+        });
+
+        if (itemToUpdate[0]) {
+          const newQty = Number(itemToUpdate[0].quantity) + Number(quantity);
+          dispatch(
+            updateItem({
+              cartId: cart.id,
+              productId: product.id,
+              quantity: newQty,
+            })
+          );
+        } else {
+          dispatch(addItem(itemToAdd));
         }
       }
     }
   };
-  /* end of changes for dealing with guest */
+
+  const handleEditClick = () => {
+    if (editMode.status === false) {
+      setEditMode({ status: true, buttonText: "Save Changes" });
+    } else {
+      setEditMode({ status: false, buttonText: "Edit" });
+    }
+  };
 
   return (
-    <div className="product">
-      {product.imageUrl ? (
-        <img src={product.imageUrl.slice(1)} className="productImg" />
+    <div>
+      {editMode.status === true ? (
+        <EditSingleProduct />
       ) : (
-        <h1>Where is the image?</h1>
+        <div className="product">
+          {product.imageUrl ? (
+            <img src={product.imageUrl.slice(1)} className="productImg" />
+          ) : (
+            <h1>Where is the image?</h1>
+          )}
+          <ul className="productDetails">
+            <li className="product-span">{product.name}</li>
+            <li>
+              <span className="product-span">Roaster: </span>
+              {product.roaster}
+            </li>
+            <li>
+              <span className="product-span">Origin: </span>
+              {product.origin}
+            </li>
+            <li>
+              <span className="product-span">Description: </span>
+              {product.description}
+            </li>
+            <li>
+              <span className="product-span">Price: </span>
+              {`$${product.price}`}
+            </li>
+
+            <label htmlFor="quantity">Add Amount:</label>
+
+            <input
+              type="number"
+              name="qautitiy"
+              min="1"
+              max="10"
+              value={quantity}
+              onChange={(event) => setQuantity(event.target.value)}
+              className="block border-black border-2"
+            />
+
+            {user.isAdmin ? (
+              <button
+                onClick={() => {
+                  handleEditClick();
+                }}
+                className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                {editMode.buttonText}
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="add-item"
+                onClick={() => {
+                  handleAddItem(product);
+                }}
+              >
+                Add to Cart
+              </button>
+            )}
+          </ul>
+        </div>
       )}
-      <ul className="productDetails">
-        <li className="product-span">{product.name}</li>
-        <li>
-          <span className="product-span">Roaster: </span>
-          {product.roaster}
-        </li>
-        <li>
-          <span className="product-span">Origin: </span>
-          {product.origin}
-        </li>
-        <li>
-          <span className="product-span">Description: </span>
-          {product.description}
-        </li>
-        <li>
-          <span className="product-span">Price: </span>
-          {`$${product.price}`}
-        </li>
-
-        <label htmlFor="quantity">Add Amount:</label>
-
-        <input
-          type="number"
-          name="qautitiy"
-          min="1"
-          max="10"
-          value={quantity}
-          onChange={(event) => setQuantity(event.target.value)}
-          className="block border-black border-2"
-        />
-
-        <button
-          type="submit"
-          className="add-item"
-          onClick={() => {
-            handleAddItem(product);
-          }}
-        >
-          Add to Cart
-        </button>
-      </ul>
     </div>
   );
 };
