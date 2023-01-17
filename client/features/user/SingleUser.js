@@ -27,9 +27,7 @@ const SingleUser = () => {
 
         <h1>
           Cart Status:
-          {user.cart
-            ? user.cart.status
-            : "There was a problem with getting associated cart status"}
+          {user.cart ? user.cart.status : " User does not have an open cart"}
         </h1>
 
         {/* <h1>

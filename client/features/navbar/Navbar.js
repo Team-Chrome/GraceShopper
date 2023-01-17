@@ -8,8 +8,6 @@ import allProductsSlice, {
 import { fetchCart, selectCart, clearCart } from "../cart/cartSlice";
 import { setSearchKey } from "../allProducts/allProductsSlice";
 
-// additional feature: a drop down from search bar to filter through search results
-
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const loggedInUserName = useSelector((state) => state.auth.me.email);
@@ -20,10 +18,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
+  const [isUserSelected, setIsUserSelected] = useState(false);
+  console.log("isUserSelected................................", isUserSelected);
+
   const { items } = useSelector((state) => state.allProducts);
 
   useEffect(() => {
-    console.log("upon logging in", user);
     if (user.id) {
       dispatch(fetchCart(user.id));
     }
@@ -48,27 +48,25 @@ const Navbar = () => {
     Navigate("/login");
   };
 
-  // const handleSubmitx = (event) => {
-  //   let filteredItems = items.filter((element) =>
-  //     element.name.toLowerCase().includes(search.toLowerCase())
-  //   );
-
-  //   console.log("filteredItems", filteredItems);
-  //   event.preventDefault();
-  //   setSearch("");
-  // };
-
-  const handleSubmit = (event) => {
-    console.log("aaaaaaaaaaaaaa submitting", search);
-    const selectedCategory = event.target[0].value;
-    if (selectedCategory == "USER") {
-      console.log('if statement sees "User"', selectedCategory);
-      Navigate(`/users/${search}`);
-    }
-    console.log("searchCategory should be accurate", selectedCategory);
-
+  if (!isUserSelected) {
+    useEffect(() => {
+      console.log("zzzzzzzzzz search activity", search);
+      dispatch(setSearchKey(search));
+    }, [search]);
+  } else {
+    console.log("isUserSelected.........................", isUserSelected);
+    useEffect(() => {
+      console.log("user search,,..........,", search);
+    }, []);
+  }
+  const handleUserSearch = (event) => {
     event.preventDefault();
-    dispatch(setSearchKey(search));
+    console.log("onSubmit in the form works!!");
+    console.log(
+      "event.target.value, this function should not submit if",
+      event.target.value
+    );
+    Navigate(`/users/${search}`);
   };
 
   return (
@@ -79,24 +77,44 @@ const Navbar = () => {
           <h1>GraceShopper</h1>
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
-          <form
-            onSubmit={(ev) => {
-              handleSubmit(ev);
-            }}
-          >
-            <select name="catergory" className="text-black">
-              <option value="USER">USER EMAIL</option>
-              <option value="PRODUCT">PRODUCT</option>
-            </select>
+          {user.isAdmin ? (
+            <form onSubmit={handleUserSearch}>
+              <select
+                name="catergory"
+                className="text-black"
+                onChange={(event) => {
+                  event.target.value == "USER"
+                    ? setIsUserSelected(true)
+                    : setIsUserSelected(false);
+                }}
+              >
+                <option value="PRODUCT" key="1">
+                  PRODUCT
+                </option>
+                <option value="USER" key="2">
+                  USER EMAIL
+                </option>
+              </select>
+              <input
+                className="nav-input"
+                type="text"
+                name="searchbar"
+                value={search}
+                placeholder="Search..."
+                onChange={(event) => setSearch(event.target.value)}
+              />
+              <button type="submit">Search</button>
+            </form>
+          ) : (
             <input
               className="nav-input"
               type="text"
               name="searchbar"
               value={search}
+              placeholder="Search..."
               onChange={(event) => setSearch(event.target.value)}
             />
-            <button type="submit">Search</button>
-          </form>
+          )}
 
           <Link id="link-img" to="/cart">
             <img src="/shoppingcartcopy.png" />
