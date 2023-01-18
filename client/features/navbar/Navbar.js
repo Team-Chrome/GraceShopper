@@ -38,10 +38,14 @@ const Navbar = () => {
   useEffect(() => {
     let totalItems = 0;
 
-    cart.items.map((item) => {
-      totalItems += item.quantity;
-    });
-    setItemCount(totalItems);
+    if (cart.status.cartStatus === "CLOSED") {
+      setItemCount(totalItems);
+    } else {
+      cart.items.map((item) => {
+        totalItems += item.quantity;
+      });
+      setItemCount(totalItems);
+    }
   }, [cart]);
 
   const logoutAndRedirectHome = () => {
