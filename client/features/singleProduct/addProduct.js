@@ -32,9 +32,9 @@ const AddProduct = () => {
   };
 
   return (
-    <div>
+    <div id="addProductDiv">
       <h1>Add Product Page</h1>
-      <form onSubmit={handleAddProduct}>
+      <form onSubmit={handleAddProduct} id="">
         <label htmlFor="id">id:</label>
         <input type="text" name="id" />
 

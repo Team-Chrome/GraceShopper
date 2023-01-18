@@ -19,7 +19,6 @@ export const addSingleProductAsync = createAsyncThunk(
   }) => {
     try {
       const { data } = await axios.post("/api/products/addProduct", {
-        id,
         name,
         roaster,
         origin,
@@ -31,7 +30,6 @@ export const addSingleProductAsync = createAsyncThunk(
 
       console.log(
         "data from component",
-        id,
         name,
         roaster,
         origin,
