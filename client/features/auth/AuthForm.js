@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,12 +15,17 @@ const AuthForm = ({ name, displayName }) => {
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const [submitLogin, setSubmitLogin] = useState(false);
 
-  // useEffect(()=>{
-  //   if (isLoggedIn) {
-  //     navigate('/products')
-  //   }
-  // },[isLoggedIn])
+  useEffect(() => {
+    setSubmitLogin(false);
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn && submitLogin) {
+      navigate("/products");
+    }
+  }, [isLoggedIn, submitLogin]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -30,6 +35,7 @@ const AuthForm = ({ name, displayName }) => {
     const password = evt.target.password.value;
 
     dispatch(authenticate({ email, password, method: formName }));
+    setSubmitLogin(true);
   };
 
   return (
