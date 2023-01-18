@@ -6,8 +6,9 @@ module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const address = await ShippingAddress.findAll({
-      where: { userId: req.body.userId },
+    const { userId } = req.body;
+    const address = await ShippingAddress.findOne({
+      where: { userId: userId },
     });
     res.send(address);
   } catch (err) {

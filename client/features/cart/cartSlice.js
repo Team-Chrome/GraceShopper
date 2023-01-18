@@ -64,13 +64,12 @@ export const updateItem = createAsyncThunk(
 
 export const updateCartStatus = createAsyncThunk(
   "updateCartStatus",
-  async ({ cartId, status }) => {
-    console.log(status);
-    console.log(cartId);
+  async ({ cartId, cartStatus }) => {
+    console.log(cartStatus);
     const { data } = await axios.put(
       `/api/cart/${cartId}/status`,
       {
-        status,
+        cartStatus,
       },
       apiHeader()
     );
