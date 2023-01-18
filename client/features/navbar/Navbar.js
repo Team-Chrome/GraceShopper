@@ -59,37 +59,43 @@ const Navbar = () => {
   };
 
   const handleSubmit = event => {
-    console.log('aaaaaaaaaaaaaa submitting', search)
+    //console.log('aaaaaaaaaaaaaa submitting', search)
     event.preventDefault();
     dispatch(setSearchKey(search))
   }
 
+  useEffect(()=>{
+    dispatch(setSearchKey(search))
+  },[search])
+
   return (
-    <div id="backdrop">
-      <nav>
-        <div className="nav" id="backdrop">
+    <div key="backdrop" id="backdrop">
+      <nav key="navKey">
+        <div key="backdropNav" className="nav" id="backdrop">
           {/* The navbar will show these links before you log in */}
-          <h1>GraceShopper</h1>
-          <Link to="/home">Home</Link>
-          <Link to="/products">Products</Link>
-          <form onChange={(ev)=>{handleSubmit(ev)}}>
+          <h1 key="gs">GraceShopper</h1>
+          <Link key="linkHome" to="/home">Home</Link>
+          <Link key="linkProducts" to="/products">Products</Link>
+          <form key="searchBar" onClick={(ev)=>{ev.preventDefault()}} >
             <input
+              key="inputSearch"
               className="nav-input"
               type="text"
               name="searchbar"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
-            <button type="submit">Search</button>
+            <button key="searchButton" type="submit">Search</button>
           </form>
 
-          <Link id="link-img" to="/cart">
-            <img src="/shoppingcartcopy.png" />
+          <Link key="linkCart" id="link-img" to="/cart">
+            <img key="cartImg" src="/shoppingcartcopy.png" />
             {itemCount} Cart Items!
           </Link>
 
           {isLoggedIn ? (
             <button
+              key="logOut"
               style={{ float: "right" }}
               type="button"
               onClick={logoutAndRedirectHome}
@@ -97,11 +103,10 @@ const Navbar = () => {
               Logout {loggedInUserName}
             </button>
           ) : (
-            [<Link to="/login">Login</Link>, <Link to="/signup">Sign Up</Link>]
+            [<Link key="loginKey" to="/login">Login</Link>, <Link to="/signup">Sign Up</Link>]
           )}
         </div>
       </nav>
-      <hr />
     </div>
   );
 };
