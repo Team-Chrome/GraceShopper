@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   fetchSingleProductAsync,
   selectSingleProduct,
@@ -8,7 +8,6 @@ import {
 import { addItem, fetchCart, selectCart, updateItem } from "../cart/cartSlice";
 import { v4 } from "uuid";
 import { authenticate } from "../auth/authSlice";
-import { trimEnd } from "lodash";
 import EditSingleProduct from "./editSingleProduct";
 import AddItemConfirmation from "./addItemConfirmation";
 
@@ -49,7 +48,7 @@ const SingleProduct = () => {
     setItemAdded(true);
     if (!isLoggedIn) {
       const guestUser = v4() + "@guest.com";
-      const method = "signup";
+      const method = "guest";
       dispatch(authenticate({ email: guestUser, password: "junk", method }));
       setGuestDispatch(true);
       itemRef.current = item;
@@ -130,7 +129,6 @@ const SingleProduct = () => {
               </li>
               <p className="font-medium">About this item: </p>
               <li className="font-light text-sm mb-12">
-                {" "}
                 {product.description}
               </li>
               <div className="flex gap-2 mb-2 items-center">
