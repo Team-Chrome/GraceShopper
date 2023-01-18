@@ -20,11 +20,6 @@ const BillingAddress = db.define("billing-address", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  email: {
-    type: Sequelize.STRING,
-    isEmail: true,
-    allowNull: false,
-  },
   phone: {
     type: Sequelize.STRING,
     len: [10],

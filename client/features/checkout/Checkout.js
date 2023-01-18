@@ -16,7 +16,6 @@ const Checkout = () => {
   const checkoutStage = useSelector(selectCheckoutStage);
   const cart = useSelector(selectCart);
   const user = useSelector(selectUser);
-  console.log(cart);
 
   const userId = user.id;
   const cartId = cart.id;
@@ -26,9 +25,9 @@ const Checkout = () => {
     dispatch(setStage("1"));
   }, []);
 
-  const submitForms = (evt) => {
+  const completeCheckout = (evt) => {
     evt.preventDefault();
-    dispatch(updateCartStatus(cartId, "CLOSED"));
+    dispatch(updateCartStatus({ cartId, status: "CLOSED" }));
     navigate("/ordercomplete");
   };
 
@@ -71,7 +70,7 @@ const Checkout = () => {
               {checkoutStage === "2" ? (
                 <button
                   type="button"
-                  onClick={submitForms}
+                  onClick={completeCheckout}
                   className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                 >
                   COMPLETE ORDER
