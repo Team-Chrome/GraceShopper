@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../app/store";
 import allProductsSlice, {
   fetchAllProducts,
@@ -63,6 +63,13 @@ const Navbar = () => {
     dispatch(setSearchKey(search));
   };
 
+  const handleUserSearch = (event) => {
+    event.preventDefault();
+    if (!setIsUserSelected) return "";
+    event.preventDefault();
+    Navigate(`/users/${search}`);
+  };
+
   const logInSignUpComponent = () => {
     return (
       <div>
@@ -121,6 +128,39 @@ const Navbar = () => {
     return logInSignUpComponent();
   };
 
+  const adminView = () => {
+    return (
+      <div className="flex justify-evenly">
+        <Link to="/products/addProduct">Add Product</Link>
+        <form onSubmit={handleUserSearch}>
+          <select
+            name="catergory"
+            className="text-black"
+            onChange={(event) => {
+              event.target.value == "USER"
+                ? setIsUserSelected(true)
+                : setIsUserSelected(false);
+            }}
+          >
+            <option value="PRODUCT" key="1">
+              PRODUCT
+            </option>
+            <option value="USER" key="2">
+              USER EMAIL
+            </option>
+          </select>
+          <input
+            className=" ml-2 w-fullshadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            name="searchbar"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </form>
+      </div>
+    );
+  };
+
   return (
     <div>
       <nav className="bg-slate-800 h-24 w-screen text-stone-200 font-sans ">
@@ -134,26 +174,30 @@ const Navbar = () => {
               Products
             </div>
           </Link>
-          <form
-            onChange={(ev) => {
-              handleSubmit(ev);
-            }}
-          >
-            <input
-              className="w-fullshadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              name="searchbar"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-            />
-            <button
-              className="ml-3 border border-stone-200 rounded-lg p-2 hover:bg-stone-200 hover:text-slate-800"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
 
+          {user.isAdmin ? (
+            adminView()
+          ) : (
+            <form
+              onChange={(ev) => {
+                handleSubmit(ev);
+              }}
+            >
+              <input
+                className="w-fullshadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                name="searchbar"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+              />
+              <button
+                className="ml-3 border border-stone-200 rounded-lg p-2 hover:bg-stone-200 hover:text-slate-800"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          )}
           <div className="rounded-full bg-slate-400 flex w-16 h-16">
             <Link className="flex relative m-auto" to="/cart">
               <img className="h-8" src="/shoppingcartcopy.png" />
