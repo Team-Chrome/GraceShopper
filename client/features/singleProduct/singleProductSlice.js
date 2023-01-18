@@ -20,6 +20,7 @@ export const addSingleProductAsync = createAsyncThunk(
   }) => {
     try {
       const { data } = await axios.post("/api/products/addProduct", {
+        id,
         name,
         roaster,
         origin,
@@ -27,10 +28,11 @@ export const addSingleProductAsync = createAsyncThunk(
         price,
         quantity,
         imageUrl,
-      });
+      } , apiHeader());
 
       console.log(
         "data from component",
+        id,
         name,
         roaster,
         origin,
@@ -76,7 +78,7 @@ export const updateSingleProductAsync = createAsyncThunk(
       description,
       price,
       imageUrl,
-    });
+    },  apiHeader());
     return data;
   }
 );
@@ -85,7 +87,7 @@ export const deleteSingleProductAsync = createAsyncThunk(
   "deleteSingleProduct",
   async (id) => {
     try {
-      const { data } = await axios.delete(`/api/products/${id}`);
+      const { data } = await axios.delete(`/api/products/${id}`, apiHeader());
       return data;
     } catch (error) {
       console.log("something went wrong with deleteSingleProductAsync route");
