@@ -37,7 +37,7 @@ const BillingForm = () => {
     <div className="w-1/2 items-center text-center">
       <form
         id="billingForm"
-        className="w-full bg-white shadow-lg rounded px-8 mt-0 pb-8 mb-4 border"
+        className="w-full bg-white shadow-lg rounded px-8 mt-0 pb-8 mb-4 border submit:bg-red"
         onSubmit={handleSubmit}
       >
         <div className="w-full text-center mb-4 text-lg font-semibold">
