@@ -21,6 +21,7 @@ const BillingForm = () => {
     evt.preventDefault();
     dispatch(
       createBillingAddress({
+        userId: id,
         firstName,
         lastName,
         address,
@@ -28,7 +29,6 @@ const BillingForm = () => {
         state,
         zip,
         phone,
-        userId: id,
       })
     );
   };
@@ -37,7 +37,7 @@ const BillingForm = () => {
     <div className="w-1/2 items-center text-center">
       <form
         id="billingForm"
-        className="w-full bg-white shadow-lg rounded px-8 mt-0 pb-8 mb-4 border"
+        className="w-full bg-white shadow-lg rounded px-8 mt-0 pb-8 mb-4 border submit:bg-red"
         onSubmit={handleSubmit}
       >
         <div className="w-full text-center mb-4 text-lg font-semibold">
@@ -166,6 +166,13 @@ const BillingForm = () => {
             />
           </div>
         </div>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+        >
+          Confirm Billing Info
+        </button>
       </form>
     </div>
   );

@@ -25,7 +25,7 @@ const store = configureStore({
     shipping: shippingAddressReducer,
     credit: creditCardReducer,
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;

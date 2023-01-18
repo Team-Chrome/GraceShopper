@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchShippingAddress = createAsyncThunk(
   "fetchShipping",
-  async (userId) => {
+  async ({ userId }) => {
     const { data } = await axios.get(`/api/shippingaddress`, { userId });
     return data;
   }

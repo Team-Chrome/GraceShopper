@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { createShippingAddress, fetchShippingAddress } from "./shippingSlice";
+import {
+  createShippingAddress,
+  fetchShippingAddress,
+  selectShippingAddress,
+} from "./shippingSlice";
 import { selectUser } from "../auth/authSlice";
 import { setStage } from "./checkoutStageSlice";
 import { useParams } from "react-router-dom";
@@ -9,17 +13,18 @@ import "../../../public/style.css";
 const ShippingForm = () => {
   const dispatch = useDispatch();
   const { id } = useSelector(selectUser);
+  const shipping = useSelector(selectShippingAddress);
 
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [address, setAddress] = useState();
-  const [city, setCity] = useState();
-  const [state, setState] = useState();
-  const [zip, setZip] = useState();
-  const [phone, setPhone] = useState();
+  const [firstName, setFirstName] = useState(shipping.firstName);
+  const [lastName, setLastName] = useState(shipping.lastName);
+  const [address, setAddress] = useState(shipping.address);
+  const [city, setCity] = useState(shipping.city);
+  const [state, setState] = useState(shipping.state);
+  const [zip, setZip] = useState(shipping.zip);
+  const [phone, setPhone] = useState(shipping.phone);
 
   useEffect(() => {
-    dispatch(fetchShippingAddress(id));
+    dispatch(fetchShippingAddress({ userId: id }));
   }, []);
 
   const handleSubmit = (evt) => {

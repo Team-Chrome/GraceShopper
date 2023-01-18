@@ -3,16 +3,16 @@ import axios from "axios";
 
 export const fetchBillingAddress = createAsyncThunk(
   "fetchBilling",
-  async (cardId) => {
-    const { data } = await axios.get(`/api/billingaddress/${cardId}`);
+  async (userId) => {
+    const { data } = await axios.get(`/api/billingaddress/${userId}`);
     return data;
   }
 );
 
 export const createBillingAddress = createAsyncThunk(
   "createBillingAddress",
-  async ({ cardId, firstName, lastName, address, city, zip, email, phone }) => {
-    const { data } = await axios.post(`/api/billingaddress/${cardId}`, {
+  async ({ userId, firstName, lastName, address, city, zip, email, phone }) => {
+    const { data } = await axios.post(`/api/billingaddress`, {
       firstName,
       lastName,
       address,
@@ -20,6 +20,7 @@ export const createBillingAddress = createAsyncThunk(
       zip,
       email,
       phone,
+      userId,
     });
     return data;
   }

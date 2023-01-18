@@ -17,7 +17,8 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { cardId, firstName, lastName, address, city, state, zip } = req.body;
+    const { userId, firstName, lastName, address, city, state, zip, phone } =
+      req.body;
     res.status(201).send(
       await BillingAddress.create({
         firstName,
@@ -26,7 +27,8 @@ router.post("/", async (req, res, next) => {
         city,
         state,
         zip,
-        cardId,
+        phone,
+        userId,
       })
     );
   } catch (err) {

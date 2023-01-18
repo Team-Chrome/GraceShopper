@@ -9,7 +9,7 @@ export const fetchCreditCard = createAsyncThunk("fetchcredit", async (id) => {
 export const createCreditCard = createAsyncThunk(
   "createCreditCard",
   async ({ userId, name, cardNumber, expiration, csv }) => {
-    const { data } = await axios.post(`/api/creditcard/${userId}`, {
+    const { data } = await axios.post(`/api/creditcard`, {
       name,
       cardNumber,
       expiration,
