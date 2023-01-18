@@ -36,7 +36,7 @@ const EditSingleProduct = ({ product }) => {
       "updated product has been dispatched..............",
       updatedProduct
     );
-    Navigate(`/products/${product.id}`);
+    Navigate(`/products`);
   };
 
   const handleDelete = (id) => {

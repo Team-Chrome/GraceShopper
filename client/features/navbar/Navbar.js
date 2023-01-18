@@ -31,9 +31,9 @@ const Navbar = () => {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   dispatch(fetchAllProducts());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchAllProducts());
+  }, []);
 
   useEffect(() => {
     let totalItems = 0;
