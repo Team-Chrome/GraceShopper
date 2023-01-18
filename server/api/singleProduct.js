@@ -14,10 +14,11 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/addProduct", async (req, res, next) => {
   try {
+    console.log("req.body.........................", req.body);
     res.status(201).send(await Product.create(req.body));
-    console.log(
-      "im guessing everything went smoothly with the creation process"
-    );
+    // console.log(
+    //   "im guessing everything went smoothly with the creation process"
+    // );
   } catch (error) {
     console.log("error..............................", error);
     next(error);

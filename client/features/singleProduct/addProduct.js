@@ -10,12 +10,13 @@ const AddProduct = () => {
   const handleAddProduct = (event) => {
     event.preventDefault();
 
-    const [name, roaster, origin, description, price, quantity, imageUrl] =
+    const [id, name, roaster, origin, description, price, quantity, imageUrl] =
       Array.from(event.target).map((element) => element.value);
 
     console.log(name);
 
     const addProduct = {
+      id,
       name,
       roaster,
       origin,
@@ -34,6 +35,9 @@ const AddProduct = () => {
     <div>
       <h1>Add Product Page</h1>
       <form onSubmit={handleAddProduct}>
+        <label htmlFor="id">id:</label>
+        <input type="text" name="id" />
+
         <label htmlFor="name">Name:</label>
         <input type="text" name="name" />
 

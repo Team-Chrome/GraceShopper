@@ -7,9 +7,19 @@ import axios from "axios";
 
 export const addSingleProductAsync = createAsyncThunk(
   "addSingleProduct",
-  async ({ name, roaster, origin, description, price, quantity, imageUrl }) => {
+  async ({
+    id,
+    name,
+    roaster,
+    origin,
+    description,
+    price,
+    quantity,
+    imageUrl,
+  }) => {
     try {
       const { data } = await axios.post("/api/products/addProduct", {
+        id,
         name,
         roaster,
         origin,
@@ -21,6 +31,7 @@ export const addSingleProductAsync = createAsyncThunk(
 
       console.log(
         "data from component",
+        id,
         name,
         roaster,
         origin,
