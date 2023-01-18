@@ -222,7 +222,7 @@ const AllProducts = (props) => {
         const item = filteredItems[i]
         newJsxOutput.push(
           <div
-            key={item.name+item.id}
+            key={item.name + item.id}
             className="allProducts-item"
             onClick={(event) => {
               changeRoute(event, item);

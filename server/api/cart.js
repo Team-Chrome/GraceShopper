@@ -100,8 +100,9 @@ router.put("/", async (req, res, next) => {
 
 router.put("/:cartId/status", async (req, res, next) => {
   try {
+    console.log("CART STATUS REQ BODY", req.body);
     await Cart.update(
-      { status: req.body.status },
+      { status: req.body.cartStatus },
       {
         where: { id: req.params.cartId },
       }

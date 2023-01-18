@@ -18,7 +18,10 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const [itemCount, setItemCount] = useState(0);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
+
+  const [isUserSelected, setIsUserSelected] = useState(false);
+  // console.log("isUserSelected................................", isUserSelected);
 
   const { items } = useSelector((state) => state.allProducts);
 
@@ -28,9 +31,9 @@ const Navbar = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    dispatch(fetchAllProducts());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchAllProducts());
+  // }, []);
 
   useEffect(() => {
     let totalItems = 0;
@@ -44,19 +47,20 @@ const Navbar = () => {
   const logoutAndRedirectHome = () => {
     dispatch(logout());
     dispatch(clearCart());
-    navigate("/login");
+    Navigate("/login");
   };
 
-  const handleSubmitx = (event) => {
-    let obj = {};
-    for (let i = 0; items.length > i; i++) {
-      if (items[i].name.includes(search)) {
-        obj = { ...items[i] };
-      }
-    }
-    event.preventDefault();
-    setSearch("");
-  };
+  if (!isUserSelected) {
+    useEffect(() => {
+      console.log("zzzzzzzzzz search activity", search);
+      dispatch(setSearchKey(search));
+    }, [search]);
+  } else {
+    console.log("isUserSelected.........................", isUserSelected);
+    useEffect(() => {
+      console.log("user search,,..........,", search);
+    }, []);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();

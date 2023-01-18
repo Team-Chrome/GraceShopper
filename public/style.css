@@ -253,3 +253,24 @@ img:hover {
 } */
 
 /* Single Product settings above */
+
+/* Start of ediitng form page */
+
+.editPageDiv {
+  display: flex;
+  justify-content: center;
+}
+
+#editPageForm {
+}
+
+.editProductInput {
+  border-style: inset;
+  border-width: 5px 5px 5px 5px;
+}
+/* End of ediitng form page */
+
+#addProductDiv {
+  display: flex;
+  justify-content: space-evenly;
+}

@@ -3,7 +3,7 @@ import axios from "axios";
 import { apiHeader } from "/client/utils"
 
 export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
-  const { data } = await axios.get(`/api/cart/${id}`,apiHeader());
+  const { data } = await axios.get(`/api/cart/${id}`, apiHeader());
   return data;
 });
 
@@ -17,11 +17,15 @@ export const addItem = createAsyncThunk(
       price,
       userId
     );
-    const { data } = await axios.post(`/api/cart/${userId}`, {
-      productId,
-      quantity,
-      price,
-    }, apiHeader() );
+    const { data } = await axios.post(
+      `/api/cart/${userId}`,
+      {
+        productId,
+        quantity,
+        price,
+      },
+      apiHeader()
+    );
     return data;
   }
 );
@@ -35,28 +39,38 @@ export const updateItem = createAsyncThunk(
       quantity,
       cartId
     );
-    const { data } = await axios.put("/api/cart", {
-      cartId,
-      productId,
-      quantity,
-    }, apiHeader());
+    const { data } = await axios.put(
+      "/api/cart",
+      {
+        cartId,
+        productId,
+        quantity,
+      },
+      apiHeader()
+    );
     return data;
   }
 );
 
 export const updateCartStatus = createAsyncThunk(
   "updateCartStatus",
-  async (cartId, status) => {
-    const { data } = await axios.put(`/api/cart/${cartId}/status`, {
-      status,
-    }, apiHeader());
+  async ({ cartId, cartStatus }) => {
+    console.log(cartStatus);
+    const { data } = await axios.put(
+      `/api/cart/${cartId}/status`,
+      {
+        cartStatus,
+      },
+      apiHeader()
+    );
     return data;
   }
 );
 
 export const removeItem = createAsyncThunk("removeItem", async (cartItem) => {
   const { data } = await axios.delete(
-    `/api/cart/${cartItem.cartId}/${cartItem.productId}`, apiHeader()
+    `/api/cart/${cartItem.cartId}/${cartItem.productId}`,
+    apiHeader()
   );
   return data;
 });
