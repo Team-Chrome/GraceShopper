@@ -10,7 +10,7 @@ const AddItemConfirmation = ({ product, quantity }) => {
       <div className="bg-white opacity-100 absolute w-5/12 h-56 rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
         <div className="grid place-items-center text-center w-full h-full p-8">
           <div className="border border-green-700 rounded-full w-12 h-12 flex">
-            <div className="text-4xl text-green-700 items-center m-auto">✓</div>
+            <img src="/images/complete-icon-6.png"></img>
           </div>
           <div className="font-sans text-lg font-medium">{`${quantity}x ${product.name} has been added to your cart!`}</div>
           <div className="flex items-center gap-4">
