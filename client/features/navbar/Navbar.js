@@ -19,7 +19,7 @@ const Navbar = () => {
   const Navigate = useNavigate();
 
   const [isUserSelected, setIsUserSelected] = useState(false);
-  console.log("isUserSelected................................", isUserSelected);
+  // console.log("isUserSelected................................", isUserSelected);
 
   const { items } = useSelector((state) => state.allProducts);
 
@@ -80,32 +80,34 @@ const Navbar = () => {
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
           {user.isAdmin ? (
-            <form onSubmit={handleUserSearch}>
-              <select
-                name="catergory"
-                className="text-black"
-                onChange={(event) => {
-                  event.target.value == "USER"
-                    ? setIsUserSelected(true)
-                    : setIsUserSelected(false);
-                }}
-              >
-                <option value="PRODUCT" key="1">
-                  PRODUCT
-                </option>
-                <option value="USER" key="2">
-                  USER EMAIL
-                </option>
-              </select>
-              <input
-                className="nav-input"
-                type="text"
-                name="searchbar"
-                value={search}
-                placeholder="Search..."
-                onChange={(event) => setSearch(event.target.value)}
-              />
-            </form>
+            <div className="flex justify-evenly">
+              <Link to="/products/addProduct">Add Product</Link>
+              <form onSubmit={handleUserSearch}>
+                <select
+                  name="catergory"
+                  className="text-black"
+                  onChange={(event) => {
+                    event.target.value == "USER"
+                      ? setIsUserSelected(true)
+                      : setIsUserSelected(false);
+                  }}
+                >
+                  <option value="PRODUCT" key="1">
+                    PRODUCT
+                  </option>
+                  <option value="USER" key="2">
+                    USER EMAIL
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  name="searchbar"
+                  value={search}
+                  placeholder="Search..."
+                  onChange={(event) => setSearch(event.target.value)}
+                />
+              </form>
+            </div>
           ) : (
             <input
               className="nav-input"

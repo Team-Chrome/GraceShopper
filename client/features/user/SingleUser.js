@@ -23,7 +23,7 @@ const SingleUser = () => {
   return (
     <div>
       <h1>Users!!!!!!</h1>
-      <div>
+      <div className="product">
         <h1>User Email:{user.email}</h1>
 
         <h1>
@@ -31,11 +31,42 @@ const SingleUser = () => {
           {user.cart ? user.cart.status : " None"}
         </h1>
 
-        <h1>
-          {user.cart && user.cart.products
-            ? user.cart.products[0].name
-            : "There was a problem accessing products"}
-        </h1>
+        {user.cart && user.cart.products ? (
+          user.cart.products.map((element) => {
+            return (
+              <ul className="productDetails">
+                <li key={1} className="product-span">
+                  Name: {element.name}
+                </li>
+                <img
+                  key={2}
+                  src={element.imageUrl.slice(1)}
+                  className="product-span"
+                />
+                <li key={3} className="product-span">
+                  Roaster: {element.roaster}
+                </li>
+                <li key={4} className="product-span">
+                  Origin: {element.origin}
+                </li>
+                <li key={5} className="product-span">
+                  Price: {element.price}
+                </li>
+                <li key={6} className="product-span">
+                  Description: {element.description}
+                </li>
+                <li key={7} className="product-span">
+                  Quantity: {element.cartItem.quantity}
+                </li>
+                <li key={8} className="product-span">
+                  Price: {element.cartItem.price}
+                </li>
+              </ul>
+            );
+          })
+        ) : (
+          <h1>"There was a problem accessing products" </h1>
+        )}
       </div>
     </div>
   );

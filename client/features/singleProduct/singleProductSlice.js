@@ -1,5 +1,41 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createNextState,
+} from "@reduxjs/toolkit";
 import axios from "axios";
+
+export const addSingleProductAsync = createAsyncThunk(
+  "addSingleProduct",
+  async ({ name, roaster, origin, description, price, quantity, imageUrl }) => {
+    try {
+      const { data } = await axios.post("/api/products/addProduct", {
+        name,
+        roaster,
+        origin,
+        description,
+        price,
+        quantity,
+        imageUrl,
+      });
+
+      console.log(
+        "data from component",
+        name,
+        roaster,
+        origin,
+        description,
+        price,
+        quantity,
+        imageUrl
+      );
+
+      return data;
+    } catch (error) {
+      console.log("there was a problem with creating addSingleProductAsync");
+    }
+  }
+);
 
 export const fetchSingleProductAsync = createAsyncThunk(
   "singleProduct",
@@ -32,6 +68,18 @@ export const updateSingleProductAsync = createAsyncThunk(
       imageUrl,
     });
     return data;
+  }
+);
+
+export const deleteSingleProductAsync = createAsyncThunk(
+  "deleteSingleProduct",
+  async (id) => {
+    try {
+      const { data } = await axios.delete(`/api/products/${id}`);
+      return data;
+    } catch (error) {
+      console.log("something went wrong with deleteSingleProductAsync route");
+    }
   }
 );
 

@@ -23,7 +23,7 @@ const SingleProduct = () => {
   const cart = useSelector(selectCart);
 
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     dispatch(fetchSingleProductAsync(id));
     dispatch(fetchCart(user.id));
   }, []);
@@ -33,8 +33,6 @@ const SingleProduct = () => {
   const [guestDispatch, setGuestDispatch] = useState(false);
   const user = useSelector((state) => state.auth.me);
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
-
-  console.log(user);
 
   useEffect(() => {
     console.log("running guest check");
@@ -110,7 +108,14 @@ const SingleProduct = () => {
       ) : (
         <div className="product">
           {product.imageUrl ? (
-            <img src={product.imageUrl.slice(1)} className="productImg" />
+            <img
+              src={
+                product.imageUrl[0] == "."
+                  ? product.imageUrl.slice(1)
+                  : product.imageUrl
+              }
+              className="productImg"
+            />
           ) : (
             <h1>Where is the image?</h1>
           )}

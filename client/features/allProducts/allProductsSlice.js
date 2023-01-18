@@ -10,6 +10,37 @@ export const fetchAllProducts = createAsyncThunk("/api/products", async () => {
   }
 });
 
+// export const addSingleProductAsync = createAsyncThunk(
+//   "addSingleProduct",
+//   async ({ name, roaster, origin, description, price, quantity, imageUrl }) => {
+//     try {
+//       const { data } = await axios.post("/api/products/addProduct", {
+//         name,
+//         roaster,
+//         origin,
+//         description,
+//         price,
+//         quantity,
+//         imageUrl,
+//       });
+//       console.log(
+//         "data from component",
+//         name,
+//         roaster,
+//         origin,
+//         description,
+//         price,
+//         quantity,
+//         imageUrl
+//       );
+
+//       return data;
+//     } catch (error) {
+//       console.log("there was a problem with creating addSingleProductAsync");
+//     }
+//   }
+// );
+
 export const allProductsSlice = createSlice({
   name: "allProducts",
   initialState: {
@@ -26,6 +57,10 @@ export const allProductsSlice = createSlice({
     builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
       state.items = action.payload;
     });
+    // builder.addCase(addSingleProductAsync.fulfilled, (state, { payload }) => {
+    //   console.log("addSingleProductAsync addpayload................", payload);
+    //   return payload;
+    // });
   },
 });
 
