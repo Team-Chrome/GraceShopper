@@ -6,11 +6,7 @@ export const fetchShippingAddress = createAsyncThunk(
   "fetchShippingAddress",
   async (id) => {
     console.log(id);
-    const { data } = await axios.get(
-      `/api/shippingaddress`,
-      { id },
-      apiHeader()
-    );
+    const { data } = await axios.get(`/api/shippingaddress`, id, apiHeader());
     return data;
   }
 );
