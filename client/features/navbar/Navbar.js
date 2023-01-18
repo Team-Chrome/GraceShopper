@@ -59,7 +59,6 @@ const Navbar = () => {
   };
 
   const handleSubmit = (event) => {
-    console.log("aaaaaaaaaaaaaa submitting", search);
     event.preventDefault();
     dispatch(setSearchKey(search));
   };
@@ -87,19 +86,25 @@ const Navbar = () => {
   const loggedInGuest = () => {
     return (
       <div>
-        <p>Logged in as guest</p>
-        <div>{logInSignUpComponent()}</div>
+        <div className="grid place-items-center pt-4">
+          <p className="-mb-3 text-sm">Logged in as guest</p>
+          <div>{logInSignUpComponent()}</div>
+        </div>
       </div>
     );
   };
 
   const loggedInUser = () => {
     return (
-      <div>
-        <button type="button" onClick={logoutAndRedirectHome}>
-          Logout {loggedInUserName}
+      <div className="pr-4">
+        {loggedInUserName}
+        <button
+          className="ml-2 text-xs hover:underline underline-offset-8"
+          type="button"
+          onClick={logoutAndRedirectHome}
+        >
+          Logout
         </button>
-        {logInSignUpComponent()}
       </div>
     );
   };
