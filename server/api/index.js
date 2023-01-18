@@ -24,7 +24,10 @@ router.use("/users", require("./users"));
 router.use("/cart", require("./cart"));
 router.use("/products", require("./singleProduct"));
 router.use("/cart", require("./cart"));
-router.use("/products", require("./allProducts"))
+router.use("/products", require("./allProducts"));
+router.use("/shippingaddress", require("./shippingAddresses"));
+router.use("/billingaddress", require("./billingAddresses"));
+router.use("/creditCard", require("./creditCards"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");
