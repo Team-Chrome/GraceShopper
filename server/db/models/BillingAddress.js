@@ -17,12 +17,7 @@ const BillingAddress = db.define("billing-address", {
     allowNull: false,
   },
   zip: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  email: {
     type: Sequelize.STRING,
-    isEmail: true,
     allowNull: false,
   },
   phone: {
