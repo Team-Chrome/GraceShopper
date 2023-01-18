@@ -73,8 +73,10 @@ const Navbar = () => {
 
   const handleUserSearch = (event) => {
     event.preventDefault();
-    if (!setIsUserSelected) return "";
+    console.log("setIsUserSelected..................", isUserSelected);
+    if (!isUserSelected) return "";
     event.preventDefault();
+
     Navigate(`/users/${search}`);
   };
 
@@ -187,7 +189,7 @@ const Navbar = () => {
             adminView()
           ) : (
             <form
-              onChange={(ev) => {
+              onSubmit={(ev) => {
                 handleSubmit(ev);
               }}
             >
@@ -196,14 +198,9 @@ const Navbar = () => {
                 type="text"
                 name="searchbar"
                 value={search}
+                placeholder="Search..."
                 onChange={(event) => setSearch(event.target.value)}
               />
-              <button
-                className="ml-3 border border-stone-200 rounded-lg p-2 hover:bg-stone-200 hover:text-slate-800"
-                type="submit"
-              >
-                Search
-              </button>
             </form>
           )}
           <div className="rounded-full bg-slate-400 flex w-16 h-16">
