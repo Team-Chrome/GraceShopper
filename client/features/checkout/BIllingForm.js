@@ -21,6 +21,7 @@ const BillingForm = () => {
     evt.preventDefault();
     dispatch(
       createBillingAddress({
+        userId: id,
         firstName,
         lastName,
         address,
@@ -28,7 +29,6 @@ const BillingForm = () => {
         state,
         zip,
         phone,
-        userId: id,
       })
     );
   };

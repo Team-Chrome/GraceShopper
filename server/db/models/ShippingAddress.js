@@ -17,7 +17,7 @@ const ShippingAddress = db.define("shipping-address", {
     allowNull: false,
   },
   zip: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   phone: {
