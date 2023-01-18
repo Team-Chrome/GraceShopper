@@ -33,25 +33,30 @@ const AllProducts = (props) => {
   useEffect(() => {
     let newJsxOutput = [];
     if (items.length > 0) {
-
-      let filteredItems = items.filter( 
-        item=>item.roaster.toLowerCase().includes(searchKey.toLowerCase())
-        || item.name.toLowerCase().includes(searchKey.toLowerCase())
-        || item.description.toLowerCase().includes(searchKey.toLowerCase())
-      )
-      console.log('zzzzzzzzzzzzzzz',filteredItems)
+      let filteredItems = items.filter(
+        (item) =>
+          item.roaster.toLowerCase().includes(searchKey.toLowerCase()) ||
+          item.name.toLowerCase().includes(searchKey.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchKey.toLowerCase())
+      );
+      // console.log("zzzzzzzzzzzzzzz", filteredItems);
 
       for (const item of filteredItems) {
         newJsxOutput.push(
           <div
-            key={item.name+item.id}
+            key={item.name + item.id}
             className="allProducts-item"
             onClick={(event) => {
               changeRoute(event, item);
             }}
           >
             <img src={item.imageUrl} alt={item.roaster + "," + item.name}></img>
-            <h3 style={{width:"100%",lineHeight:'30px'}} className="outlined">{item.roaster}</h3>
+            <h3
+              style={{ width: "100%", lineHeight: "30px" }}
+              className="outlined"
+            >
+              {item.roaster}
+            </h3>
             <h4
               style={{
                 lineHeight: "22px",
@@ -65,8 +70,7 @@ const AllProducts = (props) => {
             <p
               style={{
                 color: "black",
-                lineHeight: "18px"
-                
+                lineHeight: "18px",
               }}
             >
               {item.description}
@@ -76,9 +80,8 @@ const AllProducts = (props) => {
         );
       }
     }
-    console.log("newJsxOutput...........", newJsxOutput);
     setJsxOutput(newJsxOutput);
-  }, [items,searchKey]);
+  }, [items, searchKey]);
 
   return [
     <div id="allProducts" key="allProducts" className="flexBox01">

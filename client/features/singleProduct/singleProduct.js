@@ -34,7 +34,6 @@ const SingleProduct = () => {
   const itemRef = useRef();
   const [guestDispatch, setGuestDispatch] = useState(false);
   const user = useSelector((state) => state.auth.me);
-  const userId = useSelector((state) => state.auth.me.id);
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
 
   useEffect(() => {
@@ -103,7 +102,7 @@ const SingleProduct = () => {
   return (
     <div>
       {editMode.status === true ? (
-        <EditSingleProduct />
+        <EditSingleProduct product={product} />
       ) : (
         <div className="product relative w-full h-screen z-0 font-sans">
           {itemAdded ? (
@@ -112,7 +111,14 @@ const SingleProduct = () => {
 
           <div className="flex justify-center p-24 gap-2">
             {product.imageUrl ? (
-              <img className="w-96 h-auto" src={product.imageUrl.slice(1)} />
+              <img
+                className="w-96 h-auto"
+                src={
+                  product.imageUrl[0] == "."
+                    ? product.imageUrl.slice(1)
+                    : product.imageUrl
+                }
+              />
             ) : (
               <h1>Where is the image?</h1>
             )}
