@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { apiHeader } from "/client/utils"
 
 export const fetchCart = createAsyncThunk("fetchCart", async (id) => {
-  const { data } = await axios.get(`/api/cart/${id}`);
+  const { data } = await axios.get(`/api/cart/${id}`, apiHeader());
   return data;
 });
 
@@ -16,11 +17,15 @@ export const addItem = createAsyncThunk(
       price,
       userId
     );
-    const { data } = await axios.post(`/api/cart/${userId}`, {
-      productId,
-      quantity,
-      price,
-    });
+    const { data } = await axios.post(
+      `/api/cart/${userId}`,
+      {
+        productId,
+        quantity,
+        price,
+      },
+      apiHeader()
+    );
     return data;
   }
 );
@@ -34,28 +39,38 @@ export const updateItem = createAsyncThunk(
       quantity,
       cartId
     );
-    const { data } = await axios.put("/api/cart", {
-      cartId,
-      productId,
-      quantity,
-    });
+    const { data } = await axios.put(
+      "/api/cart",
+      {
+        cartId,
+        productId,
+        quantity,
+      },
+      apiHeader()
+    );
     return data;
   }
 );
 
 export const updateCartStatus = createAsyncThunk(
   "updateCartStatus",
-  async (cartId, status) => {
-    const { data } = await axios.put(`/api/cart/${cartId}/status`, {
-      status,
-    });
+  async ({ cartId, cartStatus }) => {
+    console.log(cartStatus);
+    const { data } = await axios.put(
+      `/api/cart/${cartId}/status`,
+      {
+        cartStatus,
+      },
+      apiHeader()
+    );
     return data;
   }
 );
 
 export const removeItem = createAsyncThunk("removeItem", async (cartItem) => {
   const { data } = await axios.delete(
-    `/api/cart/${cartItem.cartId}/${cartItem.productId}`
+    `/api/cart/${cartItem.cartId}/${cartItem.productId}`,
+    apiHeader()
   );
   return data;
 });
@@ -105,6 +120,7 @@ export const cartSlice = createSlice({
       state.items = state.items.filter((item) => {
         return item.productId !== action.payload[0].productId;
       });
+      state.total -= action.payload[0].price * action.payload[0].quantity;
     });
     builder.addCase(updateItem.fulfilled, (state, action) => {
       const updatedItem = action.payload[0];

@@ -1,0 +1,30 @@
+{user.isAdmin ? (
+            <div className="flex justify-evenly">
+              <Link to="/products/addProduct">Add Product</Link>
+              <form onSubmit={handleUserSearch}>
+                <select
+                  name="catergory"
+                  className="text-black"
+                  onChange={(event) => {
+                    event.target.value == "USER"
+                      ? setIsUserSelected(true)
+                      : setIsUserSelected(false);
+                  }}
+                >
+                  <option value="PRODUCT" key="1">
+                    PRODUCT
+                  </option>
+                  <option value="USER" key="2">
+                    USER EMAIL
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  name="searchbar"
+                  value={search}
+                  placeholder="Search..."
+                  onChange={(event) => setSearch(event.target.value)}
+                />
+              </form>
+            </div>
+          ) 

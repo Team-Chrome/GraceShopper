@@ -8,16 +8,24 @@ import {
 import { addItem, fetchCart, selectCart, updateItem } from "../cart/cartSlice";
 import { v4 } from "uuid";
 import { authenticate } from "../auth/authSlice";
+import EditSingleProduct from "./editSingleProduct";
+import AddItemConfirmation from "./addItemConfirmation";
 
 const SingleProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   let product = useSelector(selectSingleProduct);
   const [quantity, setQuantity] = useState(1);
-  const [doesItemExist, setDoesItemExist] = useState(false);
+  const [editMode, setEditMode] = useState({
+    status: false,
+    buttonText: "Edit",
+  });
+  const [itemAdded, setItemAdded] = useState(false);
+
   const cart = useSelector(selectCart);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchSingleProductAsync(id));
     dispatch(fetchCart(user.id));
   }, []);
@@ -26,25 +34,20 @@ const SingleProduct = () => {
   const itemRef = useRef();
   const [guestDispatch, setGuestDispatch] = useState(false);
   const user = useSelector((state) => state.auth.me);
-  const userId = useSelector((state) => state.auth.me.id);
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
 
   useEffect(() => {
-    console.log("running guest check");
     if (guestDispatch && isLoggedIn) {
-      console.log("zzzzzzzzzz we will need to add", itemRef.current);
       //need to recall handleItem now
       handleAddItem(itemRef.current);
     }
   }, [isLoggedIn, guestDispatch]);
 
   const handleAddItem = (item) => {
-    console.log("zzzzzzzzz", isLoggedIn);
+    setItemAdded(true);
     if (!isLoggedIn) {
-      console.log("need to create guest user");
       const guestUser = v4() + "@guest.com";
-      const method = "signup";
-      console.log("zzzzzzzzz", guestUser);
+      const method = "guest";
       dispatch(authenticate({ email: guestUser, password: "junk", method }));
       setGuestDispatch(true);
       itemRef.current = item;
@@ -61,75 +64,118 @@ const SingleProduct = () => {
         userId: user.id,
       };
 
+      if (!cart.items) {
+        dispatch(addItem(itemToAdd));
+      }
+
       if (cart.items) {
-        for (let i = 0; i < cart.items.length; i++) {
-          if (cart.items[i].productId === product.id) {
-            const newQty = Number(cart.items[i].quantity) + Number(quantity);
-            dispatch(
-              updateItem({
-                cartId: cart.id,
-                productId: product.id,
-                quantity: newQty,
-              })
-            );
-            break;
-          } else {
-            dispatch(addItem(itemToAdd));
+        const itemToUpdate = cart.items.filter((item) => {
+          if (item.productId === product.id) {
+            return item;
           }
+        });
+
+        if (itemToUpdate[0]) {
+          const newQty = Number(itemToUpdate[0].quantity) + Number(quantity);
+          dispatch(
+            updateItem({
+              cartId: cart.id,
+              productId: product.id,
+              quantity: newQty,
+            })
+          );
+        } else {
+          dispatch(addItem(itemToAdd));
         }
       }
-      dispatch(addItem(itemToAdd));
+    }
+  };
+
+  const handleEditClick = () => {
+    if (editMode.status === false) {
+      setEditMode({ status: true, buttonText: "Save Changes" });
+    } else {
+      setEditMode({ status: false, buttonText: "Edit" });
     }
   };
 
   return (
-    <div className="product">
-      {product.imageUrl ? (
-        <img src={product.imageUrl.slice(1)} className="productImg" />
+    <div>
+      {editMode.status === true ? (
+        <EditSingleProduct product={product} />
       ) : (
-        <h1>Where is the image?</h1>
+        <div className="product relative w-full h-screen z-0 font-sans">
+          {itemAdded ? (
+            <AddItemConfirmation product={product} quantity={quantity} />
+          ) : null}
+
+          <div className="flex justify-center p-24 gap-2">
+            {product.imageUrl ? (
+              <img
+                className="w-96 h-auto"
+                src={
+                  product.imageUrl[0] == "."
+                    ? product.imageUrl.slice(1)
+                    : product.imageUrl
+                }
+              />
+            ) : (
+              <h1>Where is the image?</h1>
+            )}
+
+            <ul className="productDetails p-4">
+              <li className="product-span text-4xl font-black">
+                {product.name}
+              </li>
+              <li className="font-medium mb-4">{product.roaster}</li>
+              <li className="mb-12 text-3xl text-red-800">{`$${product.price}`}</li>
+              <li className="mb-2 font-light">
+                <span className="font-medium">Origin: </span>
+                {product.origin}
+              </li>
+              <p className="font-medium">About this item: </p>
+              <li className="font-light text-sm mb-12">
+                {product.description}
+              </li>
+              <div className="flex gap-2 mb-2 items-center">
+                <label htmlFor="quantity">Qty:</label>
+
+                <input
+                  type="number"
+                  name="qautitiy"
+                  min="1"
+                  max="10"
+                  value={quantity}
+                  onChange={(event) => setQuantity(event.target.value)}
+                  className="border-black border text-center w-12 h-8"
+                />
+              </div>
+              <div className="">
+                {user.isAdmin ? (
+                  <button
+                    onClick={() => {
+                      handleEditClick();
+                    }}
+                    className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                  >
+                    {editMode.buttonText}
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                    onClick={() => {
+                      handleAddItem(product);
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+              </div>
+            </ul>
+          </div>
+        </div>
       )}
-      <ul className="productDetails">
-        <li className="product-span">{product.name}</li>
-        <li>
-          <span className="product-span">Roaster: </span>
-          {product.roaster}
-        </li>
-        <li>
-          <span className="product-span">Origin: </span>
-          {product.origin}
-        </li>
-        <li>
-          <span className="product-span">Description: </span>
-          {product.description}
-        </li>
-        <li>
-          <span className="product-span">Price: </span>
-          {`$${product.price}`}
-        </li>
-
-        <label htmlFor="quantity">Add Amount:</label>
-
-        <input
-          type="number"
-          name="qautitiy"
-          min="1"
-          max="10"
-          value={quantity}
-          onChange={(event) => setQuantity(event.target.value)}
-          className="block border-black border-2"
-        />
-
-        <button
-          type="submit"
-          className="add-item"
-          onClick={() => {
-            handleAddItem(product);
-          }}
-        >
-          Add to Cart
-        </button>
-      </ul>
     </div>
   );
 };
