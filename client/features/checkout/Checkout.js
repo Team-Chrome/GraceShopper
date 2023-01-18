@@ -27,7 +27,7 @@ const Checkout = () => {
 
   const completeCheckout = (evt) => {
     evt.preventDefault();
-    dispatch(updateCartStatus({ cartId, status: "CLOSED" }));
+    dispatch(updateCartStatus({ cartId, cartStatus: "CLOSED" }));
     navigate("/ordercomplete");
   };
 
