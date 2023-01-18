@@ -111,17 +111,14 @@ const SingleProduct = () => {
             <AddItemConfirmation product={product} quantity={quantity} />
           ) : null}
 
-          <div className="flex justify-center border">
+          <div className="flex justify-center p-24 gap-2">
             {product.imageUrl ? (
-              <img
-                className="w-1/5 h-max border"
-                src={product.imageUrl.slice(1)}
-              />
+              <img className="w-96 h-auto" src={product.imageUrl.slice(1)} />
             ) : (
               <h1>Where is the image?</h1>
             )}
 
-            <ul className="productDetails border p-2">
+            <ul className="productDetails p-4">
               <li className="product-span text-4xl font-black">
                 {product.name}
               </li>
@@ -136,7 +133,7 @@ const SingleProduct = () => {
                 {" "}
                 {product.description}
               </li>
-              <div className="flex gap-2 mb-2">
+              <div className="flex gap-2 mb-2 items-center">
                 <label htmlFor="quantity">Qty:</label>
 
                 <input
@@ -146,10 +143,10 @@ const SingleProduct = () => {
                   max="10"
                   value={quantity}
                   onChange={(event) => setQuantity(event.target.value)}
-                  className="block border-black border-2"
+                  className="border-black border text-center w-12 h-8"
                 />
               </div>
-              <div className="ml-12">
+              <div className="">
                 {user.isAdmin ? (
                   <button
                     onClick={() => {
