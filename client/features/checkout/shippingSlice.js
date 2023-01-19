@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { apiHeader } from "/client/utils";
 
 export const fetchShippingAddress = createAsyncThunk(
-  "fetchShipping",
-  async ({ userId }) => {
-    const { data } = await axios.get(`/api/shippingaddress`, { userId });
+  "fetchShippingAddress",
+  async (id) => {
+    console.log(id);
+    const { data } = await axios.get(`/api/shippingaddress`, id, apiHeader());
     return data;
   }
 );
@@ -12,23 +14,27 @@ export const fetchShippingAddress = createAsyncThunk(
 export const createShippingAddress = createAsyncThunk(
   "createShippingAddress",
   async ({ firstName, lastName, address, city, state, zip, phone, userId }) => {
-    const { data } = await axios.post(`/api/shippingaddress`, {
-      firstName,
-      lastName,
-      address,
-      city,
-      state,
-      zip,
-      phone,
-      userId,
-    });
+    const { data } = await axios.post(
+      `/api/shippingaddress`,
+      {
+        firstName,
+        lastName,
+        address,
+        city,
+        state,
+        zip,
+        phone,
+        userId,
+      },
+      apiHeader()
+    );
     return data;
   }
 );
 
 export const shippingSlice = createSlice({
   name: "shipping",
-  initialState: [],
+  initialState: {},
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchShippingAddress.fulfilled, (state, action) => {

@@ -6,11 +6,12 @@ module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const { userId } = req.body;
+    const { id } = req.body;
+    console.log(id);
     const address = await ShippingAddress.findOne({
-      where: { userId: userId },
+      where: { userId: id },
     });
-    res.send(address);
+    res.json(address);
   } catch (err) {
     next(err);
   }

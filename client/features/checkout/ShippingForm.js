@@ -24,7 +24,7 @@ const ShippingForm = () => {
   const [phone, setPhone] = useState(shipping.phone);
 
   useEffect(() => {
-    dispatch(fetchShippingAddress({ userId: id }));
+    dispatch(fetchShippingAddress(id));
   }, []);
 
   const handleSubmit = (evt) => {

@@ -9,15 +9,18 @@ const BillingForm = () => {
   const dispatch = useDispatch();
   const { id } = useSelector(selectUser);
 
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [address, setAddress] = useState();
-  const [city, setCity] = useState();
-  const [state, setState] = useState();
-  const [zip, setZip] = useState();
-  const [phone, setPhone] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [disabled, setDisabled] = useState(false);
 
   const handleSubmit = (evt) => {
+    setDisabled(true);
     evt.preventDefault();
     dispatch(
       createBillingAddress({
@@ -59,6 +62,7 @@ const BillingForm = () => {
               placeholder="John"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              disabled={disabled}
             />
           </div>
           <div>
@@ -76,6 +80,7 @@ const BillingForm = () => {
               placeholder="Doe"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              disabled={disabled}
             />
           </div>
         </div>
@@ -94,6 +99,7 @@ const BillingForm = () => {
             placeholder="123 Monument Valley Road"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            disabled={disabled}
           />
         </div>
         <div>
@@ -112,6 +118,7 @@ const BillingForm = () => {
               placeholder="Great Barrington"
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              disabled={disabled}
             />
           </div>
           <div className="w-1/9">
@@ -129,6 +136,7 @@ const BillingForm = () => {
               placeholder="MA"
               value={state}
               onChange={(e) => setState(e.target.value)}
+              disabled={disabled}
             />
           </div>
           <div>
@@ -146,6 +154,7 @@ const BillingForm = () => {
               placeholder="01230"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
+              disabled={disabled}
             />
           </div>
           <div>
@@ -163,12 +172,14 @@ const BillingForm = () => {
               placeholder="4134131938"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              disabled={disabled}
             />
           </div>
         </div>
         <button
           type="submit"
           onClick={handleSubmit}
+          disabled={disabled}
           className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
         >
           Confirm Billing Info

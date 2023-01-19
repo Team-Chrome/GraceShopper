@@ -13,6 +13,8 @@ const CreditForm = () => {
   const [expiration, setExpiration] = useState();
   const [csv, setCsv] = useState();
 
+  const [disabled, setDisabled] = useState(false);
+
   const { id } = useSelector(selectUser);
 
   const handleSubmit = (evt) => {
@@ -26,6 +28,7 @@ const CreditForm = () => {
         userId: id,
       })
     );
+    setDisabled(true);
   };
 
   return (
@@ -51,6 +54,7 @@ const CreditForm = () => {
               id="nameOnCard"
               placeholder="John Doe"
               onChange={(e) => setName(e.target.value)}
+              disabled={disabled}
             />
           </div>
           <div>
@@ -67,6 +71,7 @@ const CreditForm = () => {
               id="cardNumber"
               placeholder="1234 1234 1234 1234"
               onChange={(e) => setCardNumber(e.target.value)}
+              disabled={disabled}
             />
           </div>
           <div>
@@ -83,6 +88,7 @@ const CreditForm = () => {
               id="expiration"
               placeholder="MM/YY"
               onChange={(e) => setExpiration(e.target.value)}
+              disabled={disabled}
             />
           </div>
           <div>
@@ -99,11 +105,13 @@ const CreditForm = () => {
               id="csv"
               placeholder="123"
               onChange={(e) => setCsv(e.target.value)}
+              disabled={disabled}
             />
           </div>
         </div>
         <button
           type="submit"
+          disabled={disabled}
           onClick={handleSubmit}
           className="mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
         >
