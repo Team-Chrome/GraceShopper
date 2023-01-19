@@ -7,7 +7,7 @@
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
-    "psql": "psql -d \"dbname='graceshopper_osu0' user='gracehopper_osu0_user' password='VAZzHbMStDNNjaGcn6DRthIBjLISu52r' host='dpg-cf0oalh4reb56qkpv6u0-a' \" -f ./script/seed.sql",
+    "psql": "psql PGPASSWORD=VAZzHbMStDNNjaGcn6DRthIBjLISu52r psql -h dpg-cf0oalh4reb56qkpv6u0-a.ohio-postgres.render.com -U graceshopper_osu0_user graceshopper_osu0 -f ./script/seed.sql",
     "start": "node server",
     "start:dev": "npm run build:dev & npm run start-server",
     "start:dev:logger": "LOGGING=true npm run start:dev",
